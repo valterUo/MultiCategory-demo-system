@@ -29,6 +29,8 @@ data Order = Order { orderNumber :: String
     , orderProducts :: [Product]
     } deriving (Show, Eq, Generic)
 
+-- The following instances allow Aeson package to parse JSON.
+
 instance ToJSON Customer
 instance ToJSON Product
 instance ToJSON Order
@@ -44,8 +46,8 @@ identity :: a -> a
 identity a = a
 
 -- This mapping is derived from the data "34e5e79:1,0cbdf508:2,4dwtfuu:1,3qqqeq9:0,77idy65:3,ery63rg:5". This is not good.
-ordered :: Order -> Customer
-ordered x = case orderNumber x of 
+ordered :: Order -> [Customer] -> Customer
+ordered x customers = case orderNumber x of 
     "34e5e79" -> customers !! 1
     "0cbdf508" -> customers !! 2
     "4dwtfuu" -> customers !! 1

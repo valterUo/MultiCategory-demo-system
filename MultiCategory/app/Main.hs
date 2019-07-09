@@ -93,5 +93,4 @@ encodeListToJSON (x:xs) = (encode x) : (encodeListToJSON xs)
 ------------------------------------------------------------------------------------------------------------------------
 
 main = do
-    print("fjdkajf")
-    print(encode (Customer {customerId = 1, customerName = "John", creditLimit = 2000}))
+    print "fdkajfkd"
