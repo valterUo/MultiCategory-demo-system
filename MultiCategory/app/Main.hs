@@ -8,6 +8,7 @@ import XMLParser
 import SchemaCategory
 import SQLParser
 import Data.Aeson
+import GraphParser
 
 ------------------------------------------------------------------------------------------------------------------------
 -- Old style: Data is just in glabal variables.
@@ -93,4 +94,11 @@ encodeListToJSON (x:xs) = (encode x) : (encodeListToJSON xs)
 ------------------------------------------------------------------------------------------------------------------------
 
 main = do
-    print "fdkajfkd"
+   -- let result = evaluatePredicate customers (\y -> customerId y < 4) $$ ((\x y -> knows y x), customers) ^=^ (\x -> creditLimit x > 1000)
+   -- print result
+   -- print "----------------"
+   -- print $ matchDataToGraph result customerId customerGraph
+   let result2 = evaluatePredicate customers (\y -> customerName y == "John") $$ ((\x y -> knows y x), customers)
+   print $ result2
+   print "----------------"
+   print $ encode $ constructD3Graph (evaluatePredicate customers (\y -> customerName y == "John") $$ ((\x y -> knows y x), customers)) customerId customerGraph

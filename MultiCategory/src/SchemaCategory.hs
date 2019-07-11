@@ -8,7 +8,7 @@ import Data.Aeson
 -- SQL data:
 customers = [Customer 0 "Mary" 5000, Customer 1 "John" 2000, Customer 2 "William" 3000, Customer 3 "Daddy" 200, Customer 4 "William" 30, Customer 5 "Erica" 8000, Customer 6 "Mill" 0, Customer 7 "Bob" 9999]
 
--- Graph data:
+-- Graph data: Possibly user wants to add (1,1), (2,2), (3,3), (4,4), (5,5), (6,6)
 customerGraph = [(1,6), (3,6), (6,3), (3,1), (1,2), (0,5), (4,2), (4,5)]
 
 -- Defining datatypes, we assume that we have types String, Int and Bool.
