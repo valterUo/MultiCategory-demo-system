@@ -9,6 +9,7 @@ import SchemaCategory
 import SQLParser
 import Data.Aeson
 import GraphParser
+import qualified Data.Text.Lazy as L
 
 ------------------------------------------------------------------------------------------------------------------------
 -- Old style: Data is just in glabal variables.
@@ -68,7 +69,7 @@ evaluateDouble f x (y:ys) = if f x y then y:(evaluateDouble f x ys) else evaluat
 -- we collect this data so that it follows that model. This should not be difficult: we have a certain way to transform the data into Haskell lists. Let's assume that is is kind of bijective mapping
 -- then it has an inverse mapping that we use to map data back to it's original format.
 
--- The following function populateWithModel takes the query result,  as inputs
+-- The following function populateWithModel takes the query result, as inputs
 
 populateWithModel :: [a] -> (a -> b) -> [(a,b)]
 populateWithModel [] _ = []
@@ -81,6 +82,9 @@ returnAttribute f (x:xs) = let ys = returnAttribute f xs in (f x) : ys
 encodeListToJSON :: ToJSON a => [a] -> [ByteString]
 encodeListToJSON [] = []
 encodeListToJSON (x:xs) = (encode x) : (encodeListToJSON xs)
+
+wrapListToJSON :: ToJSON a => [a] -> String
+wrapListToJSON xs = "{\"result\":[" ++ L.unpack( L.intercalate (L.pack ", ") (encodeListToJSONText xs)) ++ "]}"
 
 --decide :: a -> Mult b
 --decide x = undefined

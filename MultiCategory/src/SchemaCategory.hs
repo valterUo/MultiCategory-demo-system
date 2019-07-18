@@ -6,7 +6,7 @@ import GHC.Generics
 import Data.Aeson
 
 -- SQL data:
-customers = [Customer 0 "Mary" 5000, Customer 1 "John" 2000, Customer 2 "William" 3000, Customer 3 "Daddy" 200, Customer 4 "William" 30, Customer 5 "Erica" 8000, Customer 6 "Mill" 0, Customer 7 "Bob" 9999]
+customers = [Customer 0 "Mary" 5000, Customer 1 "John" 2000, Customer 2 "William" 3000, Customer 3 "Alice" 200, Customer 4 "William" 30, Customer 5 "Erica" 8000, Customer 6 "Mill" 0, Customer 7 "Bob" 9999]
 
 -- Graph data: Possibly user wants to add (1,1), (2,2), (3,3), (4,4), (5,5), (6,6)
 customerGraph = [(1,6), (3,6), (6,3), (3,1), (1,2), (0,5), (4,2), (4,5)]
@@ -60,7 +60,7 @@ ordered x customers = case orderNumber x of
 -- For each customer and for each order, there is a following kind of morphisms:
 
 knows :: Customer -> Customer -> Bool
-knows customer1 customer2 = elem (customerId customer1, customerId customer2) customerGraph ||  elem (customerId customer2, customerId customer1) customerGraph
+knows customer1 customer2 = elem (customerId customer1, customerId customer2) customerGraph -- ||  elem (customerId customer2, customerId customer1) customerGraph
 
 -- More general functions for handeling graphs
 
