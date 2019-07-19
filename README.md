@@ -65,16 +65,6 @@ npm run watch
 ```
 The latter one listens to changes in the program and restarts the server automatically after changes have been detected. Now server is open in the port 3002 and the frontend should be able to communicate with it.
 
-## Examples
-
-```
-returnAttribute customerName (evaluatePredicate customers (\y -> creditLimit y > 1000))
-evaluatePredicate customers (\x -> creditLimit x > 20) >>== (\x -> customerName x == "William") >>== (\x -> customerId x == 5)
-ordered "77idy65"
-evaluatePredicate customers (\y -> customerId y == 3) $$ ((\x y -> knows x y), customers) >>== (\x -> customerName x == "Mary")
-(Just[Product "2343f" "Toy" 66, Product "3424g" "Book" 40, Product "2543f" "Guitar" 668, Product "1234r" "Carpet" 1]) ^^= (Just [Customer 1 "Mary" 5000, Customer 2 "John" 2000])
-```
-
 ## Usefull sites
 
 You can find more about the theoretical backround of this program from the Overleaf document [Some Applications of Category Theory to Multi-Model Queries](https://www.overleaf.com/read/kqvkvrhcnmxv). I will write more to the document and update it time to time.
