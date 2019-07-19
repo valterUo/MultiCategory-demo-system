@@ -1,5 +1,4 @@
 const express = require('express')
-const fs = require('fs')
 const cmd = require('node-cmd')
 const cors = require('cors')
 const bodyParser = require('body-parser')
@@ -7,6 +6,7 @@ const app = express()
 let processRef = cmd.get('cd MultiCategory && stack ghci')
 app.use(cors())
 app.use(bodyParser.text())
+//"*Main GraphParser SQLParser SchemaCategory XMLParser>"
 
 app.post('/query', (request, response) => {
     let stream = processRef.stdout
@@ -15,7 +15,7 @@ app.post('/query', (request, response) => {
     processRef.stdin.write(request.body + '\n')
     stream.on('data', (chunk) => {
         console.log(chunk)
-        if(chunk.includes("*Main GraphParser SQLParser SchemaCategory XMLParser>")) {
+        if(chunk.includes("*Main")) {
             response.end()
         }
       })
