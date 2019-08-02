@@ -1,7 +1,7 @@
 {-# LANGUAGE DeriveGeneric     #-}
 {-# LANGUAGE OverloadedStrings #-}
 
-module GraphParser where
+module D3jsGraphParser where
 
 import Data.List
 import GHC.Generics
@@ -21,8 +21,6 @@ data Link = Link { source :: Int
 data D3jsGraph = D3jsGraph { nodes :: [Text]
     , links :: [Link]
     } deriving (Show, Eq, Generic)
-
--- The following instances allow Aeson package to parse JSON.
 
 instance ToJSON Link
 instance ToJSON D3jsGraph

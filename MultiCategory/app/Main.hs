@@ -8,14 +8,14 @@ import XMLParser
 import SchemaCategory
 import SQLParser
 import Data.Aeson
-import GraphParser
+import D3jsGraphParser
 import qualified Data.Text.Lazy as L
+import Algebra.Graph
+import UnibenchPatentSchemaCategory
+import qualified Data.IntMap.Strict as IntMap
+import UnibenchPatentDataParser
 
 ------------------------------------------------------------------------------------------------------------------------
--- Old style: Data is just in glabal variables.
--- XML data:
-products = [Product "2343f" "Toy" 66, Product "3424g" "Book" 40, Product "2543f" "Guitar" 668, Product "1234r" "Carpet" 1, Product "896h" "Jewelry" 5000, Product "5698r" "Car" 9999, Product "7890u" "Cup" 24, Product "5467y" "Pen" 2] 
-orders = [Order "34e5e79" [Product "2343f" "Toy" 66, Product "3424g" "Book" 40], Order "0cbdf508" [Product"2543f" "Guitar" 668, Product "1234r" "Carpet" 1], Order "4dwtfuu" [Product "2343f" "Toy" 66], Order "3qqqeq9" [Product "2343f" "Toy" 66, Product "3424g" "Book" 40, Product "3424g" "Book" 40, Product "3424g" "Book" 40, Product "2543f" "Guitar" 668], Order "77idy65" [Product "5467y" "Pen" 2, Product "5698r" "Car" 9999], Order "ery63rg" [Product "7890u" "Cup" 24, Product "5467y" "Pen" 2, Product "3424g" "Book" 40, Product "2543f" "Guitar" 668, Product "896h" "Jewelry" 5000, Product "2343f" "Toy" 66]]
 
 -- Instead of this we would like to input data in right format and then parse it to following way String -> Haskell list -> String. Assume that we input tables as csv files. Each file contain a table.
 -- Each row fits to some data type, in this case Customer. We assume that attributes have an ordering that is same as ordering in the definition of the corresponding datatype.
@@ -56,12 +56,6 @@ evaluateDouble f x (y:ys) = if f x y then y:(evaluateDouble f x ys) else evaluat
 [] ^^= (y:ys) = let values = [] ^^= ys in ([Right y] ++  values)
 (x:xs) ^^= (y:ys) = let values = xs ^^= ys in ([Left x, Right y] ++ values)
 
--- This is the same as >>==!
--- (&&=) :: Eq a => Maybe [a] -> Maybe [a] -> Maybe [a]
--- Nothing &&= _ = Nothing
--- _ &&= Nothing = Nothing
--- (Just xs) &&= (Just ys) = Just(intersect xs ys)
-
 -- Now we can formulate predicates and execute them in the test sets saved to the global variables. But at the moment output is just a list of elements 
 -- that have same type. This means that they form a table. Thus we can execute now only queries that imitate SQL type of queries. Let's consider next the case
 -- when the output is a part of the graph. How we can track these situations. At the moment we can query the graph data but the result is just a set without a knowledge of the model.
@@ -97,12 +91,29 @@ wrapListToJSON xs = "{\"result\":[" ++ L.unpack( L.intercalate (L.pack ", ") (en
 
 ------------------------------------------------------------------------------------------------------------------------
 
+-- doubleFoldrList :: (a -> a -> b) -> a -> [a] -> (b -> b -> c) -> 
+
 main = do
-   -- let result = evaluatePredicate customers (\y -> customerId y < 4) $$ ((\x y -> knows y x), customers) ^=^ (\x -> creditLimit x > 1000)
-   -- print result
-   -- print "----------------"
-   -- print $ matchDataToGraph result customerId customerGraph
-   let result2 = evaluatePredicate customers (\y -> customerName y == "John") $$ ((\x y -> knows y x), customers)
-   print $ result2
-   print "----------------"
-   print $ encode $ constructD3Graph (evaluatePredicate customers (\y -> customerName y == "John") $$ ((\x y -> knows y x), customers)) customerId customerGraph
+    -- print $ foldr (\order maxPrices -> ((foldr (\product maxProduct -> if productPrice product > maxProduct then productPrice product else maxProduct) 0 (orderProducts order)), orderNumber order):maxPrices) [] orders
+    -- print $ foldr (\x xs -> ((orderNumber x, customerName $ ordered x customers):xs)) [] orders
+    -- let alices = foldr (\x xs -> if customerName x == "Alice" then x:xs else xs) [] customers in
+    --    print $ alices ++ foldr (\x xs -> (foldr (\y ys -> if knows x y then x:ys else ys) [] alices) ++ xs) [] customers
+    --outputStrings <- readCSV "C:\\Users\\Valter Uotila\\Desktop\\Unibench datasets\\Patent_dataset\\Patent_dataset\\orignal_dataset\\inventor.table"
+    -- inventors <- collectInventors "C:\\Users\\Valter Uotila\\Desktop\\Unibench datasets\\Patent_dataset\\Patent_dataset\\orignal_dataset\\new_inventor.table"
+    -- print (length inventors)
+    -- let graph = edges [(1,6), (3,6), (6,3), (3,1), (1,2), (0,5), (4,2), (4,5)] in
+    --    print $ isSubgraphOf (path [6, 3, 1, 2, 4]) graph
+    --graph <- parseCSVGraph "C:\\Users\\Valter Uotila\\Desktop\\Unibench datasets\\Patent_dataset\\Patent_dataset\\orignal_dataset\\new_citation.graph" (\x -> head(findInventor x inventors))
+    --print $ size graph
+    categories <- collectCategories "C:\\Users\\Valter Uotila\\Desktop\\Unibench datasets\\Patent_dataset\\Patent_dataset\\processed_dataset\\category.table"
+    print $ length categories 
+    assignees <- collectAssignees "C:\\Users\\Valter Uotila\\Desktop\\Unibench datasets\\Patent_dataset\\Patent_dataset\\orignal_dataset\\new_assignee_semicolon.table"
+    print $ length assignees
+    classes <- collectClasses "C:\\Users\\Valter Uotila\\Desktop\\Unibench datasets\\Patent_dataset\\Patent_dataset\\orignal_dataset\\new_class_semicolon.table" categories
+    print $ length classes
+    patents <- collectPatents "C:\\Users\\Valter Uotila\\Desktop\\Unibench datasets\\Patent_dataset\\Patent_dataset\\orignal_dataset\\new_patent_semicolon.table" assignees classes categories
+    print $ IntMap.size patents
+    patentGraph <- collectPatentGraph "C:\\Users\\Valter Uotila\\Desktop\\Unibench datasets\\Patent_dataset\\Patent_dataset\\orignal_dataset\\new_citation.graph" patents
+    print $ hasEdge (IntMap.lookup 3858243 patents) (IntMap.lookup 2949611 patents) patentGraph
+    inventors <- collectInventors "C:\\Users\\Valter Uotila\\Desktop\\Unibench datasets\\Patent_dataset\\Patent_dataset\\orignal_dataset\\new_inventor_piece.table" patents
+    print $ length inventors

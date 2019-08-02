@@ -5,11 +5,16 @@ module SchemaCategory where
 import GHC.Generics
 import Data.Aeson
 
+-- Old style: Data is just in global variables.
 -- SQL data:
 customers = [Customer 0 "Mary" 5000, Customer 1 "John" 2000, Customer 2 "William" 3000, Customer 3 "Alice" 200, Customer 4 "William" 30, Customer 5 "Erica" 8000, Customer 6 "Mill" 0, Customer 7 "Bob" 9999]
 
--- Graph data: Possibly user wants to add (1,1), (2,2), (3,3), (4,4), (5,5), (6,6)
+-- Graph data: Possibly user wants to add (0,0), (1,1), (2,2), (3,3), (4,4), (5,5), (6,6), (7,7)
 customerGraph = [(1,6), (3,6), (6,3), (3,1), (1,2), (0,5), (4,2), (4,5)]
+
+-- XML data:
+products = [Product "2343f" "Toy" 66, Product "3424g" "Book" 40, Product "2543f" "Guitar" 668, Product "1234r" "Carpet" 1, Product "896h" "Jewelry" 5000, Product "5698r" "Car" 9999, Product "7890u" "Cup" 24, Product "5467y" "Pen" 2] 
+orders = [Order "34e5e79" [Product "2343f" "Toy" 66, Product "3424g" "Book" 40], Order "0cbdf508" [Product"2543f" "Guitar" 668, Product "1234r" "Carpet" 1], Order "4dwtfuu" [Product "2343f" "Toy" 66], Order "3qqqeq9" [Product "2343f" "Toy" 66, Product "3424g" "Book" 40, Product "3424g" "Book" 40, Product "3424g" "Book" 40, Product "2543f" "Guitar" 668], Order "77idy65" [Product "5467y" "Pen" 2, Product "5698r" "Car" 9999], Order "ery63rg" [Product "7890u" "Cup" 24, Product "5467y" "Pen" 2, Product "3424g" "Book" 40, Product "2543f" "Guitar" 668, Product "896h" "Jewelry" 5000, Product "2343f" "Toy" 66]]
 
 -- Defining datatypes, we assume that we have types String, Int and Bool.
 -- The following construction follows the definition of the category Hask.
@@ -45,7 +50,8 @@ instance FromJSON Order
 identity :: a -> a
 identity a = a
 
--- This mapping is derived from the data "34e5e79:1,0cbdf508:2,4dwtfuu:1,3qqqeq9:0,77idy65:3,ery63rg:5". This is not good.
+-- This mapping is derived from the data "34e5e79:1,0cbdf508:2,4dwtfuu:1,3qqqeq9:0,77idy65:3,ery63rg:5". 
+-- This is not good. This should be considered as a function obtained from a key-value pairs.
 ordered :: Order -> [Customer] -> Customer
 ordered x customers = case orderNumber x of 
     "34e5e79" -> customers !! 1
@@ -60,7 +66,7 @@ ordered x customers = case orderNumber x of
 -- For each customer and for each order, there is a following kind of morphisms:
 
 knows :: Customer -> Customer -> Bool
-knows customer1 customer2 = elem (customerId customer1, customerId customer2) customerGraph -- ||  elem (customerId customer2, customerId customer1) customerGraph
+knows customer1 customer2 = elem (customerId customer1, customerId customer2) customerGraph ||  elem (customerId customer2, customerId customer1) customerGraph
 
 -- More general functions for handeling graphs
 

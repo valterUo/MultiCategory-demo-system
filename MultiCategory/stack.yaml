@@ -34,10 +34,13 @@ resolver: lts-13.25
 #  - wai
 packages:
 - .
+#- location: COrdering-2.3
+#- location: AvlTree-4.2
 # Dependency packages to be pulled from upstream that are not in the resolver
 # using the same syntax as the packages field.
 # (e.g., acme-missiles-0.3)
-# extra-deps: []
+#extra-deps: 
+#- COrdering-2.3
 
 # Override default flag values for local packages and extra-deps
 # flags: {}
