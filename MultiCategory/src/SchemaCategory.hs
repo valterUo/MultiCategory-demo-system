@@ -7,10 +7,10 @@ import Data.Aeson
 
 -- Old style: Data is just in global variables.
 -- SQL data:
-customers = [Customer 0 "Mary" 5000, Customer 1 "John" 2000, Customer 2 "William" 3000, Customer 3 "Alice" 200, Customer 4 "William" 30, Customer 5 "Erica" 8000, Customer 6 "Mill" 0, Customer 7 "Bob" 9999]
+customers = [Customer 0 "Mary" 5000 14, Customer 1 "John" 2000 10, Customer 2 "William" 3000 13, Customer 3 "Alice" 200 12, Customer 4 "William" 30 15, Customer 5 "Erica" 8000 16, Customer 6 "Mill" 0 11, Customer 7 "Bob" 9999 10]
 
 -- Graph data: Possibly user wants to add (0,0), (1,1), (2,2), (3,3), (4,4), (5,5), (6,6), (7,7)
-customerGraph = [(1,6), (3,6), (6,3), (3,1), (1,2), (0,5), (4,2), (4,5)]
+customerGraph = [(1,6), (3,6), (6,3), (3,1), (1,2), (0,5), (4,2), (4,5), (0,0), (1,1), (2,2), (3,3), (4,4), (5,5), (6,6), (7,7)]
 
 -- XML data:
 products = [Product "2343f" "Toy" 66, Product "3424g" "Book" 40, Product "2543f" "Guitar" 668, Product "1234r" "Carpet" 1, Product "896h" "Jewelry" 5000, Product "5698r" "Car" 9999, Product "7890u" "Cup" 24, Product "5467y" "Pen" 2] 
@@ -22,7 +22,8 @@ orders = [Order "34e5e79" [Product "2343f" "Toy" 66, Product "3424g" "Book" 40],
 
 data Customer = Customer { customerId :: Int
     , customerName :: String
-    , creditLimit :: Int 
+    , creditLimit :: Int
+    , location :: Int
     } deriving (Show, Eq, Generic)
 
 data Product = Product { productId:: String
@@ -34,15 +35,24 @@ data Order = Order { orderNumber :: String
     , orderProducts :: [Product]
     } deriving (Show, Eq, Generic)
 
+data Location = Location { locationId :: Int
+    , address :: String
+    , city :: String
+    , zipCode :: Int
+    , country :: String
+    } deriving (Show, Eq, Generic)
+
 -- The following instances allow Aeson package to parse JSON.
 
 instance ToJSON Customer
 instance ToJSON Product
 instance ToJSON Order
+instance ToJSON Location
 
 instance FromJSON Customer
 instance FromJSON Product
 instance FromJSON Order
+instance FromJSON Location
 
 ------------------------------------------------------------------------------------------------------------------------
 -- MORPHISMS are functions in Haskell:

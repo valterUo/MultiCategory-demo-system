@@ -20,11 +20,11 @@ readCSV path = do str <- readFile path
 -- SIMPLE DEMO DATA
 -- Functions that work only with Customer datatype                                              
 
-createCustomers:: [[String]] -> [Customer]
-createCustomers [] = []
-createCustomers (customer:customers) = (Customer (read(customer !! 0) :: Int) (customer !! 1) (read(customer !! 2) :: Int)) : createCustomers customers
+-- createCustomers:: [[String]] -> [Customer]
+-- createCustomers [] = []
+-- createCustomers (customer:customers) = (Customer (read(customer !! 0) :: Int) (customer !! 1) (read(customer !! 2) :: Int)) : createCustomers customers
 
-collectCustomers:: FilePath -> IO [Customer]
-collectCustomers path = do
-    result <- readCSV path
-    return $ createCustomers result
+-- collectCustomers:: FilePath -> IO [Customer]
+-- collectCustomers path = do
+--     result <- readCSV path
+--     return $ createCustomers result
