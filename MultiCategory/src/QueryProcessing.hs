@@ -4,27 +4,23 @@ import Data.List
 import Algebra.Graph
 import SchemaCategory
 
--- Another version of simple demo data:
--- Graph
-customers2 = edges [(Customer 1 "John" 2000 10, Customer 6 "Mill" 0 11), 
-                        (Customer 3 "Alice" 200 12, Customer 6 "Mill" 0 11), 
-                        (Customer 6 "Mill" 0 11, Customer 3 "Alice" 200 12), 
-                        (Customer 3 "Alice" 200 12, Customer 1 "John" 2000 10), 
-                        (Customer 1 "John" 2000 10, Customer 2 "William" 3000 13), 
-                        (Customer 0 "Mary" 5000 14, Customer 5 "Erica" 8000 16), 
-                        (Customer 4 "William" 30 15, Customer 2 "William" 3000 13), 
-                        (Customer 4 "William" 30 15, Customer 5 "Erica" 8000 16), 
-                        (Customer 0 "Mary" 5000 14, Customer 0 "Mary" 5000 14), 
-                        (Customer 1 "John" 2000 10, Customer 1 "John" 2000 10), 
-                        (Customer 2 "William" 3000 13, Customer 2 "William" 3000 13), 
-                        (Customer 3 "Alice" 200 12, Customer 3 "Alice" 200 12), 
-                        (Customer 4 "William" 30 15, Customer 4 "William" 30 15), 
-                        (Customer 5 "Erica" 8000 16, Customer 5 "Erica" 8000 16), 
-                        (Customer 6 "Mill" 0 11, Customer 6 "Mill" 0 11), 
-                        (Customer 7 "Bob" 9999 10, Customer 7 "Bob" 9999 10)]
+-- Pattern matching?
 
--- Relational data:
-locations = [Location 10 "Pont du Faubourg, N89" "La Roche-en-Ardenne" 6980 "Belgium", Location 11 "Lietaus g. 51" "Vilnius" 04231 "Lithuania", Location 12 "Masterton Castlepoint Road" "Tinui" 5889 "New Zealand", Location 13 "535 Pasir Ris Drive 1" "Northeast" 510535 "Singapore", Location 14 "N 2" "Sandweiler" 5238 "Luxembourg", Location 15 "Avenida Adolfo Eastman" "Olmue" 2330505 "Chile", Location 16 "Industrivej 5" "Kjellerup" 8620 "Denmark"]
+patternSource :: Eq a => a -> Graph a -> Graph a -> Graph a
+patternSource x (Vertex y) z = if x == y then z else empty
+patternSource _ _ _ = empty
+
+patternTarget :: Eq a => a -> Graph a -> Graph a -> Graph a
+patternTarget x z (Vertex y) = if x == y then z else empty
+patternTarget _ _ _ = empty
+
+findTargetNeighbors :: Eq a => a -> Graph a -> Graph a
+findTargetNeighbors x graph = foldg empty vertex overlay (\y z -> patternSource x y z) graph
+
+findSourceNeighbors :: Eq a => a -> Graph a -> Graph a
+findSourceNeighbors x graph = foldg empty vertex overlay (\y z -> patternTarget x y z) graph
+
+
 
 -- The plan is write a such "query language" based on Haskell that all the possible subsets of the data (whatever it means when you take a subset of a structured construction) can be queried. Obviously, this includes lot of different combinations: 
 

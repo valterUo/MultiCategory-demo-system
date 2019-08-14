@@ -1,12 +1,36 @@
 {-# LANGUAGE DeriveGeneric     #-}
+{-# LANGUAGE OverloadedStrings #-}
 
 module D3jsAlgebraicGraphParser where
 
 import Data.List
 import Algebra.Graph
-import D3jsGraphParser
 import Data.Text.Lazy (Text)
+import Data.Aeson.Text (encodeToLazyText)
 import Data.Aeson
+import GHC.Generics
+
+-- The datatypes that are standard for drawing graphs in D3.js
+
+data Link = Link { source :: Int
+    , target :: Int
+} deriving (Show, Eq, Generic)
+
+-- This datatype already contains encoded objects in nodes.
+
+data D3jsGraph = D3jsGraph { nodes :: [Text]
+    , links :: [Link]
+    } deriving (Show, Eq, Generic)
+
+instance ToJSON Link
+instance ToJSON D3jsGraph
+
+instance FromJSON Link
+instance FromJSON D3jsGraph
+
+encodeListToJSONText :: ToJSON a => [a] -> [Text]
+encodeListToJSONText [] = []
+encodeListToJSONText (x:xs) = (encodeToLazyText x) : (encodeListToJSONText xs)
 
 -- Returns a list of vertices. Does not require Ord like Algebra.Graph package vertexList function.
 unorderedVertices :: Eq a => Graph a -> [a]
