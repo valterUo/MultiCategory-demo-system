@@ -26,7 +26,7 @@ customers = edges [(Customer 1 "John" 2000 10, Customer 6 "Mill" 0 11),
                         (Customer 7 "Bob" 9999 10, Customer 7 "Bob" 9999 10)]
 
 -- Relational data:
-locations = [Location 10 "Pont du Faubourg, N89" "La Roche-en-Ardenne" 6980 "Belgium", 
+locations = [Location 10 "Pietari Kalmin katu 5" "Helsinki" 00560 "Finland", 
                 Location 11 "Lietaus g. 51" "Vilnius" 04231 "Lithuania", 
                 Location 12 "Masterton Castlepoint Road" "Tinui" 5889 "New Zealand", 
                 Location 13 "535 Pasir Ris Drive 1" "Northeast" 510535 "Singapore", 
