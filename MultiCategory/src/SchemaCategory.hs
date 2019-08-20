@@ -70,9 +70,9 @@ data Order = Order { orderNumber :: String
 
 data Location = Location { locationId :: Int
     , address :: String
-    , city :: String
+    , cityName :: String
     , zipCode :: Int
-    , country :: String
+    , countryName :: String
     } deriving (Show, Eq, Generic)
 
 -- The following instances allow Aeson package to parse JSON.
@@ -110,6 +110,9 @@ ordered order = case orderNumber order of
 
 knows :: Customer -> Customer -> Bool
 knows customer1 customer2 = hasEdge customer1 customer2 customers
+
+located :: Customer -> Location
+located customer = head (foldr (\x xs -> if locationId x == location customer then x:xs else xs) [] locations)
 
 -- Now it follows that edgeInGraph2 customer1 customer2 customerId customerGraph == knows customer1 customer2
 

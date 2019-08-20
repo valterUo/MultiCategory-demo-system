@@ -1,4 +1,4 @@
-# CATEGORY THEORY in MULTI-MODEL DATABASES
+# CATEGORY THEORY IN MULTI-MODEL DATABASES
 
 This project contains a category theoretical construction for demostrating how category theory can be applied in multi-model databases. This version is implemented with Haskell. The queries can be executed using [frontend](https://github.com/valterUo/demo-system-frontend) written with Javascript using React framework and D3.js visualization library.
 
