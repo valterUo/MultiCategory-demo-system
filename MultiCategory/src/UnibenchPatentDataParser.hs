@@ -1,7 +1,7 @@
 module UnibenchPatentDataParser where
 
 import UnibenchPatentSchemaCategory
-import SQLParser
+import CSVParser
 import Data.Monoid
 import qualified Data.Map.Strict as Map
 import qualified Data.IntMap.Strict as IntMap

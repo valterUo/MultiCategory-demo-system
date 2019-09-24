@@ -43,39 +43,4 @@ addListAsSet x xs = if elem x xs then xs else x:xs
 addListToListAsSet :: Eq a => [a] -> [a] -> [a]
 addListToListAsSet xs [] = xs
 addListToListAsSet [] ys = ys
-addListToListAsSet (x:xs) ys = addListToListAsSet xs (addListAsSet x ys) 
-
--- The following functions depend on the example data. 
-
-collectProduct :: Node -> Maybe Product
-collectProduct node = if allChildrenLeaves (children node)
-    then let content = collectDataFromLeaves(children(node)) in Just (Product (content !! 0) (content !! 1) (read (content !! 2) :: Int))
-    else Nothing
-
-collectProducts :: [Node] -> Maybe [Product]
-collectProducts [] = Just []
-collectProducts (n:nodes) = case collectProduct n of
-    Nothing -> Nothing
-    Just x -> let Just tailProducts = collectProducts nodes in Just (x : tailProducts)
-
-collectOrder :: Node -> Order
-collectOrder node = let firstChild = head (children node) in
-    let Just products = collectProducts (tail (children node)) in
-    let Just orderNum = unwrapLeafContent(contents firstChild) in
-    Order (orderNum) (products)
-
-collectOrders :: [Node] -> [Order]
-collectOrders [] = []
-collectOrders (order:orders) = (collectOrder order) : (collectOrders orders)
-
-xmlTreeToList :: Node -> [Order]
-xmlTreeToList node = collectOrders(children node)
-
-readXMLFile :: FilePath -> IO [Order]
-readXMLFile path = do
-    xmlData <- readFile path
-    let Right node = parse(C8.pack xmlData) in return $ xmlTreeToList node
-
-returnProducts :: [Order] -> [Product]
-returnProducts [] = []
-returnProducts (order:orders) = addListToListAsSet (orderProducts order) (returnProducts orders) 
+addListToListAsSet (x:xs) ys = addListToListAsSet xs (addListAsSet x ys)
