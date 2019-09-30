@@ -1,5 +1,7 @@
 .stack-work/
 MultiCategory.cabal
+Unibench
+pythonCSVSeparatorChanger.py
 *~
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
@@ -26,3 +28,5 @@ MultiCategory.cabal
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+

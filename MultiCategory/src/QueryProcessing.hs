@@ -4,24 +4,6 @@ import Data.List
 import Algebra.Graph
 import SchemaCategory
 
--- Pattern matching?
-
-patternSource :: Eq a => a -> Graph a -> Graph a -> Graph a
-patternSource x (Vertex y) z = if x == y then z else empty
-patternSource _ _ _ = empty
-
-patternTarget :: Eq a => a -> Graph a -> Graph a -> Graph a
-patternTarget x z (Vertex y) = if x == y then z else empty
-patternTarget _ _ _ = empty
-
-findTargetNeighbors :: Eq a => a -> Graph a -> Graph a
-findTargetNeighbors x graph = foldg empty vertex overlay (\y z -> patternSource x y z) graph
-
-findSourceNeighbors :: Eq a => a -> Graph a -> Graph a
-findSourceNeighbors x graph = foldg empty vertex overlay (\y z -> patternTarget x y z) graph
-
-
-
 -- The plan is write a such "query language" based on Haskell that all the possible subsets of the data (whatever it means when you take a subset of a structured construction) can be queried. Obviously, this includes lot of different combinations: 
 
 -- – simple filtering results. This means that if we have a graph, we just filter this graph smaller e.g. we return a subgraph. If we have a table we just return a subtable e.g. part of the rows. If we have a tree, we return just a subtree. 
