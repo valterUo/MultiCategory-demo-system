@@ -42,23 +42,26 @@ main = do
     let graphLeft = customers in
         let y = (Customer 5 "Erica" 8000 16) in
             let x = (Customer 1 "John" 2000 10) in
-                let neighbors = removeVertex x (findTargetNeighbors x graphLeft) in do
-                    print "Neighbors: \n"
-                    print neighbors
-                    print "\n"
-                    if isEmpty(graphLeft) || isEmpty(neighbors) then print False else 
-                            if hasVertex y neighbors then print True else
-                                let targetList = nub $ (foldg [] (\x -> [x]) (++) (++) neighbors) in do
-                                    print "TArgetlist: \n"
-                                    print targetList
-                                    print "\n"
-                                    let newGraph = removeVertex x graphLeft in do
-                                        print "NewGraph: \n"
-                                        print newGraph
+                if x == y then print True else
+                    let neighbors = removeVertex x (findTargetNeighbors x graphLeft) in do
+                        print "Neighbors: \n"
+                        print neighbors
+                        print "\n"
+                        if isEmpty(graphLeft) || isEmpty(neighbors) then print False else 
+                                if hasVertex y neighbors then print True else
+                                    let targetList = nub $ (foldg [] (\x -> [x]) (++) (++) neighbors) in do
+                                        print "Targetlist: \n"
+                                        print targetList
                                         print "\n"
-                                        if isEmpty(newGraph) then print False else
-                                            let booleanList = map (\z -> reachable z y newGraph) targetList in
-                                                print $ elem True booleanList
+                                        let newGraph = removeVertex x graphLeft in do
+                                            print "NewGraph: \n"
+                                            print newGraph
+                                            print "\n"
+                                            if isEmpty(newGraph) then print False else
+                                                let booleanList = map (\z -> reachable z y newGraph) targetList in do
+                                                    print y
+                                                    print targetList
+                                                    print $ booleanList
     --h <- openFile "demoData\\newfile.txt" ReadWriteMode
     --print $ S.encodeLazy (Assignee 16716 "fadf" "fdasfdsa" "fdsafdsa" (Just 67463) "fadf" "fdasfda")
     -- r <- D.writeFile "demoData\\newfile" (S.encodeLazy (Assignee 16716 "fadf" "fdasfdsa" "fdsafdsa" (Just 67463) "fadf" "fdasfda"))
@@ -71,6 +74,9 @@ main = do
     --     return result 
 
     -- reachable (Customer 1 "John" 2000 10) (Customer 3 "Alice" 200 12) customers
+    -- reachable (Customer 6 "Mill" 0 11) (Customer 5 "Erica" 8000 16) customers
+    -- reachable (Customer 2 "William" 3000 13) (Customer 5 "Erica" 8000 16) customers
     -- reachable (Customer 5 "Erica" 8000 16) (Customer 1 "John" 2000 10) customers
-    -- findTargetNeighbors (Customer 1 "John" 2000 10) customers
+    -- findTargetNeighbors findTargetNeighborsWithEmptyNodes (Customer 1 "John" 2000 10) customers
+    -- findTargetNeighborsWithEmptyNodes (Customer 2 "William" 3000 13)
     
