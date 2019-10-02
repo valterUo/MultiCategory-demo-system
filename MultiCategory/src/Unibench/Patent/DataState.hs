@@ -7,19 +7,19 @@ import Unibench.Patent.SchemaCategory
 import System.IO.Unsafe
 
 categories :: [Category]
-categories = unsafePerformIO $ collectCategories "C:\\Users\\Valter Uotila\\Desktop\\demo-system-backend-Haskell\\MultiCategory\\Unibench\\category.table"
+categories = unsafePerformIO $ collectCategories "UnibenchData\\category.table"
 
 assignees :: [Assignee]
-assignees = unsafePerformIO $ collectAssignees "C:\\Users\\Valter Uotila\\Desktop\\demo-system-backend-Haskell\\MultiCategory\\Unibench\\new_assigneeCUSIP_semicolon.table"
+assignees = unsafePerformIO $ collectAssignees "UnibenchData\\new_assigneeCUSIP_semicolon.table"
 
 classes :: [Class]
-classes = unsafePerformIO $ collectClasses "C:\\Users\\Valter Uotila\\Desktop\\demo-system-backend-Haskell\\MultiCategory\\Unibench\\new_class_semicolon.table" categories
+classes = unsafePerformIO $ collectClasses "UnibenchData\\new_class_semicolon.table" categories
 
 patents :: IntMap.IntMap Patent
-patents = unsafePerformIO $ collectPatents "C:\\Users\\Valter Uotila\\Desktop\\demo-system-backend-Haskell\\MultiCategory\\Unibench\\smaller datasets\\patents_new_new_new_semicolon - Copy.table" assignees classes categories
+patents = unsafePerformIO $ collectPatents "UnibenchData\\smaller datasets\\patents_new_new_new_semicolon - Copy.table" assignees classes categories
 
 patentGraph :: Graph (Maybe Patent)
-patentGraph = unsafePerformIO $ collectPatentGraph "C:\\Users\\Valter Uotila\\Desktop\\demo-system-backend-Haskell\\MultiCategory\\Unibench\\smaller datasets\\new_citation.graph" patents
+patentGraph = unsafePerformIO $ collectPatentGraph "UnibenchData\\smaller datasets\\new_citation.graph" patents
 
 inventors :: [Inventor]
 inventors = unsafePerformIO $ collectInventors "C:\\Users\\Valter Uotila\\Desktop\\demo-system-backend-Haskell\\MultiCategory\\Unibench\\smaller datasets\\new_inventor_piece.table" patents
