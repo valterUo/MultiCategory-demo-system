@@ -16,6 +16,6 @@
     "node-cmd": "^3.0.0"
   },
   "devDependencies": {
-    "nodemon": "^1.19.1"
+    "nodemon": "^1.19.3"
   }
 }

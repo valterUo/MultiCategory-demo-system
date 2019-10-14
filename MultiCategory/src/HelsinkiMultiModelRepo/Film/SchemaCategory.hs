@@ -8,7 +8,7 @@
 -- This allows us to handle large variety of the data and store lot of different things there. On the other, structure does not reveal so much
 -- about the inner structure of the graph and querying will be slower.
 
-module Unibench.Film.SchemaCategory where
+module HelsinkiMultiModelRepo.Film.SchemaCategory where
 
 import GHC.Generics
 import Data.Aeson

@@ -1,8 +1,8 @@
-module Unibench.Film.DataParser where
+module UnibeHelsinkiMultiModelReponch.Film.DataParser where
 
 import qualified Data.ByteString.Char8 as C
 import Data.Aeson
-import Unibench.Film.SchemaCategory
+import HelsinkiMultiModelRepo.Film.SchemaCategory
 
 createFilms :: [C.ByteString] -> IO([Film])
 createFilms [] = return []

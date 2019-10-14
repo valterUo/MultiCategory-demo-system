@@ -1,6 +1,6 @@
 {-# LANGUAGE DeriveGeneric     #-}
 
-module Unibench.Patent.SchemaCategory where
+module HelsinkiMultiModelRepo.Patent.SchemaCategory where
 
 import GHC.Generics
 import Data.Aeson

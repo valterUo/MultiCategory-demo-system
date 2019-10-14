@@ -1,9 +1,9 @@
-module Unibench.Patent.DataState where
+module HelsinkiMultiModelRepo.Patent.DataState where
 
 import qualified Data.IntMap.Strict as IntMap
 import Algebra.Graph
-import Unibench.Patent.DataParser
-import Unibench.Patent.SchemaCategory
+import HelsinkiMultiModelRepo.Patent.DataParser
+import HelsinkiMultiModelRepo.Patent.SchemaCategory
 import System.IO.Unsafe
 
 categories :: [Category]
@@ -22,7 +22,7 @@ patentGraph :: Graph (Maybe Patent)
 patentGraph = unsafePerformIO $ collectPatentGraph "UnibenchData\\smaller datasets\\new_citation.graph" patents
 
 inventors :: [Inventor]
-inventors = unsafePerformIO $ collectInventors "C:\\Users\\Valter Uotila\\Desktop\\demo-system-backend-Haskell\\MultiCategory\\Unibench\\smaller datasets\\new_inventor_piece.table" patents
+inventors = unsafePerformIO $ collectInventors "UnibenchData\\smaller datasets\\new_inventor_piece.table" patents
 
 collectAllPatents = do
     print $ patents IntMap.!? 3405204

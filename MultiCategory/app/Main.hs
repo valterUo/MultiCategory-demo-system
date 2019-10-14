@@ -18,15 +18,15 @@ import Data.Aeson
 import D3jsAlgebraicGraphParser
 import qualified Data.Text.Lazy as L
 import Algebra.Graph
-import Unibench.Patent.SchemaCategory
-import Unibench.Patent.DataParser
+import HelsinkiMultiModelRepo.Patent.SchemaCategory
+import HelsinkiMultiModelRepo.Patent.DataParser
 import QueryProcessing
 import SimpleDemoDataState
 import Data.IORef
 import System.IO.Unsafe
 import qualified Data.Serialize as S
 import qualified Data.Map.Lazy as LazyMap
-import Unibench.Film.SchemaCategory
+import HelsinkiMultiModelRepo.Film.SchemaCategory
 import Data.Typeable 
 import Data.Data
 import GraphFunctions

@@ -1,6 +1,6 @@
-module Unibench.Patent.DataParser where
+module HelsinkiMultiModelRepo.Patent.DataParser where
 
-import Unibench.Patent.SchemaCategory
+import HelsinkiMultiModelRepo.Patent.SchemaCategory
 import CSVParser
 import Data.Monoid
 import qualified Data.Map.Strict as Map
@@ -9,9 +9,9 @@ import Text.Read
 import Algebra.Graph
 
 ---------------------------------------------------------------
--- UNIBENCH DATA PARSER
+-- HelsinkiMultiModelRepo DATA PARSER
 
--- Functions that work only with Unibench category.table data
+-- Functions that work only with HelsinkiMultiModelRepo category.table data
 
 createCategories :: [[String]] -> [Category]
 createCategories [] = []
@@ -22,7 +22,7 @@ collectCategories path = do
     result <- readCSV path
     return $ createCategories result
 
--- Functions that work only with Unibench assignee.table data
+-- Functions that work only with HelsinkiMultiModelRepo assignee.table data
 
 createAssignees :: [[String]] -> [Assignee]
 createAssignees [] = []
@@ -33,7 +33,7 @@ collectAssignees path = do
     result <- readCSV path
     return $ createAssignees result
 
--- Functions that work only with Unibench class.table data: requirment that Category data has been uploaded
+-- Functions that work only with HelsinkiMultiModelRepo class.table data: requirment that Category data has been uploaded
 
 findCategoryById :: [Category] -> Int -> Maybe Category
 findCategoryById [] _ = Nothing
@@ -48,7 +48,7 @@ collectClasses path categories = do
     result <- readCSV path
     return $ createClasses result categories
 
--- Functions that work only with Patent (Unibench data) datatype. The functions uses readMaybe functions to read strings as Int. If the value is lacking, then the reader substitutes Nothing.
+-- Functions that work only with Patent (HelsinkiMultiModelRepo data) datatype. The functions uses readMaybe functions to read strings as Int. If the value is lacking, then the reader substitutes Nothing.
 
 findAssigneeById :: [Assignee] -> Maybe Int -> Maybe Assignee
 findAssigneeById [] _ = Nothing
@@ -98,7 +98,7 @@ collectPatents path assignees classes categories = do
     result <- readCSV path
     return $ IntMap.fromList $ createPatents result assignees classes categories
 
--- Functions that work only with Inventor (Unibench data) datatype
+-- Functions that work only with Inventor (HelsinkiMultiModelRepo data) datatype
 
 createInventors :: [[String]] -> IntMap.IntMap Patent -> [Inventor]
 createInventors [] _ = []
@@ -120,7 +120,7 @@ collectInventors path map = do
     result <- readCSV path
     return $ createInventors result map
 
--- Functions that work only with Unibench citation.graph data
+-- Functions that work only with HelsinkiMultiModelRepo citation.graph data
 
 createIDGraph :: [[String]] -> [(Int, Int)]
 createIDGraph [] = []
