@@ -5,6 +5,9 @@ module HelsinkiMultiModelRepo.Patent.SchemaCategory where
 import GHC.Generics
 import Data.Aeson
 import Data.Serialize
+import qualified Data.IntMap.Strict as IntMap
+
+-- Objects:
 
 data Assignee = Assignee { assigneeId :: Int
     , assname :: String
@@ -24,8 +27,8 @@ data Category = Category { catId :: Int
 
 data Class = Class { classId :: Int
     , cname :: String
-    , classCat :: Maybe Category
-    , classSubcat :: Maybe Category 
+    , classCatId :: Int
+    , classSubcatId :: Int 
     } deriving (Show, Eq, Generic)
 
 data Patent = Patent { patentId :: Int
@@ -34,12 +37,12 @@ data Patent = Patent { patentId :: Int
     , appyear :: Maybe Int
     , patentCountry :: String
     , patentPostate :: String
-    , patentAssignee :: Maybe Assignee
+    , patentAssigneeId :: Maybe Int
     , asscode :: Maybe Int
     , claims :: Maybe Int
-    , patentNclass :: Maybe Class
-    , patentCat :: Maybe Category
-    , patentSubcat :: Maybe Category
+    , patentNclassId :: Maybe Int
+    , patentCatId :: Maybe Int
+    , patentSubcatId :: Maybe Int
     , cmade :: Maybe Int
     , creceive :: Maybe Int
     , ratiocit :: Maybe Int
@@ -53,7 +56,7 @@ data Patent = Patent { patentId :: Int
     , secdlwbd :: Maybe Int
     } deriving (Show, Eq, Generic)
 
-data Inventor = Inventor { inventorPatent :: Maybe Patent
+data Inventor = Inventor { inventorPatentId :: Int
     , lastnam :: String
     , firstnam :: String
     , midnam :: String                     
@@ -83,3 +86,37 @@ instance Serialize Inventor
 instance Serialize Patent
 instance Serialize Category
 instance Serialize Class
+
+-- Some of the non-trivial morphisms:
+
+patentAssignee :: Patent -> (IntMap.IntMap Assignee) -> Maybe Assignee
+patentAssignee patent assingees = case patentAssigneeId patent of
+    Just id -> IntMap.lookup id assingees
+    Nothing -> Nothing
+
+patentCat :: Patent -> (IntMap.IntMap Category) -> Maybe Category
+patentCat patent categories = case patentCatId patent of
+    Just id -> IntMap.lookup id categories
+    Nothing -> Nothing
+
+patentSubcat :: Patent -> (IntMap.IntMap Category) -> Maybe Category
+patentSubcat patent categories = case patentSubcatId patent of
+    Just id -> IntMap.lookup id categories
+    Nothing -> Nothing
+
+patentNclass :: Patent -> (IntMap.IntMap Class) -> Maybe Class
+patentNclass patent classes = case patentNclassId patent of
+    Just id -> IntMap.lookup id classes
+    Nothing -> Nothing
+
+classCat :: Class -> (IntMap.IntMap Category) -> Maybe Category
+classCat classs categories = let id = classCatId classs in
+    IntMap.lookup id categories
+
+classSubcat :: Class -> (IntMap.IntMap Category) -> Maybe Category
+classSubcat classs categories = let id = classSubcatId classs in
+    IntMap.lookup id categories
+
+inventorPatent :: Inventor -> (IntMap.IntMap Patent) -> Maybe Patent
+inventorPatent inventor patents = let id = inventorPatentId inventor in 
+    IntMap.lookup id patents

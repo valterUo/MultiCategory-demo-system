@@ -5,6 +5,7 @@ module SchemaCategory where
 import GHC.Generics
 import Data.Aeson
 import Algebra.Graph
+import qualified Data.IntMap.Strict as IntMap
 
 -- OBJECTS are datatypes:
 
@@ -66,8 +67,8 @@ ordered order customers = case orderNumber order of
 knows :: Customer -> Customer -> Graph Customer -> Bool
 knows customer1 customer2 customers = hasEdge customer1 customer2 customers
 
-located :: Customer -> [Location] -> Location
-located customer locations = head (foldr (\x xs -> if locationId x == location customer then x:xs else xs) [] locations)
+located :: Customer -> (IntMap.IntMap Location) -> Location
+located customer locations = locations IntMap.! (location customer)
 
 -- Now it follows that edgeInGraph2 customer1 customer2 customerId customerGraph == knows customer1 customer2
 

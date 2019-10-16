@@ -1,3 +1,6 @@
+{-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
+
 module SimpleDemoDataState where
 
 import SchemaCategory
@@ -7,18 +10,19 @@ import XMLParser
 import System.IO.Unsafe
 import qualified Data.ByteString.Char8 as C8
 import Xeno.DOM
+import qualified Data.IntMap.Strict as IntMap
 
 customerVertexFile = "demoData\\customerVertex.csv"
 customerEdgeFile = "demoData\\customerEdge.csv"
 locationsFile = "demoData\\locationsTable.csv"
 ordersFile = "demoData\\orders.xml"
 
--- Data is just in the global variables.
+-- Data is in the global variables.
 
 customers :: Graph Customer
 customers = unsafePerformIO $ collectCustomers customerVertexFile customerEdgeFile
 
-locations :: [Location]
+locations :: IntMap.IntMap Location
 locations = unsafePerformIO $ collectLocations locationsFile
 
 orders :: [Order]
@@ -44,14 +48,15 @@ collectCustomers vertexFilePath edgeFilePath = do
     return $ edges(createCustomerEdges (tail customerEdges) (createCustomerVertices $ tail customerVertices))
 
 -- Relational data:
-createLocations :: [[String]] -> [Location]
-createLocations [] = []
-createLocations (x:xs) = (Location (read(x !! 0) :: Int) (x !! 1) (x !! 2) (read(x !! 3) :: Int) (x !! 4)) : createLocations xs
 
-collectLocations :: String -> IO([Location])
+createLocations :: [[String]] -> [(Int, Location)]
+createLocations [] = []
+createLocations (x:xs) = ((read(x !! 0) :: Int), Location (read(x !! 0) :: Int) (x !! 1) (x !! 2) (read(x !! 3) :: Int) (x !! 4)) : createLocations xs
+
+collectLocations :: String -> IO(IntMap.IntMap Location)
 collectLocations locationFilePath = do
     locationList <- readCSV locationFilePath
-    return $ createLocations (tail locationList)
+    return $ IntMap.fromList $ createLocations (tail locationList)
 
 -- XML data:
 collectProduct :: Node -> Maybe Product
