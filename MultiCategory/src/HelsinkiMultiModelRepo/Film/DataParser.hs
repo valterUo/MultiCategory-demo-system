@@ -10,6 +10,7 @@ import qualified Data.RDF as RDF
 import qualified Data.Text as T
 import Data.List
 import Data.List.Split
+import qualified Data.Map.Strict as Map
 
 createFilms :: [C.ByteString] -> IO([Film])
 createFilms [] = return []
@@ -55,5 +56,8 @@ createStringTuples (x:xs) = if length x > 4 then
                 else createStringTuples xs
     else createStringTuples xs
 
-foldrdf :: (RDF.Triple -> b -> b) -> b -> RDF.RDF RDF.TList -> b
-foldrdf f z rdf = foldr f z (RDF.triplesOf rdf)
+collectFilmGraph :: FilePath -> IO(RDF.RDF RDF.TList)
+collectFilmGraph filepath = do
+    answer <- readRDF filepath 
+    let graph = RDF.mkRdf (collectTriples $ createStringTuples $ answer) (Nothing) (RDF.PrefixMappings $ Map.fromList([])) in
+        return (graph :: RDF.RDF RDF.TList)

@@ -41,13 +41,13 @@ encodeListToJSON (x:xs) = (encode x) : (encodeListToJSON xs)
 wrapListToJSON :: ToJSON a => [a] -> String
 wrapListToJSON xs = "{\"result\":[" ++ L.unpack( L.intercalate (L.pack ", ") (encodeListToJSONText xs)) ++ "]}"
 
-main = do
+main = undefined
     -- case parseString NTriplesParser (T.pack("<AAAband> <activeYearsStartYear> \"2005\"^^<http://www.w3.org/2001/XMLSchema#gYear> .")) of
     --     Right rdf -> print $ RDF.showGraph $ (rdf :: RDF TList)
     --     Left error -> print error
 
-    answer <- readRDF "UnibenchData\\filmDataSets\\smallMix.dbpedia.graph"
-    --print((answer !! 1) ++ [" "] ++ (answer !! 3) ++ [" "] ++ (answer !! 5))
-    let graph = RDF.mkRdf (collectTriples $ createStringTuples $ answer) (Nothing) (RDF.PrefixMappings $ Map.fromList([])) in
-         print $ foldrdf (\x xs -> if length xs > 20 then xs else (predicateOf x : xs)) [] (graph :: RDF TList)
+    -- answer <- readRDF "UnibenchData\\filmDataSets\\smallMix.dbpedia.graph"
+    -- print((answer !! 1) ++ [" "] ++ (answer !! 3) ++ [" "] ++ (answer !! 5))
+    -- let graph = RDF.mkRdf (collectTriples $ createStringTuples $ answer) (Nothing) (RDF.PrefixMappings $ Map.fromList([])) in
+    --     print $ foldrdf (\x xs -> if length xs > 20 then xs else (predicateOf x : xs)) [] (graph :: RDF TList)
     

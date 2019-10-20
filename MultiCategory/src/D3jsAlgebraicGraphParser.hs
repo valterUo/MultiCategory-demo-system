@@ -14,6 +14,7 @@ import GHC.Generics
 
 data Link = Link { source :: Int
     , target :: Int
+    , name :: String
 } deriving (Show, Eq, Generic)
 
 -- This datatype already contains encoded objects in nodes.
@@ -46,7 +47,7 @@ createNodes :: (Eq a, ToJSON a) => Graph a -> [Text]
 createNodes graph = encodeListToJSONText $ unorderedVertices graph
 
 createLinks :: Eq a => Graph a -> [Link]
-createLinks graph = foldr (\x xs -> let (a,b) = x in (Link a b):xs) [] (edgeList $ createIndexGraph graph)
+createLinks graph = foldr (\x xs -> let (a,b) = x in (Link a b ""):xs) [] (edgeList $ createIndexGraph graph)
 
 createD3Graph :: (Eq a, ToJSON a) => Graph a -> D3jsGraph
 createD3Graph graph = D3jsGraph (createNodes graph) (createLinks graph)
