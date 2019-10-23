@@ -31,21 +31,21 @@ collectRdfNodes (triple:triples) = do
                 let UNode value3 = a in
                     let UNode value4 = c in
                         let UNode linkName = b in
-                            let value1 = L.pack $ T.unpack value3 in
-                                let value2 = L.pack $ T.unpack value4 in
+                            let value1 = (L.pack("{ \"name\":" ++ "\"" ++ (T.unpack value3) ++ "\"}")) in
+                                let value2 = (L.pack("{ \"name\":" ++ "\"" ++ (T.unpack value4) ++ "\"}")) in
                                     case elemIndex value1 nodes of
                                         Nothing -> case elemIndex value2 nodes of
-                                            Nothing -> let source = length nodes + 1 in
-                                                let target = length nodes + 2 in
+                                            Nothing -> let source = length nodes in
+                                                let target = length nodes + 1 in
                                                     let link = Link source target (T.unpack linkName) in
                                                         ((value2:value1:nodes), (link:links))
-                                            Just j -> let source = length nodes + 1 in
+                                            Just j -> let source = length nodes in
                                                 let target = j in
                                                     let link = Link source target (T.unpack linkName) in
                                                         ((value1:nodes), (link:links))
                                         Just i -> case elemIndex value2 nodes of
                                             Nothing -> let source = i in
-                                                let target = length nodes + 1 in
+                                                let target = length nodes in
                                                     let link = Link source target (T.unpack linkName) in
                                                         ((value2:nodes), (link:links))
                                             Just j -> let source = i in
