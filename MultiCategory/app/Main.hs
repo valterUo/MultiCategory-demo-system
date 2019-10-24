@@ -12,7 +12,6 @@ import qualified Data.ByteString.Lazy as D
 import System.IO
 import Control.Monad
 import XMLParser
-import SchemaCategory
 import CSVParser
 import Data.Aeson
 import D3jsAlgebraicGraphParser
@@ -20,19 +19,15 @@ import qualified Data.Text.Lazy as L
 import Algebra.Graph
 import HelsinkiMultiModelRepo.Patent.SchemaCategory
 import HelsinkiMultiModelRepo.Patent.DataParser
-import QueryProcessing
-import SimpleDemoDataState
+import SimpleDemo.DataState
 import Data.IORef
 import System.IO.Unsafe
 import qualified Data.Serialize as S
-import HelsinkiMultiModelRepo.Film.SchemaCategory
-import HelsinkiMultiModelRepo.Film.DataParser
 import Data.Typeable 
 import Data.Data
 import GraphFunctions
 import Data.RDF as RDF
 import qualified Data.Text as T
-import qualified Data.Map.Strict as Map
 
 encodeListToJSON :: ToJSON a => [a] -> [B.ByteString]
 encodeListToJSON [] = []

@@ -5,7 +5,6 @@ import qualified Data.Text as T
 import qualified Data.Text.Lazy as L
 import D3jsAlgebraicGraphParser
 import Data.List
---import qualified Data.Set.StringSet as Set
 
 -- Specialized folding for RDF graphs based on their list presentation
 
@@ -38,16 +37,16 @@ collectRdfNodes (triple:triples) = do
                                             Nothing -> let source = length nodes in
                                                 let target = length nodes + 1 in
                                                     let link = Link source target (T.unpack linkName) in
-                                                        ((value2:value1:nodes), (link:links))
-                                            Just j -> let source = length nodes in
-                                                let target = j in
+                                                        (((nodes ++ [value1]) ++ [value2]), (link:links))
+                                            Just j -> let target = length nodes in
+                                                let source = j in
                                                     let link = Link source target (T.unpack linkName) in
-                                                        ((value1:nodes), (link:links))
+                                                        ((nodes ++ [value1]), (link:links))
                                         Just i -> case elemIndex value2 nodes of
                                             Nothing -> let source = i in
                                                 let target = length nodes in
                                                     let link = Link source target (T.unpack linkName) in
-                                                        ((value2:nodes), (link:links))
+                                                        ((nodes ++ [value2]), (link:links))
                                             Just j -> let source = i in
                                                 let target = j in
                                                     let link = Link source target (T.unpack linkName) in

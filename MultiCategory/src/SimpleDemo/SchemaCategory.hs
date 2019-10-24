@@ -1,6 +1,6 @@
 {-# LANGUAGE DeriveGeneric     #-}
 
-module SchemaCategory where
+module SimpleDemo.SchemaCategory where
 
 import GHC.Generics
 import Data.Aeson

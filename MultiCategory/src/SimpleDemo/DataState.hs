@@ -1,9 +1,9 @@
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 
-module SimpleDemoDataState where
+module SimpleDemo.DataState where
 
-import SchemaCategory
+import SimpleDemo.SchemaCategory
 import Algebra.Graph
 import CSVParser
 import XMLParser

@@ -8,7 +8,7 @@ import Xeno.Types
 import qualified Data.ByteString as S
 import qualified Data.ByteString.Char8 as C8
 import qualified Data.Text as T
-import SchemaCategory
+import SimpleDemo.SchemaCategory
 
 -- XML part of the demo system backend:
 -- These functions work generally for any XML tree structure:
