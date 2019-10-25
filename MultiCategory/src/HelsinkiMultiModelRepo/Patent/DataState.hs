@@ -16,10 +16,10 @@ classes :: IntMap.IntMap Class
 classes = unsafePerformIO $ collectClasses "HelsinkiMultiModelRepoDataSets\\patentDataSet\\new_class_semicolon.table"
 
 patents :: IntMap.IntMap Patent
-patents = unsafePerformIO $ collectPatents "HelsinkiMultiModelRepoDataSets\\patentDataSet\\patents_new_new_new_semicolon - Copy.table"
+patents = unsafePerformIO $ collectPatents "HelsinkiMultiModelRepoDataSets\\patentDataSet\\newwest_patents.table"
 
-patentGraph :: Graph (Maybe Patent)
-patentGraph = unsafePerformIO $ collectPatentGraph "HelsinkiMultiModelRepoDataSets\\patentDataSet\\new_citation.graph" patents
+patentGraph :: Graph Patent
+patentGraph = unsafePerformIO $ collectPatentGraph "HelsinkiMultiModelRepoDataSets\\patentDataSet\\newwest_citation.table" patents
 
-inventors :: IntMap.IntMap Inventor
-inventors = unsafePerformIO $ collectInventors "HelsinkiMultiModelRepoDataSets\\patentDataSet\\new_inventor_piece.table"
+inventors :: [Inventor]
+inventors = unsafePerformIO $ collectInventors "HelsinkiMultiModelRepoDataSets\\patentDataSet\\newwest_inventors.table"

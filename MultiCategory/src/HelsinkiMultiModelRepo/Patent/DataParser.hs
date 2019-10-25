@@ -93,9 +93,9 @@ collectPatents path = do
 
 -- Functions that work only with Inventor (HelsinkiMultiModelRepo data) datatype
 
-createInventors :: [[String]] -> [(Int, Inventor)]
+createInventors :: [[String]] -> [Inventor]
 createInventors [] = []
-createInventors (inventor : inventors) = (((read(inventor !! 0) :: Int), Inventor 
+createInventors (inventor : inventors) = (Inventor 
                                                 (read(inventor !! 0) :: Int)
                                                 (inventor !! 1) 
                                                 (inventor !! 2) 
@@ -106,12 +106,12 @@ createInventors (inventor : inventors) = (((read(inventor !! 0) :: Int), Invento
                                                 (inventor !! 7) 
                                                 (inventor !! 8) 
                                                 (inventor !! 9) 
-                                                (readMaybe(inventor !! 10) :: Maybe Int))) : createInventors inventors
+                                                (readMaybe(inventor !! 10) :: Maybe Int)) : createInventors inventors
 
-collectInventors :: FilePath -> IO (IntMap.IntMap Inventor)
+collectInventors :: FilePath -> IO [Inventor]
 collectInventors path = do
     result <- readCSV path
-    return $ IntMap.fromList $ createInventors result
+    return $ createInventors result
 
 -- Functions that work only with HelsinkiMultiModelRepo citation.graph data
 
@@ -123,9 +123,9 @@ populateIDGraph :: [(Int, Int)] -> (Int -> a) -> [(a,a)]
 populateIDGraph [] _ = []
 populateIDGraph (x:xs) f = let (a, b) = x in (f a, f b) : populateIDGraph xs f
 
-collectPatentGraph :: FilePath -> IntMap.IntMap Patent -> IO(Graph (Maybe Patent))
+collectPatentGraph :: FilePath -> IntMap.IntMap Patent -> IO(Graph Patent)
 collectPatentGraph path patents = do
     result <- readCSV path
     let idGraph = createIDGraph result in
-        let populatedGraph = populateIDGraph idGraph (\x -> IntMap.lookup x patents) in
+        let populatedGraph = populateIDGraph idGraph (\x -> (patents IntMap.! x)) in
             return $ edges populatedGraph

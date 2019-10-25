@@ -5,11 +5,11 @@ import Data.List
 import Debug.Trace
 
 patternSource :: Eq a => a -> Graph a -> Graph a -> Graph a
-patternSource x (Vertex y) (Vertex z) = if x == y then Vertex z else empty
+patternSource x (Vertex z) (Vertex y) = if x == y then Vertex z else empty
 patternSource _ _ _ = empty
 
 patternTarget :: Eq a => a -> Graph a -> Graph a -> Graph a
-patternTarget x (Vertex z) (Vertex y) = if x == y then Vertex z else empty
+patternTarget x (Vertex y) (Vertex z) = if x == y then Vertex z else empty
 patternTarget _ _ _ = empty
 
 patternOverlay :: Eq a => a -> Graph a -> Graph a -> Graph a
@@ -26,21 +26,23 @@ patternOverlay main x y = Overlay x y
 
 findTargetNeighborsWithEmptyNodes :: Eq a => a -> Graph a -> Graph a
 findTargetNeighborsWithEmptyNodes x graph = let newgraph = foldg empty vertex (\y z -> patternOverlay x y z) connect graph in 
-    foldg empty vertex overlay (\y z -> patternSource x y z) newgraph
+    foldg empty vertex overlay (\y z -> patternTarget x y z) newgraph
 
 findTargetNeighbors :: Eq a => a -> Graph a -> Graph a
-findTargetNeighbors customer graph = let neighbors = findTargetNeighborsWithEmptyNodes customer graph in
-    let accepted = (foldg [] (\x -> [x]) (++) (++) (neighbors)) in
-        induce (\x -> elem x accepted) (neighbors)
+findTargetNeighbors x graph = let neighbors = findTargetNeighborsWithEmptyNodes x graph in
+    let accepted = foldg [] (\x -> [x]) (++) (++) neighbors in
+        let neighbors2 = induce (\x -> elem x accepted) neighbors in
+            Connect (Vertex x) neighbors2
 
 findSourceNeighborsWithEmptyNodes :: Eq a => a -> Graph a -> Graph a
 findSourceNeighborsWithEmptyNodes x graph = let newgraph = foldg empty vertex (\y z -> patternOverlay x y z) connect graph in 
-    foldg empty vertex overlay (\y z -> patternTarget x y z) newgraph
+    foldg empty vertex overlay (\y z -> patternSource x y z) newgraph
 
 findSourceNeighbors :: Eq a => a -> Graph a -> Graph a
-findSourceNeighbors customer graph = let neighbors = findSourceNeighborsWithEmptyNodes customer graph in
-    let accepted = (foldg [] (\x -> [x]) (++) (++) (neighbors)) in
-        induce (\x -> elem x accepted) (neighbors)
+findSourceNeighbors x graph = let neighbors = findSourceNeighborsWithEmptyNodes x graph in
+    let accepted = foldg [] (\x -> [x]) (++) (++) neighbors in
+        let neighbors2 = induce (\x -> elem x accepted) neighbors in
+            Connect neighbors2 (Vertex x)
 
 reachable :: Eq a => a -> a -> Graph a -> Bool
 reachable x y graphLeft = 
