@@ -1,4 +1,5 @@
 .stack-work/
 MultiCategory.cabal
-HelsinkiMultiModelRepoDataSets
+full_film_imdb.json
+film.dbpedia.graph
 *~

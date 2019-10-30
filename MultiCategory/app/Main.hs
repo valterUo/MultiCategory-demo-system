@@ -36,10 +36,10 @@ encodeListToJSON (x:xs) = (encode x) : (encodeListToJSON xs)
 wrapListToJSON :: ToJSON a => [a] -> String
 wrapListToJSON xs = "{\"result\":[" ++ L.unpack( L.intercalate (L.pack ", ") (encodeListToJSONText xs)) ++ "]}"
 
-main = undefined
-    -- case parseString NTriplesParser (T.pack("<AAAband> <activeYearsStartYear> \"2005\"^^<http://www.w3.org/2001/XMLSchema#gYear> .")) of
-    --     Right rdf -> print $ RDF.showGraph $ (rdf :: RDF TList)
-    --     Left error -> print error
+main = do
+    case parseString NTriplesParser (T.pack("<http://example.org/show/218> <http://www.w3.org/2000/01/rdf-schema#label> \"6.45214\"^^<http://www.w3.org/2001/XMLSchema#float> .")) of
+        Right rdf -> print $ RDF.showGraph $ (rdf :: RDF TList)
+        Left error -> print error
 
     -- answer <- readRDF "UnibenchData\\filmDataSets\\smallMix.dbpedia.graph"
     -- print((answer !! 1) ++ [" "] ++ (answer !! 3) ++ [" "] ++ (answer !! 5))

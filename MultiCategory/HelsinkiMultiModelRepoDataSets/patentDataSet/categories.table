@@ -1,0 +1,36 @@
+1;11;Agriculture & Food & Textiles;Chemical;Chemical
+1;12;Coating;Chemical;Chemical
+1;13;Gas;Chemical;Chemical
+1;14;Organic Compounds;Chemical;Chemical
+1;15;Resins;Chemical;Chemical
+1;19;Miscellaneous-chemical;Chemical;Chemical
+2;21;Communications;Cmp&Cmm;Computers & Communications
+2;22;Computer Hardware & Software;Cmp&Cmm;Computers & Communications
+2;23;Computer Peripherials;Cmp&Cmm;Computers & Communications
+2;24;Information Storage;Cmp&Cmm;Computers & Communications
+3;31;Drugs;Drgs&Med;Drugs & Medical
+3;32;Surgery & Med Inst.;Drgs&Med;Drugs & Medical
+3;33;Biotechnology;Drgs&Med;Drugs & Medical
+3;39;Miscellaneous-Drgs&Med;Drgs&Med;Drugs & Medical
+4;41;Electrical Devices;Elec;Electrical & Electronic
+4;42;Electrical Lighting;Elec;Electrical & Electronic
+4;43;Measuring & Testing;Elec;Electrical & Electronic
+4;44;Nuclear & X-rays;Elec;Electrical & Electronic
+4;45;Power Systems;Elec;Electrical & Electronic
+4;46;Semiconductor Devices;Elec;Electrical & Electronic
+4;49;Miscellaneous-Elec;Elec;Electrical & Electronic
+5;51;Mat. Proc & Handling;Mech;Mechanical
+5;52;Metal Working;Mech;Mechanical
+5;53;Motors & Engines + Parts;Mech;Mechanical
+5;54;Optics;Mech;Mechanical
+5;55;Transportation;Mech;Mechanical
+5;59;Miscellaneous-Mechanical;Mech;Mechanical
+6;61;Agriculture & Husbandry & Food;Others;Others
+6;62;Amusement Devices;Others;Others
+6;63;Apparel & Textile;Others;Others
+6;64;Earth Working & Wells;Others;Others
+6;65;Furniture & House Fixtures;Others;Others
+6;66;Heating;Others;Others
+6;67;Pipes & Joints;Others;Others
+6;68;Receptacles;Others;Others
+6;69;Miscellaneous-Others;Others;Others
