@@ -22,7 +22,7 @@ createCategories (x:xs) = ((read(x !! 0) :: Int), (Category (read(x !! 0) :: Int
 
 collectCategories :: FilePath -> IO (IntMap.IntMap Category)
 collectCategories path = do
-    result <- readCSV path
+    result <- readCSV ";" path
     return $ IntMap.fromList $ createCategories result
 
 -- Functions that work only with HelsinkiMultiModelRepo assignee.table data
@@ -39,7 +39,7 @@ createAssignees (x:xs) = ((read(x !! 0) :: Int), (Assignee (read(x !! 0) :: Int)
 
 collectAssignees :: FilePath -> IO(IntMap.IntMap Assignee)
 collectAssignees path = do
-    result <- readCSV path
+    result <- readCSV ";" path
     return $ IntMap.fromList $ createAssignees result
 
 -- Functions that work only with HelsinkiMultiModelRepo class.table data: requirment that Category data has been uploaded
@@ -53,7 +53,7 @@ createClasses (x:xs) = ((read(x !! 0) :: Int), (Class (read(x !! 0) :: Int)
 
 collectClasses :: FilePath -> IO (IntMap.IntMap Class)
 collectClasses path = do
-    result <- readCSV path
+    result <- readCSV ";" path
     return $ IntMap.fromList $ createClasses result
 
 -- Functions that work only with Patent (HelsinkiMultiModelRepo data) datatype. The functions uses readMaybe functions to read strings as Int. 
@@ -88,7 +88,7 @@ createPatents (patent : patents) = ((read(patent !! 0) :: Int),
 
 collectPatents :: FilePath -> IO (IntMap.IntMap Patent)
 collectPatents path = do
-    result <- readCSV path
+    result <- readCSV ";" path
     return $ IntMap.fromList $ createPatents result
 
 -- Functions that work only with Inventor (HelsinkiMultiModelRepo data) datatype
@@ -110,7 +110,7 @@ createInventors (inventor : inventors) = (Inventor
 
 collectInventors :: FilePath -> IO [Inventor]
 collectInventors path = do
-    result <- readCSV path
+    result <- readCSV ";" path
     return $ createInventors result
 
 -- Functions that work only with HelsinkiMultiModelRepo citation.graph data
@@ -125,7 +125,7 @@ populateIDGraph (x:xs) f = let (a, b) = x in (f a, f b) : populateIDGraph xs f
 
 collectPatentGraph :: FilePath -> IntMap.IntMap Patent -> IO(Graph Patent)
 collectPatentGraph path patents = do
-    result <- readCSV path
+    result <- readCSV ";" path
     let idGraph = createIDGraph result in
         let populatedGraph = populateIDGraph idGraph (\x -> (patents IntMap.! x)) in
             return $ edges populatedGraph

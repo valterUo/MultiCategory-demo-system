@@ -43,8 +43,8 @@ createCustomerEdges (x:xs) vertices = let (i, j) = (read(x !! 0) :: Int, read(x 
 
 collectCustomers :: String -> String -> IO(Graph Customer)
 collectCustomers vertexFilePath edgeFilePath = do
-    customerVertices <- readCSV vertexFilePath
-    customerEdges <- readCSV edgeFilePath
+    customerVertices <- readCSV ";" vertexFilePath
+    customerEdges <- readCSV ";" edgeFilePath
     return $ edges(createCustomerEdges (tail customerEdges) (createCustomerVertices $ tail customerVertices))
 
 -- Relational data:
@@ -55,7 +55,7 @@ createLocations (x:xs) = ((read(x !! 0) :: Int), Location (read(x !! 0) :: Int) 
 
 collectLocations :: String -> IO(IntMap.IntMap Location)
 collectLocations locationFilePath = do
-    locationList <- readCSV locationFilePath
+    locationList <- readCSV ";" locationFilePath
     return $ IntMap.fromList $ createLocations (tail locationList)
 
 -- XML data:

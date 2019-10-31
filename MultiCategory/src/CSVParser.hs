@@ -2,8 +2,9 @@ module CSVParser where
 
 -- General CSV file parser
 
-readCSV :: FilePath -> IO [[String]]
-readCSV path = do str <- readFile path
-                  return $ map process $ lines str
-  where process xs = case break (==';') xs of (a,[])    -> [a]
-                                              (a,';':b) -> a:process b
+import Data.List.Split
+
+readCSV :: String -> FilePath -> IO [[String]]
+readCSV delimiter path = do 
+  str <- readFile path
+  return $ map (\x -> splitOn delimiter x) (lines str)
