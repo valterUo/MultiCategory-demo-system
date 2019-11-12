@@ -123,8 +123,8 @@ populateIDGraph :: [(Int, Int)] -> (Int -> a) -> [(a,a)]
 populateIDGraph [] _ = []
 populateIDGraph (x:xs) f = let (a, b) = x in (f a, f b) : populateIDGraph xs f
 
-collectPatentGraph :: FilePath -> IntMap.IntMap Patent -> IO(Graph Patent)
-collectPatentGraph path patents = do
+collectPatentGraph :: IntMap.IntMap Patent -> FilePath -> IO(Graph Patent)
+collectPatentGraph patents path = do
     result <- readCSV ";" path
     let idGraph = createIDGraph result in
         let populatedGraph = populateIDGraph idGraph (\x -> (patents IntMap.! x)) in

@@ -37,3 +37,11 @@ data UnibenchProduct = UnibenchProduct {
     unibenchProductId :: Int,
     brand :: Maybe Int
 } deriving (Show, Eq, Generic)
+
+data UnibenchOrder = UnibenchOrder {
+    unibenchOrderId :: String,
+    unibenchPersonId :: Int,
+    orderData :: String,
+    totalPrice :: Double,
+    orderLine :: [UnibenchProduct]
+} deriving (Show, Eq, Generic)

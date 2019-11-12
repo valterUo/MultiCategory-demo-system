@@ -11,14 +11,15 @@ app.use(bodyParser.text({limit: '200mb'}))
 app.post('/query', (request, response) => {
     let stream = processRef.stdout
     stream.pipe(response)
-    console.log(request.body)
     processRef.stdin.write(request.body + '\n')
     stream.on('data', (chunk) => {
-        console.log(chunk)
-        if(chunk.includes("*Main")) {
-            response.end()
-        }
-      })
+      console.log("On data...")
+      if(chunk.includes("*Main")) {
+          stream.pause()
+          stream.removeAllListeners()
+          response.end()
+      }
+    })
 })
 
 app.post('/fileUpload', (request, response) => {
@@ -29,18 +30,26 @@ app.post('/fileUpload', (request, response) => {
         error: "Error! The file has not been uploaded."
       })
     } else {
-      let stream = processRef.stdout
-      let command = request.get('VariableName') + " = unsafePerformIO $ " + request.get('UploadingFunction') + ' \"uploadedFiles\\\\' + request.get('FileName') + '\"' + '\n'
-      console.log(command)
-      processRef.stdin.write(command)
-      stream.on('data', (chunk) => {
-        console.log(chunk)
-        if(chunk.includes("*Main")) {
-            response.end("File has been uploaded and the backend is using the data.")
-        }
-      })
+      let fileNames = request.get('FileNames').split(";")
+      let filePath = fileNames.reduce((total, current) => total = total + ' \"uploadedFiles\\\\' + current + '\"', "")
+      let command = request.get('VariableName') + " = unsafePerformIO $ " + request.get('UploadingFunction') + filePath
+      processRef.stdin.write(command + "\n", () => {console.log("Data uploaded.")})
+      processRef.stdin.removeAllListeners()
     }
   })
+  response.end("File has been uploaded and the backend is using the data.")
+})
+
+app.post('/uploadWithoutUse', (request, response) => {
+  fs.writeFile("./MultiCategory/uploadedFiles/" + request.get('FileName'), request.body, (err) => {
+    console.log(err)
+    if (processRef === undefined) {
+      response.status(400).send({
+        error: "Error! The file has not been uploaded."
+      })
+    } else {
+      response.end("File has been uploaded.")
+    }})
 })
 
 const PORT = 3002

@@ -19,7 +19,7 @@ patents :: IntMap.IntMap Patent
 patents = unsafePerformIO $ collectPatents "HelsinkiMultiModelRepoDataSets\\patentDataSet\\patents.table"
 
 patentGraph :: Graph Patent
-patentGraph = unsafePerformIO $ collectPatentGraph "HelsinkiMultiModelRepoDataSets\\patentDataSet\\citation.graph" patents
+patentGraph = unsafePerformIO $ collectPatentGraph patents "HelsinkiMultiModelRepoDataSets\\patentDataSet\\citation.graph"
 
 inventors :: [Inventor]
 inventors = unsafePerformIO $ collectInventors "HelsinkiMultiModelRepoDataSets\\patentDataSet\\inventors.table"
