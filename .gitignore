@@ -1,6 +1,7 @@
 .stack-work/
 MultiCategory.cabal
 UnibenchData
+personDataSet
 *~
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 

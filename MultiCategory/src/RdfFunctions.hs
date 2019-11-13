@@ -21,37 +21,39 @@ rdfContainsTriple graph Nothing (Just y) Nothing = select graph Nothing (Just(\a
 rdfContainsTriple graph Nothing Nothing (Just z) = select graph Nothing Nothing (Just(\a -> a == UNode(T.pack(z))))
 rdfContainsTriple graph (Just x) (Just y) (Just z) = select graph (Just(\a -> a == UNode(T.pack(x)))) (Just(\a -> a == UNode(T.pack(y)))) (Just(\a -> a == UNode(T.pack(z))))
 
+-- tripleContainsNode :: Triple -> Maybe String -> Maybe String -> Maybe String -> Bool
+-- tripleContainsNode triple 
+
+repl :: Char -> Char
+repl '"' = '.'
+repl c = c
+
 collectRdfNodes :: Triples -> ([L.Text], [Link])
 collectRdfNodes [] = ([], [])
 collectRdfNodes (triple:triples) = do
     let (nodes, links) = collectRdfNodes triples in
         let Triple a b c = triple in
-            if (isUNode a && isUNode b && isUNode c) then 
-                let UNode value3 = a in
-                    let UNode value4 = c in
-                        let UNode linkName = b in
-                            let value1 = (L.pack("{ \"name\":" ++ "\"" ++ (T.unpack value3) ++ "\"}")) in
-                                let value2 = (L.pack("{ \"name\":" ++ "\"" ++ (T.unpack value4) ++ "\"}")) in
-                                    case elemIndex value1 nodes of
-                                        Nothing -> case elemIndex value2 nodes of
-                                            Nothing -> let source = length nodes in
-                                                let target = length nodes + 1 in
-                                                    let link = Link source target (T.unpack linkName) in
-                                                        (((nodes ++ [value1]) ++ [value2]), (link:links))
-                                            Just j -> let target = length nodes in
-                                                let source = j in
-                                                    let link = Link source target (T.unpack linkName) in
-                                                        ((nodes ++ [value1]), (link:links))
-                                        Just i -> case elemIndex value2 nodes of
-                                            Nothing -> let source = i in
-                                                let target = length nodes in
-                                                    let link = Link source target (T.unpack linkName) in
-                                                        ((nodes ++ [value2]), (link:links))
-                                            Just j -> let source = i in
-                                                let target = j in
-                                                    let link = Link source target (T.unpack linkName) in
-                                                        (nodes, (link:links))
-            else (nodes, links)
+            let value1 = (L.pack("{ \"name\": \"" ++ (map repl (show a)) ++ "\"}")) in
+                let value2 = (L.pack("{ \"name\":\"" ++ (map repl (show c)) ++ "\"}")) in
+                    case elemIndex value1 nodes of
+                        Nothing -> case elemIndex value2 nodes of
+                            Nothing -> let source = length nodes in
+                                let target = length nodes + 1 in
+                                    let link = Link source target (show b) in
+                                        (((nodes ++ [value1]) ++ [value2]), (link:links))
+                            Just j -> let target = length nodes in
+                                let source = j in
+                                    let link = Link source target (show b) in
+                                        ((nodes ++ [value1]), (link:links))
+                        Just i -> case elemIndex value2 nodes of
+                            Nothing -> let source = i in
+                                let target = length nodes in
+                                    let link = Link source target (show b) in
+                                        ((nodes ++ [value2]), (link:links))
+                            Just j -> let source = i in
+                                let target = j in
+                                    let link = Link source target (show b) in
+                                        (nodes, (link:links))
 
 rdfTriplesToD3Graph :: Triples -> D3jsGraph
 rdfTriplesToD3Graph triples = let (nodes, links) = collectRdfNodes triples in D3jsGraph nodes links

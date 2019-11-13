@@ -37,7 +37,8 @@ wrapListToJSON :: ToJSON a => [a] -> String
 wrapListToJSON xs = "{\"result\":[" ++ L.unpack( L.intercalate (L.pack ", ") (encodeListToJSONText xs)) ++ "]}"
 
 main = do
-    case parseString NTriplesParser (T.pack("<http://example.org/show/218> <http://www.w3.org/2000/01/rdf-schema#label> \"6.45214\"^^<http://www.w3.org/2001/XMLSchema#float> .")) of
+    result <- parseFile NTriplesParser "D:\\Helsinki Multi-Model Datasets\\Person_dataset\\Person_dataset\\reprocessed_dataset\\small_new_personGraph.graph"
+    case result of
         Right rdf -> print $ RDF.showGraph $ (rdf :: RDF TList)
         Left error -> print error
 
