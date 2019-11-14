@@ -45,3 +45,7 @@ data UnibenchOrder = UnibenchOrder {
     totalPrice :: Double,
     orderLine :: [UnibenchProduct]
 } deriving (Show, Eq, Generic)
+
+data Feedback = Feedback {
+
+} deriving (Show, Eq, Generic)

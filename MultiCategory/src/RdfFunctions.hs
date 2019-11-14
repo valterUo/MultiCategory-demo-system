@@ -5,6 +5,21 @@ import qualified Data.Text as T
 import qualified Data.Text.Lazy as L
 import D3jsAlgebraicGraphParser
 import Data.List
+import Data.Maybe
+
+--Parsing any file that contains Ntriples
+
+collectRDFMaybe :: String -> IO(Maybe (RDF TList))
+collectRDFMaybe path = do
+    result <- parseFile NTriplesParser path
+    case result of
+        Right rdf -> return $ Just (rdf :: RDF TList)
+        Left error -> return $ Nothing
+
+collectRDF :: String -> IO (RDF TList)
+collectRDF path = do
+    result <- collectRDFMaybe path
+    return $ fromJust result
 
 -- Specialized folding for RDF graphs based on their list presentation
 
@@ -21,11 +36,23 @@ rdfContainsTriple graph Nothing (Just y) Nothing = select graph Nothing (Just(\a
 rdfContainsTriple graph Nothing Nothing (Just z) = select graph Nothing Nothing (Just(\a -> a == UNode(T.pack(z))))
 rdfContainsTriple graph (Just x) (Just y) (Just z) = select graph (Just(\a -> a == UNode(T.pack(x)))) (Just(\a -> a == UNode(T.pack(y)))) (Just(\a -> a == UNode(T.pack(z))))
 
--- tripleContainsNode :: Triple -> Maybe String -> Maybe String -> Maybe String -> Bool
--- tripleContainsNode triple 
+tripleContainsString :: Triple -> Maybe String -> Maybe String -> Maybe String -> Bool
+tripleContainsString triple x y z = let (Triple a b c) = triple in 
+    nodeContainsString a x && nodeContainsString b y && nodeContainsString c z
+
+nodeContainsString :: Node -> Maybe String -> Bool
+nodeContainsString _ Nothing = True
+nodeContainsString node (Just a) = if isUNode node then let UNode txt = node in 
+    isInfixOf a (T.unpack txt) else 
+        if isLNode node then let LNode value = node in 
+            isInfixOf a (show value) else 
+                if isBNode node then let BNode txt = node in 
+                    isInfixOf a (T.unpack txt) else 
+                        False
 
 repl :: Char -> Char
 repl '"' = '.'
+repl '\\' = '.'
 repl c = c
 
 collectRdfNodes :: Triples -> ([L.Text], [Link])
