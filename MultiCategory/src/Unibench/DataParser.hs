@@ -1,3 +1,5 @@
+{-# LANGUAGE OverloadedStrings #-}
+
 module Unibench.DataParser where
 
 import Algebra.Graph
@@ -5,6 +7,9 @@ import CSVParser
 import Unibench.SchemaCategory
 import qualified Data.IntMap.Strict as IntMap
 import Text.Read
+import qualified Data.ByteString.Char8 as C
+import Data.ByteString.Lazy.Internal as B
+import Data.Aeson
 
 -- Person data:
 createPersons :: [[String]] -> [(Int, Person)]
@@ -44,13 +49,31 @@ collectPosts filePath = do
 createUnibenchProducts :: [[String]] -> [UnibenchProduct]
 createUnibenchProducts [] = []
 createUnibenchProducts (x:xs) = (UnibenchProduct (x !! 0)
-                                                                        (x !! 1) 
-                                                                        (readMaybe(x !! 2) :: Maybe Double)  
-                                                                        (x !! 3)
-                                                                        (read(x !! 4) :: Int)
-                                                                        (readMaybe(x !! 5) :: Maybe Int)) : createUnibenchProducts xs
+                                                (x !! 1) 
+                                                (readMaybe(x !! 2) :: Maybe Double)  
+                                                (x !! 3)
+                                                (read(x !! 4) :: Int)
+                                                (readMaybe(x !! 5) :: Maybe Int)) : createUnibenchProducts xs
 
 collectUnibenchProducts :: String -> IO([UnibenchProduct])
 collectUnibenchProducts filePath = do
     result <- readCSV "|" filePath
     return $ createUnibenchProducts (tail result)
+
+-- UnibenchOrder data:
+createUnibenchOrder :: [C.ByteString] -> IO([UnibenchOrder])
+createUnibenchOrder [] = return []
+createUnibenchOrder (x:xs) = case (decode(B.packChars(C.unpack x)) :: Maybe UnibenchOrder) of
+    Nothing -> createUnibenchOrder xs
+    Just(order) -> do
+        print order
+        orders <- createUnibenchOrder xs 
+        return $ (order):(orders)
+
+collectUnibenchOrders :: FilePath -> IO([UnibenchOrder])
+collectUnibenchOrders path = do 
+    content <- C.readFile path
+    let linesOfFile = C.lines content in do
+        print $ linesOfFile !! 0
+        result <- createUnibenchOrder linesOfFile
+        return result
