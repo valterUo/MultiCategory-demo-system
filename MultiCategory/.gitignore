@@ -1,5 +1,4 @@
 .stack-work/
-MultiCategory.cabal
 full_film_imdb.json
 film.dbpedia.graph
 *~

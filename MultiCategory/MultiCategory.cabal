@@ -1,0 +1,100 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.31.0.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 09f08809cf36874bf9973a08a5c808cc46481892a728cc4785d03c199cab1b59
+
+name:           MultiCategory
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/githubuser/MultiCategory#readme>
+homepage:       https://github.com/githubuser/MultiCategory#readme
+bug-reports:    https://github.com/githubuser/MultiCategory/issues
+author:         Valter Uotila
+maintainer:     valter.uotila@helsinki.fi
+copyright:      2019 Valter Uotila
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+
+source-repository head
+  type: git
+  location: https://github.com/githubuser/MultiCategory
+
+library
+  exposed-modules:
+      CSVParser
+      XMLParser
+      D3jsAlgebraicGraphParser
+      GraphFunctions
+      RdfFunctions
+      SimpleDemo.DataState
+      SimpleDemo.SchemaCategory
+      HelsinkiMultiModelRepo.Patent.DataState
+      HelsinkiMultiModelRepo.Patent.SchemaCategory
+      HelsinkiMultiModelRepo.Patent.DataParser
+      HelsinkiMultiModelRepo.Film.SchemaCategory
+      HelsinkiMultiModelRepo.Film.DataParser
+      HelsinkiMultiModelRepo.Film.DataState
+      HelsinkiMultiModelRepo.Person.DataParser
+      HelsinkiMultiModelRepo.Person.DataState
+      HelsinkiMultiModelRepo.Person.SchemaCategory
+      HelsinkiMultiModelRepo.University.SchemaCategory
+      HelsinkiMultiModelRepo.University.DataState
+      HelsinkiMultiModelRepo.University.DataParser
+      Unibench.SchemaCategory
+      Unibench.DataState
+      Unibench.DataParser
+  other-modules:
+      Paths_MultiCategory
+  hs-source-dirs:
+      src
+  build-depends:
+      base >=4.7 && <5
+      , xeno
+      , text
+      , bytestring
+      , aeson
+      , algebraic-graphs
+      , fingertree
+      , containers
+      , cereal
+      , rdf4h
+      , split
+  default-language: Haskell2010
+
+executable MultiCategory-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_MultiCategory
+  hs-source-dirs:
+      app
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      MultiCategory
+    , base >=4.7 && <5
+    , xeno
+    , text
+    , bytestring
+    , aeson
+    , algebraic-graphs
+    , fingertree
+    , containers
+    , cereal
+    , rdf4h
+    , split
+  default-language: Haskell2010
+
+test-suite MultiCategory-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_MultiCategory
+  hs-source-dirs:
+      test
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      MultiCategory
+    , base >=4.7 && <5
+  default-language: Haskell2010
