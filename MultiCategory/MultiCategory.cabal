@@ -31,6 +31,7 @@ library
       RdfFunctions
       SimpleDemo.DataState
       SimpleDemo.SchemaCategory
+      SimpleDemo.DataParser
       HelsinkiMultiModelRepo.Patent.DataState
       HelsinkiMultiModelRepo.Patent.SchemaCategory
       HelsinkiMultiModelRepo.Patent.DataParser
