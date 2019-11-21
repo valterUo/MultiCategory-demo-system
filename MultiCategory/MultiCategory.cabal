@@ -47,6 +47,7 @@ library
       Unibench.SchemaCategory
       Unibench.DataState
       Unibench.DataParser
+      NimbleGraph.NimbleGraph
   other-modules:
       Paths_MultiCategory
   hs-source-dirs:
@@ -63,6 +64,8 @@ library
       , cereal
       , rdf4h
       , split
+      , unordered-containers
+      , sorted-list
   default-language: Haskell2010
 
 executable MultiCategory-exe

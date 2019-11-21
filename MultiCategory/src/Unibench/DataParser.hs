@@ -10,6 +10,7 @@ import Text.Read
 import qualified Data.ByteString.Char8 as C
 import Data.ByteString.Lazy.Internal as B
 import Data.Aeson
+import NimbleGraph.NimbleGraph
 
 -- Person data:
 createPersons :: [[String]] -> [(Int, Person)]
@@ -80,3 +81,15 @@ collectUnibenchOrders path = do
 
 -- UnibenchProduct data:
 
+-- Unibench Post hasCreator Person graph data:
+
+-- createPersonPostGraph :: (IntMap.IntMap Person) -> (IntMap.IntMap Post) -> [[String]] -> [(String, (String, (Either Person Post)), (String, (Either Person Post)), [String], (Either Person Post))]
+-- createPersonPostGraph _ _ [] = []
+-- createPersonPostGraph persons posts (link:links) = let personKey = read(link !! 1) :: Int in
+--     let postKey = read(link !! 0) :: Int in 
+--         ((link !! 0)++(link !! 1), (read(link !! 0) :: Int), ())
+
+-- collectPersonPostGraph :: (IntMap.IntMap Person) -> (IntMap.IntMap Post) -> FilePath -> IO(NimbleGraph (Either Person Post))
+-- collectPersonPostGraph persons posts path = do
+--     result <- readCSV "|" filePath
+--     return $ createPersonPostGraph persons posts (tail result)
