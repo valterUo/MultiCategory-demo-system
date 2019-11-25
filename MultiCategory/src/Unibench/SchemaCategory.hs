@@ -94,4 +94,3 @@ instance FromJSON Invoice
 instance FromJSON Feedback
 instance FromJSON Vendor
 instance FromJSON UnibenchOrderline
-

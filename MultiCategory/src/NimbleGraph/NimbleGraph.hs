@@ -7,33 +7,35 @@ import Data.Aeson
 import Data.HashMap.Strict
 import qualified Data.SortedList as SortList
 
-data Edge a = Edge {
+data NimbleEdge a b = NimbleEdge {
     edgeId :: String,
-    edgeValue :: a,
+    edgeValue :: b,
     labels :: [String],
-    source :: Vertex a,
-    target :: Vertex a
+    source :: NimbleVertex a,
+    target :: NimbleVertex a
 } deriving (Show, Eq, Generic)
 
-data Vertex a = Vertex {
+data NimbleVertex a = NimbleVertex {
     vertexId :: String,
     vertexValue :: a,
     inComingEdges :: SortList.SortedList String,
     outGoingEdges :: SortList.SortedList String
 } deriving (Show, Eq, Generic)
 
-data NimbleGraph a = NimbleGraph {
-    vertices :: HashMap String (Vertex a),
-    edges :: HashMap String (Edge a)
+data NimbleGraph a b = NimbleGraph {
+    vertices :: HashMap String (NimbleVertex a),
+    edges :: HashMap String (NimbleEdge a b)
 } deriving (Show, Eq, Generic)
 
-addEdge :: Edge a -> NimbleGraph a -> NimbleGraph a
+-- NimbleGraph creation
+
+addEdge :: NimbleEdge a b -> NimbleGraph a b -> NimbleGraph a b
 addEdge edge graph = NimbleGraph (vertices graph) (insert (edgeId edge) edge (edges graph))
 
-addVertex :: Vertex a -> NimbleGraph a -> NimbleGraph a
+addVertex :: NimbleVertex a -> NimbleGraph a b -> NimbleGraph a b
 addVertex vertex graph = NimbleGraph (insert (vertexId vertex) vertex (vertices graph)) (edges graph)
 
-mkGraphFromTuples :: [(String, (String, a), (String, a), [String], a)] -> NimbleGraph a
+mkGraphFromTuples :: [(String, (String, a), (String, a), [String], b)] -> NimbleGraph a b
 mkGraphFromTuples [] = NimbleGraph empty empty
 mkGraphFromTuples (x:xs) = let (id, source, target, labels, value) = x in
     let tailGraph = mkGraphFromTuples xs in
@@ -43,22 +45,30 @@ mkGraphFromTuples (x:xs) = let (id, source, target, labels, value) = x in
                 let (targetId, targetValue) = target in
                     if member sourceId (vertices tailGraph) && member targetId (vertices tailGraph)
                         then let oldSourceVertex = (vertices tailGraph) ! sourceId in 
-                                let newSourceVertex = Vertex (vertexId oldSourceVertex) (vertexValue oldSourceVertex) (inComingEdges oldSourceVertex) (SortList.insert id (outGoingEdges oldSourceVertex)) in
+                                let newSourceVertex = NimbleVertex (vertexId oldSourceVertex) (vertexValue oldSourceVertex) (inComingEdges oldSourceVertex) (SortList.insert id (outGoingEdges oldSourceVertex)) in
                                     let oldTargetVertex = (vertices tailGraph) ! targetId in 
-                                        let newTargetVertex = Vertex (vertexId oldTargetVertex) (vertexValue oldTargetVertex) (SortList.insert id (inComingEdges oldTargetVertex)) (outGoingEdges oldTargetVertex) in
-                                            addEdge (Edge id value labels newSourceVertex newTargetVertex) (addVertex newTargetVertex (addVertex newSourceVertex tailGraph))
+                                        let newTargetVertex = NimbleVertex (vertexId oldTargetVertex) (vertexValue oldTargetVertex) (SortList.insert id (inComingEdges oldTargetVertex)) (outGoingEdges oldTargetVertex) in
+                                            addEdge (NimbleEdge id value labels newSourceVertex newTargetVertex) (addVertex newTargetVertex (addVertex newSourceVertex tailGraph))
                         else if member targetId (vertices tailGraph) 
                             then let oldTargetVertex = (vertices tailGraph) ! targetId in 
-                                    let newTargetVertex = Vertex (vertexId oldTargetVertex) (vertexValue oldTargetVertex) (SortList.insert id (inComingEdges oldTargetVertex)) (outGoingEdges oldTargetVertex) in
-                                        addEdge (Edge id value labels (Vertex sourceId sourceValue (SortList.toSortedList []) (SortList.toSortedList [id])) newTargetVertex) 
-                                            (addVertex (Vertex sourceId sourceValue (SortList.toSortedList []) (SortList.toSortedList [id])) 
+                                    let newTargetVertex = NimbleVertex (vertexId oldTargetVertex) (vertexValue oldTargetVertex) (SortList.insert id (inComingEdges oldTargetVertex)) (outGoingEdges oldTargetVertex) in
+                                        addEdge (NimbleEdge id value labels (NimbleVertex sourceId sourceValue (SortList.toSortedList []) (SortList.toSortedList [id])) newTargetVertex) 
+                                            (addVertex (NimbleVertex sourceId sourceValue (SortList.toSortedList []) (SortList.toSortedList [id])) 
                                                 (addVertex newTargetVertex tailGraph))
                             else if member sourceId (vertices tailGraph)
                                 then let oldSourceVertex = (vertices tailGraph) ! sourceId in 
-                                        let newSourceVertex = Vertex (vertexId oldSourceVertex) (vertexValue oldSourceVertex) (inComingEdges oldSourceVertex) (SortList.insert id (outGoingEdges oldSourceVertex)) in
-                                            addEdge (Edge id value labels newSourceVertex (Vertex targetId targetValue (SortList.toSortedList [id]) (SortList.toSortedList []))) 
-                                                (addVertex (Vertex targetId targetValue (SortList.toSortedList [id]) (SortList.toSortedList [])) 
+                                        let newSourceVertex = NimbleVertex (vertexId oldSourceVertex) (vertexValue oldSourceVertex) (inComingEdges oldSourceVertex) (SortList.insert id (outGoingEdges oldSourceVertex)) in
+                                            addEdge (NimbleEdge id value labels newSourceVertex (NimbleVertex targetId targetValue (SortList.toSortedList [id]) (SortList.toSortedList []))) 
+                                                (addVertex (NimbleVertex targetId targetValue (SortList.toSortedList [id]) (SortList.toSortedList [])) 
                                                     (addVertex newSourceVertex tailGraph))
-                            else addEdge (Edge id value labels (Vertex sourceId sourceValue (SortList.toSortedList []) (SortList.toSortedList [id])) (Vertex targetId targetValue (SortList.toSortedList [id]) (SortList.toSortedList []))) 
-                                            (addVertex (Vertex sourceId sourceValue (SortList.toSortedList []) (SortList.toSortedList [id])) 
-                                                (addVertex (Vertex targetId targetValue (SortList.toSortedList [id]) (SortList.toSortedList [])) tailGraph))
+                            else addEdge (NimbleEdge id value labels (NimbleVertex sourceId sourceValue (SortList.toSortedList []) (SortList.toSortedList [id])) (NimbleVertex targetId targetValue (SortList.toSortedList [id]) (SortList.toSortedList []))) 
+                                            (addVertex (NimbleVertex sourceId sourceValue (SortList.toSortedList []) (SortList.toSortedList [id])) 
+                                                (addVertex (NimbleVertex targetId targetValue (SortList.toSortedList [id]) (SortList.toSortedList [])) tailGraph))
+
+-- NimbleGraph querying
+
+lookupVertexById :: String -> NimbleGraph a b -> Maybe (NimbleVertex a)
+lookupVertexById key graph = Data.HashMap.Strict.lookup key (vertices graph)
+
+lookupEdgeById :: String -> NimbleGraph a b -> Maybe (NimbleEdge a b)
+lookupEdgeById key graph = Data.HashMap.Strict.lookup key (edges graph)

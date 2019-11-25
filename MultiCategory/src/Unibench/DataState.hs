@@ -16,8 +16,8 @@ posts = unsafePerformIO $ collectPosts "UnibenchData\\post_1.csv"
 unibenchProducts :: [UnibenchProduct]
 unibenchProducts = unsafePerformIO $ collectUnibenchProducts "UnibenchData\\new_product.csv"
 
---personCreatedPostGraph :: NimbleGraph (Either Person Post)
---personCreatedPostGraph = unsafePerformIO $ collectPersonPostGraph persons posts "D:\\Unibench-0.2\\Dataset\\SocialNetwork\\post_hasCreator_person_0_0"
+personCreatedPostGraph :: NimbleGraph (Either Post Person) (Maybe String)
+personCreatedPostGraph = unsafePerformIO $ collectPersonPostGraph persons posts "D:\\Unibench-0.2\\Dataset\\SocialNetwork\\post_hasCreator_person_0_0.csv"
 
 --oderlineToUnibenchProduct :: String -> [Invoice] -> Invoice
 --oderlineToUnibenchProduct key invoices = head $ foldr (\x xs -> if asin x == key then x:xs else xs) [] products

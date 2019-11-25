@@ -81,15 +81,19 @@ collectUnibenchOrders path = do
 
 -- UnibenchProduct data:
 
--- Unibench Post hasCreator Person graph data:
+-- Unibench Post hasCreator Person graph data: (id, source, target, labels, value)
 
--- createPersonPostGraph :: (IntMap.IntMap Person) -> (IntMap.IntMap Post) -> [[String]] -> [(String, (String, (Either Person Post)), (String, (Either Person Post)), [String], (Either Person Post))]
--- createPersonPostGraph _ _ [] = []
--- createPersonPostGraph persons posts (link:links) = let personKey = read(link !! 1) :: Int in
---     let postKey = read(link !! 0) :: Int in 
---         ((link !! 0)++(link !! 1), (read(link !! 0) :: Int), ())
+createPersonPostGraph :: (IntMap.IntMap Person) -> (IntMap.IntMap Post) -> [[String]] -> [(String, (String, (Either Post Person)), (String, (Either Post Person)), [String], Maybe String)]
+createPersonPostGraph _ _ [] = []
+createPersonPostGraph persons posts (link:links) = let personKey = (read(link !! 1) :: Int) in
+    let postKey = (read(link !! 0) :: Int) in
+        case posts IntMap.!? postKey of
+            Nothing -> createPersonPostGraph persons posts links
+            Just (post) -> case persons IntMap.!? personKey of 
+                Nothing -> createPersonPostGraph persons posts links
+                Just(person) -> ((link !! 0)++(link !! 1), (link !! 0, Left post), (link !! 1, Right person), ["has_been_created_by"], Nothing) : (createPersonPostGraph persons posts links)
 
--- collectPersonPostGraph :: (IntMap.IntMap Person) -> (IntMap.IntMap Post) -> FilePath -> IO(NimbleGraph (Either Person Post))
--- collectPersonPostGraph persons posts path = do
---     result <- readCSV "|" filePath
---     return $ createPersonPostGraph persons posts (tail result)
+collectPersonPostGraph :: (IntMap.IntMap Person) -> (IntMap.IntMap Post) -> FilePath -> IO(NimbleGraph (Either Post Person) (Maybe String))
+collectPersonPostGraph persons posts filePath = do
+    result <- readCSV "|" filePath
+    return $ mkGraphFromTuples $ createPersonPostGraph persons posts (tail result)
