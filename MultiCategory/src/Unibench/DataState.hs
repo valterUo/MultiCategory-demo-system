@@ -9,13 +9,19 @@ import NimbleGraph.NimbleGraph
 import qualified Data.HashMap.Strict as HashMap
 
 persons :: IntMap.IntMap Person
-persons = unsafePerformIO $ collectPersons "UnibenchData\\person.csv"
+persons = unsafePerformIO $ collectPersons "UnibenchData\\person_table.csv"
 
 posts :: IntMap.IntMap Post
 posts = unsafePerformIO $ collectPosts "UnibenchData\\post_1.csv"
 
 unibenchProducts :: HashMap.HashMap String UnibenchProduct
-unibenchProducts = unsafePerformIO $ collectUnibenchProducts "UnibenchData\\new_product.csv"
+unibenchProducts = unsafePerformIO $ collectUnibenchProducts "UnibenchData\\small_product.csv"
+
+unibenchOrders :: [UnibenchOrder]
+unibenchOrders = unsafePerformIO $ collectUnibenchOrders "UnibenchData\\small_order.json"
+
+personKnowsPersonGraph :: NimbleGraph Person (Maybe String)
+personKnowsPersonGraph = unsafePerformIO $ collectPersonKnowsPersonGraph persons "UnibenchData\\person_knows_person_graph.csv"
 
 personCreatedPostGraph :: NimbleGraph (Either Post Person) (Maybe String)
 personCreatedPostGraph = unsafePerformIO $ collectPersonPostGraph persons posts "UnibenchData\\post_hasCreator_person.csv"
@@ -25,6 +31,15 @@ postHasProductGraph = unsafePerformIO $ collectPostProductGraph posts unibenchPr
 
 personToProductGraph :: NimbleGraph (Either Person UnibenchProduct) (Maybe String)
 personToProductGraph = unsafePerformIO $ collectPersonToProductGraph persons unibenchProducts "UnibenchData\\person_to_product.csv"
+
+feedbacks :: [Feedback]
+feedbacks = unsafePerformIO $ collectFeedbacks "UnibenchData\\small_feedback.csv"
+
+vendors :: [Vendor]
+vendors = unsafePerformIO $ collectVendors "UnibenchData\\Vendor.csv"
+
+--invoices :: [Invoice]
+--invoices = unsafePerformIO $ collectInvoices "D:\\Unibench-0.2\\Dataset\\Invoice\\Invoice.xml"
 
 --oderlineToUnibenchProduct :: String -> [Invoice] -> Invoice
 --oderlineToUnibenchProduct key invoices = head $ foldr (\x xs -> if asin x == key then x:xs else xs) [] products

@@ -12,6 +12,9 @@ import Data.ByteString.Lazy.Internal as B
 import Data.Aeson
 import NimbleGraph.NimbleGraph
 import qualified Data.HashMap.Strict as HashMap
+import Xeno.DOM
+import XMLParser
+import qualified Data.ByteString.Char8 as C8
 
 -- Person data:
 createPersons :: [[String]] -> [(Int, Person)]
@@ -80,8 +83,23 @@ collectUnibenchOrders path = do
         result <- createUnibenchOrder linesOfFile
         return result
 
--- Unibench Post -hasCreator-> Person graph data: (id, source, target, labels, value)
+-- Unibench Person - knows -> Person graph data: (id, source, target, labels, value)
+createPersonKnowsPersonGraph :: (IntMap.IntMap Person) -> [[String]] -> [(String, (String, Person), (String, Person), [String], Maybe String)]
+createPersonKnowsPersonGraph _ [] = []
+createPersonKnowsPersonGraph persons (link:links) = let personSource = (read(link !! 0) :: Int) in
+    let personTarget = (read(link !! 1) :: Int) in
+        case persons IntMap.!? personSource of
+            Nothing -> createPersonKnowsPersonGraph persons links
+            Just (source) -> case persons IntMap.!? personTarget of 
+                Nothing -> createPersonKnowsPersonGraph persons links
+                Just(target) -> ((link !! 0)++(link !! 1), (link !! 0, source), (link !! 1, target), ["creationDate" ++ (link !! 2)], Nothing) : (createPersonKnowsPersonGraph persons links)
 
+collectPersonKnowsPersonGraph :: (IntMap.IntMap Person) -> FilePath -> IO(NimbleGraph Person (Maybe String))
+collectPersonKnowsPersonGraph persons filePath = do
+    result <- readCSV "|" filePath
+    return $ mkGraphFromTuples $ createPersonKnowsPersonGraph persons (tail result)
+
+-- Unibench Post - hasCreator -> Person graph data:
 createPersonPostGraph :: (IntMap.IntMap Person) -> (IntMap.IntMap Post) -> [[String]] -> [(String, (String, (Either Post Person)), (String, (Either Post Person)), [String], Maybe String)]
 createPersonPostGraph _ _ [] = []
 createPersonPostGraph persons posts (link:links) = let personKey = (read(link !! 1) :: Int) in
@@ -98,7 +116,6 @@ collectPersonPostGraph persons posts filePath = do
     return $ mkGraphFromTuples $ createPersonPostGraph persons posts (tail result)
 
 -- Unibench Post - has -> Product
-
 createPostProductGraph :: (IntMap.IntMap Post) -> (HashMap.HashMap String UnibenchProduct) -> [[String]] -> [(String, (String, (Either Post UnibenchProduct)), (String, (Either Post UnibenchProduct)), [String], Maybe String)]
 createPostProductGraph _ _ [] = []
 createPostProductGraph posts products (link:links) = let postKey = (read(link !! 0) :: Int) in
@@ -115,7 +132,6 @@ collectPostProductGraph posts products filePath = do
     return $ mkGraphFromTuples $ createPostProductGraph posts products (tail result)
 
 -- Unibench Person - has_interest -> Product
-
 createPersonToProductGraph :: (IntMap.IntMap Person) -> (HashMap.HashMap String UnibenchProduct) -> [[String]] -> [(String, (String, (Either Person UnibenchProduct)), (String, (Either Person UnibenchProduct)), [String], Maybe String)]
 createPersonToProductGraph _ _ [] = []
 createPersonToProductGraph persons products (link:links) = let personKey = (read(link !! 0) :: Int) in
@@ -130,3 +146,63 @@ collectPersonToProductGraph :: (IntMap.IntMap Person) -> (HashMap.HashMap String
 collectPersonToProductGraph persons products filePath = do
     result <- readCSV "|" filePath
     return $ mkGraphFromTuples $ createPersonToProductGraph persons products (tail result)
+
+-- Unibench Feedback data:
+
+createFeedback :: [[String]] -> [Feedback]
+createFeedback [] = []
+createFeedback (x:xs) = (Feedback (x !! 0) (read(x !! 1) :: Int) (x !! 2)) : createFeedback xs
+
+collectFeedbacks :: String -> IO([Feedback])
+collectFeedbacks filePath = do
+    result <- readCSV "|" filePath
+    return $ createFeedback result
+
+-- Unibench Vendor data:
+
+createVendor :: [[String]] -> [Vendor]
+createVendor [] = []
+createVendor (x:xs) = (Vendor (x !! 0) (x !! 1) (x !! 2)) : createVendor xs
+
+collectVendors :: String -> IO([Vendor])
+collectVendors filePath = do
+    result <- readCSV "," filePath
+    return $ createVendor $ tail result
+
+-- Unibench Invoice data:
+
+collectProduct :: Node -> Maybe UnibenchOrderline
+collectProduct node = if allChildrenLeaves (children node)
+    then let x = collectDataFromLeaves(children(node)) in Just (UnibenchOrderline (x !! 0)
+                                                                        (x !! 1) 
+                                                                        (x !! 2)  
+                                                                        (read(x !! 3) :: Double)
+                                                                        (x !! 4))
+    else Nothing
+
+collectProducts :: [Node] -> Maybe [UnibenchOrderline]
+collectProducts [] = Just []
+collectProducts (n:nodes) = case collectProduct n of
+    Nothing -> Nothing
+    Just x -> let Just tailProducts = collectProducts nodes in 
+                    Just (x : tailProducts)
+
+collectOrder :: Node -> UnibenchOrder
+collectOrder node = let firstChild = head (children node) in 
+    let Just products = collectProducts (tail (children node)) in
+        let Just orderNum = unwrapLeafContent(contents firstChild) in
+            UnibenchOrder orderNum orderNum orderNum 7.3672 products
+
+collectOrders :: [Node] -> [Invoice]
+collectOrders [] = []
+collectOrders (order:orders) = (Invoice $ collectOrder order) : (collectOrders orders)
+
+collectInvoices :: FilePath -> IO [Invoice]
+collectInvoices path = do
+    xmlData <- readFile path
+    let Right node = parse(C8.pack xmlData) in 
+        return $ collectOrders $ children node
+
+-- returnProducts :: [Order] -> [Product]
+-- returnProducts [] = []
+-- returnProducts (order:orders) = addListToListAsSet (orderProducts order) (returnProducts orders)
