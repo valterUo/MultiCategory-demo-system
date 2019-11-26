@@ -29,11 +29,6 @@ data Post = Post {
     postLength :: Maybe Int
 } deriving (Show, Eq, Generic)
 
-data Tag = Tag {
-    tagId :: String,
-    tagTitle :: String
-} deriving (Show, Eq, Generic)
-
 data UnibenchProduct = UnibenchProduct {
     productAsin :: String,
     productTitle :: String,
@@ -77,7 +72,6 @@ data Vendor = Vendor {
 
 instance ToJSON Person
 instance ToJSON Post
-instance ToJSON Tag
 instance ToJSON UnibenchProduct
 instance ToJSON UnibenchOrder
 instance ToJSON Invoice
@@ -87,7 +81,6 @@ instance ToJSON UnibenchOrderline
 
 instance FromJSON Person
 instance FromJSON Post
-instance FromJSON Tag
 instance FromJSON UnibenchProduct
 instance FromJSON UnibenchOrder
 instance FromJSON Invoice

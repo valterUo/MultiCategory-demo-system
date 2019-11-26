@@ -11,6 +11,7 @@ import qualified Data.ByteString.Char8 as C
 import Data.ByteString.Lazy.Internal as B
 import Data.Aeson
 import NimbleGraph.NimbleGraph
+import qualified Data.HashMap.Strict as HashMap
 
 -- Person data:
 createPersons :: [[String]] -> [(Int, Person)]
@@ -47,19 +48,19 @@ collectPosts filePath = do
     return $ IntMap.fromList $ createPosts (tail result)
 
 -- UnibenchProduct data:
-createUnibenchProducts :: [[String]] -> [UnibenchProduct]
+createUnibenchProducts :: [[String]] -> [(String, UnibenchProduct)]
 createUnibenchProducts [] = []
-createUnibenchProducts (x:xs) = (UnibenchProduct (x !! 0)
+createUnibenchProducts (x:xs) = (x !! 0, UnibenchProduct (x !! 0)
                                                 (x !! 1) 
                                                 (readMaybe(x !! 2) :: Maybe Double)  
                                                 (x !! 3)
                                                 (read(x !! 4) :: Int)
                                                 (readMaybe(x !! 5) :: Maybe Int)) : createUnibenchProducts xs
 
-collectUnibenchProducts :: String -> IO([UnibenchProduct])
+collectUnibenchProducts :: String -> IO(HashMap.HashMap String UnibenchProduct)
 collectUnibenchProducts filePath = do
     result <- readCSV "|" filePath
-    return $ createUnibenchProducts (tail result)
+    return $ HashMap.fromList $ createUnibenchProducts (tail result)
 
 -- UnibenchOrder data:
 createUnibenchOrder :: [C.ByteString] -> IO([UnibenchOrder])
@@ -79,9 +80,7 @@ collectUnibenchOrders path = do
         result <- createUnibenchOrder linesOfFile
         return result
 
--- UnibenchProduct data:
-
--- Unibench Post hasCreator Person graph data: (id, source, target, labels, value)
+-- Unibench Post -hasCreator-> Person graph data: (id, source, target, labels, value)
 
 createPersonPostGraph :: (IntMap.IntMap Person) -> (IntMap.IntMap Post) -> [[String]] -> [(String, (String, (Either Post Person)), (String, (Either Post Person)), [String], Maybe String)]
 createPersonPostGraph _ _ [] = []
@@ -97,3 +96,37 @@ collectPersonPostGraph :: (IntMap.IntMap Person) -> (IntMap.IntMap Post) -> File
 collectPersonPostGraph persons posts filePath = do
     result <- readCSV "|" filePath
     return $ mkGraphFromTuples $ createPersonPostGraph persons posts (tail result)
+
+-- Unibench Post - has -> Product
+
+createPostProductGraph :: (IntMap.IntMap Post) -> (HashMap.HashMap String UnibenchProduct) -> [[String]] -> [(String, (String, (Either Post UnibenchProduct)), (String, (Either Post UnibenchProduct)), [String], Maybe String)]
+createPostProductGraph _ _ [] = []
+createPostProductGraph posts products (link:links) = let postKey = (read(link !! 0) :: Int) in
+    let productKey = (link !! 1) in
+        case posts IntMap.!? postKey of
+            Nothing -> createPostProductGraph posts products links
+            Just (post) -> case HashMap.lookup productKey products of 
+                Nothing -> createPostProductGraph posts products links
+                Just(product) -> ((link !! 0)++(link !! 1), (link !! 0, Left post), (link !! 1, Right product), ["has_product"], Nothing) : (createPostProductGraph posts products links)
+
+collectPostProductGraph :: (IntMap.IntMap Post) -> (HashMap.HashMap String UnibenchProduct) -> FilePath -> IO(NimbleGraph (Either Post UnibenchProduct) (Maybe String))
+collectPostProductGraph posts products filePath = do
+    result <- readCSV "|" filePath
+    return $ mkGraphFromTuples $ createPostProductGraph posts products (tail result)
+
+-- Unibench Person - has_interest -> Product
+
+createPersonToProductGraph :: (IntMap.IntMap Person) -> (HashMap.HashMap String UnibenchProduct) -> [[String]] -> [(String, (String, (Either Person UnibenchProduct)), (String, (Either Person UnibenchProduct)), [String], Maybe String)]
+createPersonToProductGraph _ _ [] = []
+createPersonToProductGraph persons products (link:links) = let personKey = (read(link !! 0) :: Int) in
+    let productKey = (link !! 1) in
+        case persons IntMap.!? personKey of
+            Nothing -> createPersonToProductGraph persons products links
+            Just (person) -> case HashMap.lookup productKey products of 
+                Nothing -> createPersonToProductGraph persons products links
+                Just(product) -> ((link !! 0)++(link !! 1), (link !! 0, Left person), (link !! 1, Right product), ["has_interest"], Nothing) : (createPersonToProductGraph persons products links)
+
+collectPersonToProductGraph :: (IntMap.IntMap Person) -> (HashMap.HashMap String UnibenchProduct) -> FilePath -> IO(NimbleGraph (Either Person UnibenchProduct) (Maybe String))
+collectPersonToProductGraph persons products filePath = do
+    result <- readCSV "|" filePath
+    return $ mkGraphFromTuples $ createPersonToProductGraph persons products (tail result)

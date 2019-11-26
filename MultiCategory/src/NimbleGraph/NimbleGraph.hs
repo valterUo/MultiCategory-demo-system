@@ -67,8 +67,16 @@ mkGraphFromTuples (x:xs) = let (id, source, target, labels, value) = x in
 
 -- NimbleGraph querying
 
+isEmpty :: NimbleGraph a b -> Bool
+isEmpty graph = (Data.HashMap.Strict.null $ vertices graph) && (Data.HashMap.Strict.null $ edges graph)
+
 lookupVertexById :: String -> NimbleGraph a b -> Maybe (NimbleVertex a)
 lookupVertexById key graph = Data.HashMap.Strict.lookup key (vertices graph)
 
 lookupEdgeById :: String -> NimbleGraph a b -> Maybe (NimbleEdge a b)
 lookupEdgeById key graph = Data.HashMap.Strict.lookup key (edges graph)
+
+foldNimble :: (NimbleVertex a -> c -> c) -> (NimbleEdge a b -> c -> c) -> c -> NimbleGraph a b -> c
+foldNimble vertexFunction edgeFunction structure graph = if isEmpty graph then structure else
+    let foldedVertices = Data.HashMap.Strict.foldr vertexFunction structure (vertices graph) in
+        Data.HashMap.Strict.foldr edgeFunction foldedVertices (edges graph)
