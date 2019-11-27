@@ -33,6 +33,14 @@ unwrapLeafContent xs = if length xs > 1
         Text x -> Just (C8.unpack x)
         CData x -> Just (C8.unpack x)
 
+unwrapMultipleNodes :: [Node] -> Maybe [String]
+unwrapMultipleNodes [] = Nothing
+unwrapMultipleNodes (node:nodes) = case unwrapLeafContent (contents node) of
+    Nothing -> Nothing
+    Just content -> case unwrapMultipleNodes nodes of
+        Nothing -> Just [content]
+        Just contentList -> Just $ content:contentList
+
 collectDataFromLeaves :: [Node] -> [String]
 collectDataFromLeaves [] = []
 collectDataFromLeaves (x:xs) = let Just content = unwrapLeafContent(contents(x)) in content : collectDataFromLeaves xs

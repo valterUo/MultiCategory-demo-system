@@ -15,6 +15,7 @@ import qualified Data.HashMap.Strict as HashMap
 import Xeno.DOM
 import XMLParser
 import qualified Data.ByteString.Char8 as C8
+import Debug.Trace
 
 -- Person data:
 createPersons :: [[String]] -> [(Int, Person)]
@@ -84,7 +85,10 @@ collectUnibenchOrders path = do
         return result
 
 -- Unibench Person - knows -> Person graph data: (id, source, target, labels, value)
-createPersonKnowsPersonGraph :: (IntMap.IntMap Person) -> [[String]] -> [(String, (String, Person), (String, Person), [String], Maybe String)]
+
+data CreationDate = CreationDate String deriving Show
+
+createPersonKnowsPersonGraph :: (IntMap.IntMap Person) -> [[String]] -> [(String, (String, Person), (String, Person), [String], CreationDate)]
 createPersonKnowsPersonGraph _ [] = []
 createPersonKnowsPersonGraph persons (link:links) = let personSource = (read(link !! 0) :: Int) in
     let personTarget = (read(link !! 1) :: Int) in
@@ -92,9 +96,9 @@ createPersonKnowsPersonGraph persons (link:links) = let personSource = (read(lin
             Nothing -> createPersonKnowsPersonGraph persons links
             Just (source) -> case persons IntMap.!? personTarget of 
                 Nothing -> createPersonKnowsPersonGraph persons links
-                Just(target) -> ((link !! 0)++(link !! 1), (link !! 0, source), (link !! 1, target), ["creationDate" ++ (link !! 2)], Nothing) : (createPersonKnowsPersonGraph persons links)
+                Just(target) -> ((link !! 0)++(link !! 1), (link !! 0, source), (link !! 1, target), ["knows"], CreationDate (link !! 2)) : (createPersonKnowsPersonGraph persons links)
 
-collectPersonKnowsPersonGraph :: (IntMap.IntMap Person) -> FilePath -> IO(NimbleGraph Person (Maybe String))
+collectPersonKnowsPersonGraph :: (IntMap.IntMap Person) -> FilePath -> IO(NimbleGraph Person CreationDate)
 collectPersonKnowsPersonGraph persons filePath = do
     result <- readCSV "|" filePath
     return $ mkGraphFromTuples $ createPersonKnowsPersonGraph persons (tail result)
@@ -183,15 +187,15 @@ collectProduct node = if allChildrenLeaves (children node)
 collectProducts :: [Node] -> Maybe [UnibenchOrderline]
 collectProducts [] = Just []
 collectProducts (n:nodes) = case collectProduct n of
-    Nothing -> Nothing
+    Nothing -> collectProducts nodes
     Just x -> let Just tailProducts = collectProducts nodes in 
                     Just (x : tailProducts)
 
 collectOrder :: Node -> UnibenchOrder
-collectOrder node = let firstChild = head (children node) in 
+collectOrder node = let rootChildren = children node in 
     let Just products = collectProducts (tail (children node)) in
-        let Just orderNum = unwrapLeafContent(contents firstChild) in
-            UnibenchOrder orderNum orderNum orderNum 7.3672 products
+        let Just content = unwrapMultipleNodes rootChildren in
+            UnibenchOrder (content !! 0) (content !! 1) (content !! 2) (read(content !! 3) :: Double) products
 
 collectOrders :: [Node] -> [Invoice]
 collectOrders [] = []
@@ -202,7 +206,3 @@ collectInvoices path = do
     xmlData <- readFile path
     let Right node = parse(C8.pack xmlData) in 
         return $ collectOrders $ children node
-
--- returnProducts :: [Order] -> [Product]
--- returnProducts [] = []
--- returnProducts (order:orders) = addListToListAsSet (orderProducts order) (returnProducts orders)

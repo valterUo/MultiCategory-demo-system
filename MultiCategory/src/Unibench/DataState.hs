@@ -20,7 +20,7 @@ unibenchProducts = unsafePerformIO $ collectUnibenchProducts "UnibenchData\\smal
 unibenchOrders :: [UnibenchOrder]
 unibenchOrders = unsafePerformIO $ collectUnibenchOrders "UnibenchData\\small_order.json"
 
-personKnowsPersonGraph :: NimbleGraph Person (Maybe String)
+personKnowsPersonGraph :: NimbleGraph Person CreationDate
 personKnowsPersonGraph = unsafePerformIO $ collectPersonKnowsPersonGraph persons "UnibenchData\\person_knows_person_graph.csv"
 
 personCreatedPostGraph :: NimbleGraph (Either Post Person) (Maybe String)
@@ -38,8 +38,5 @@ feedbacks = unsafePerformIO $ collectFeedbacks "UnibenchData\\small_feedback.csv
 vendors :: [Vendor]
 vendors = unsafePerformIO $ collectVendors "UnibenchData\\Vendor.csv"
 
---invoices :: [Invoice]
---invoices = unsafePerformIO $ collectInvoices "D:\\Unibench-0.2\\Dataset\\Invoice\\Invoice.xml"
-
---oderlineToUnibenchProduct :: String -> [Invoice] -> Invoice
---oderlineToUnibenchProduct key invoices = head $ foldr (\x xs -> if asin x == key then x:xs else xs) [] products
+invoices :: [Invoice]
+invoices = unsafePerformIO $ collectInvoices "D:\\Unibench-0.2\\Dataset\\Invoice\\small_invoice.xml"
