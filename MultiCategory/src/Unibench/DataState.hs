@@ -39,4 +39,4 @@ vendors :: [Vendor]
 vendors = unsafePerformIO $ collectVendors "UnibenchData\\Vendor.csv"
 
 invoices :: [Invoice]
-invoices = unsafePerformIO $ collectInvoices "D:\\Unibench-0.2\\Dataset\\Invoice\\small_invoice.xml"
+invoices = unsafePerformIO $ collectInvoices "UnibenchData\\small_invoice.xml"
