@@ -4,6 +4,19 @@ import Algebra.Graph
 import Data.List
 import Debug.Trace
 
+-- These are functions for Algebra.Graphs. The Algebra.Graph package includes the following generalized folding:
+-- foldg :: b -> (a -> b) -> (b -> b -> b) -> (b -> b -> b) -> Graph a -> b
+-- Instead of that, we want to define a folding where each function access to the collection that is "collection" the mapped elements 
+-- foldgg :: (Vertex mapping) -> (Overlay mapping) -> (Connect mapping) -> (cons function) -> (initial collection) -> (the graph) -> (resulting collection)
+
+foldgg :: (Graph a -> b -> b) -> (Graph a -> b -> b) -> (Graph a -> b -> b) -> (b -> b -> b) -> b -> Graph a -> b
+foldgg v o c cons e = go
+  where
+    go Empty         = e
+    go (Vertex x)    = v (Vertex x) e
+    go (Overlay x y) = o (Overlay x y) (cons (go x) (go y))
+    go (Connect x y) = c (Connect x y) (cons (go x) (go y))
+
 patternSource :: Eq a => a -> Graph a -> Graph a -> Graph a
 patternSource x (Vertex z) (Vertex y) = if x == y then Vertex z else empty
 patternSource _ _ _ = empty

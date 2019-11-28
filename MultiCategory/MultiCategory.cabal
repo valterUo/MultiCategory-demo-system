@@ -66,6 +66,7 @@ library
       , split
       , unordered-containers
       , sorted-list
+      , hashable
   default-language: Haskell2010
 
 executable MultiCategory-exe
@@ -88,6 +89,9 @@ executable MultiCategory-exe
     , cereal
     , rdf4h
     , split
+    , unordered-containers
+    , sorted-list
+    , hashable
   default-language: Haskell2010
 
 test-suite MultiCategory-test

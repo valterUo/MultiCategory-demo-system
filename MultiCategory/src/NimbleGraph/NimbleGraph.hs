@@ -5,6 +5,7 @@ module NimbleGraph.NimbleGraph where
 import GHC.Generics
 import Data.Aeson
 import Data.HashMap.Strict
+import Data.Hashable
 import qualified Data.SortedList as SortList
 
 data NimbleEdge a b = NimbleEdge {
@@ -28,6 +29,12 @@ data NimbleGraph a b = NimbleGraph {
 } deriving (Show, Eq, Generic)
 
 -- NimbleGraph creation
+
+emptyNimbleGraph :: NimbleGraph a b
+emptyNimbleGraph = NimbleGraph empty empty
+
+singleNimbleGraph :: Hashable a => a -> b -> NimbleGraph a b
+singleNimbleGraph vertex edge = addVertex (NimbleVertex (show(hash vertex)) vertex (SortList.toSortedList []) (SortList.toSortedList [])) emptyNimbleGraph
 
 addEdge :: NimbleEdge a b -> NimbleGraph a b -> NimbleGraph a b
 addEdge edge graph = NimbleGraph (vertices graph) (insert (edgeId edge) edge (edges graph))
@@ -80,3 +87,8 @@ foldNimble :: (NimbleVertex a -> c -> c) -> (NimbleEdge a b -> c -> c) -> c -> N
 foldNimble vertexFunction edgeFunction structure graph = if isEmpty graph then structure else
     let foldedVertices = Data.HashMap.Strict.foldr vertexFunction structure (vertices graph) in
         Data.HashMap.Strict.foldr edgeFunction foldedVertices (edges graph)
+
+-- NimbleGraph manipulation
+
+nimbleGraphUnion :: NimbleGraph a b -> NimbleGraph a b -> NimbleGraph a b
+nimbleGraphUnion graph1 graph2 = NimbleGraph (union (vertices graph1) (vertices graph2)) (union (edges graph1) (edges graph2))
