@@ -41,9 +41,9 @@ You can modify the Haskell source code and then reload the enviroment with a com
 :reload
 ```
 
-You can run the main function with a command 
+You can call functions like
 ```
-:main
+foldr (\x xs -> x:xs) [] locations
 ```
 and you can exit the program with a command
 

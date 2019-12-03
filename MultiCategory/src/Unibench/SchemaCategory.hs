@@ -30,12 +30,12 @@ data Post = Post {
 } deriving (Show, Eq, Generic)
 
 data UnibenchProduct = UnibenchProduct {
-    productAsin :: String,
-    productTitle :: String,
-    productPrice :: Maybe Double,
-    imgUrl :: String,
+    unibenchProductAsin :: String,
+    unibenchProductTitle :: String,
+    unibenchProductPrice :: Maybe Double,
+    unibenchProductImgUrl :: String,
     unibenchProductId :: Int,
-    productBrand :: Maybe Int
+    unibenchProductBrand :: Maybe Int
 } deriving (Show, Eq, Generic)
 
 data UnibenchOrderline = UnibenchOrderline {
