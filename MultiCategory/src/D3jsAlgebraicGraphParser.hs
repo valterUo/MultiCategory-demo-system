@@ -33,7 +33,7 @@ encodeListToJSONText :: ToJSON a => [a] -> [Text]
 encodeListToJSONText [] = []
 encodeListToJSONText (x:xs) = (encodeToLazyText x) : (encodeListToJSONText xs)
 
--- Returns a list of vertices. Does not require Ord like Algebra.Graph package vertexList function.
+-- Returns a list of vertices. Does not require Ord type class like Algebra.Graph package vertexList function.
 unorderedVertices :: Eq a => Graph a -> [a]
 unorderedVertices graph = nub $ foldg [] (\x -> [x]) (++) (++) graph
 

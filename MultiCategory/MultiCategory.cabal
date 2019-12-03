@@ -48,6 +48,7 @@ library
       Unibench.DataState
       Unibench.DataParser
       NimbleGraph.NimbleGraph
+      NimbleGraph.NimbleGraphToD3js
   other-modules:
       Paths_MultiCategory
   hs-source-dirs:

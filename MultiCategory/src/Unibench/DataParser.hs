@@ -1,8 +1,10 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE DeriveGeneric     #-}
 
 module Unibench.DataParser where
 
 import Algebra.Graph
+import GHC.Generics
 import CSVParser
 import Unibench.SchemaCategory
 import qualified Data.IntMap.Strict as IntMap
@@ -86,7 +88,9 @@ collectUnibenchOrders path = do
 
 -- Unibench Person - knows -> Person graph data: (id, source, target, labels, value)
 
-data CreationDate = CreationDate String deriving Show
+data CreationDate = CreationDate String deriving (Show, Eq, Generic)
+instance ToJSON CreationDate
+instance FromJSON CreationDate
 
 createPersonKnowsPersonGraph :: (IntMap.IntMap Person) -> [[String]] -> [(String, (String, Person), (String, Person), [String], CreationDate)]
 createPersonKnowsPersonGraph _ [] = []
