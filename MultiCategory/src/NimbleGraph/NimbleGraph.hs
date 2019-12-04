@@ -77,6 +77,9 @@ mkGraphFromTuples (x:xs) = let (id, source, target, labels, value) = x in
 isEmpty :: NimbleGraph a b -> Bool
 isEmpty graph = (Data.HashMap.Strict.null $ vertices graph) && (Data.HashMap.Strict.null $ edges graph)
 
+size :: NimbleGraph a b -> String
+size graph = "Vertices: " ++ (show $ Data.HashMap.Strict.size $ vertices graph) ++ " Edges: " ++ (show $ Data.HashMap.Strict.size $ edges graph)
+
 lookupVertexById :: String -> NimbleGraph a b -> Maybe (NimbleVertex a)
 lookupVertexById key graph = Data.HashMap.Strict.lookup key (vertices graph)
 

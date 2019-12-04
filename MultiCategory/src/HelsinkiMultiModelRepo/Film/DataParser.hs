@@ -22,9 +22,8 @@ createFilms (x:xs) = case (decode(B.packChars(C.unpack x)) :: Maybe Film) of
 
 collectFilms :: FilePath -> IO([Film])
 collectFilms path = do 
-    content <- C.readFile path --"D:\\Film_dataset\\Film_dataset\\processed_dataset\\film_imdb_listjson.json"
+    content <- C.readFile path
     let linesOfFile = C.lines content in do
-        print $ linesOfFile !! 0
         result <- createFilms linesOfFile
         return result
 

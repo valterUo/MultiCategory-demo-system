@@ -74,7 +74,6 @@ createUnibenchOrder [] = return []
 createUnibenchOrder (x:xs) = case (decode(B.packChars(C.unpack x)) :: Maybe UnibenchOrder) of
     Nothing -> createUnibenchOrder xs
     Just(order) -> do
-        print order
         orders <- createUnibenchOrder xs 
         return $ (order):(orders)
 
@@ -82,7 +81,6 @@ collectUnibenchOrders :: FilePath -> IO([UnibenchOrder])
 collectUnibenchOrders path = do 
     content <- C.readFile path
     let linesOfFile = C.lines content in do
-        print $ linesOfFile !! 0
         result <- createUnibenchOrder linesOfFile
         return result
 

@@ -14,7 +14,7 @@ import Algebra.Graph
 
 createCategories :: [[String]] -> [(Int, Category)]
 createCategories [] = []
-createCategories (x:xs) = ((read(x !! 0) :: Int), (Category (read(x !! 0) :: Int) 
+createCategories (x:xs) = ((read(x !! 1) :: Int), (Category (read(x !! 0) :: Int) 
                                                             (read(x !! 1) :: Int) 
                                                             (x !! 2) 
                                                             (x !! 3)  
