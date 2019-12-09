@@ -7,6 +7,7 @@ const app = express()
 let processRef = cmd.get('cd MultiCategory && stack ghci')
 app.use(cors())
 app.use(bodyParser.text({limit: '200mb'}))
+app.use(express.static('build'))
 
 app.post('/query', (request, response) => {
     let stream = processRef.stdout

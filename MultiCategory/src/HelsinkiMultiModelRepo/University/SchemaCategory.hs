@@ -7,8 +7,6 @@ import Data.Aeson
 import Data.Serialize
 import qualified Data.IntMap.Strict as IntMap
 
--- Objects:
-
 data University = University { 
     unitid :: Int,
     opeid :: String,

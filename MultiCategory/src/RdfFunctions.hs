@@ -1,3 +1,6 @@
+{-# LANGUAGE DeriveGeneric     #-}
+{-# LANGUAGE OverloadedStrings #-}
+
 module RdfFunctions where
 
 import Data.RDF
@@ -6,6 +9,8 @@ import qualified Data.Text.Lazy as L
 import D3jsAlgebraicGraphParser
 import Data.List
 import Data.Maybe
+import Data.Aeson
+import GHC.Generics
 
 --Parsing any file that contains Ntriples
 
@@ -84,3 +89,17 @@ collectRdfNodes (triple:triples) = do
 
 rdfTriplesToD3Graph :: Triples -> D3jsGraph
 rdfTriplesToD3Graph triples = let (nodes, links) = collectRdfNodes triples in D3jsGraph nodes links
+
+data WrapTriple = WrapTriple {
+    subject :: String,
+    predicate :: String,
+    object :: String
+} deriving (Show, Eq, Generic)
+
+instance ToJSON WrapTriple
+instance FromJSON WrapTriple
+
+escapeTriple :: Triple -> WrapTriple
+escapeTriple triple = let Triple a b c = triple in
+    WrapTriple (map repl (show a)) (map repl (show b)) (map repl (show c))
+        
