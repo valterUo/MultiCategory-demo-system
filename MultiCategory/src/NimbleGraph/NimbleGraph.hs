@@ -30,6 +30,11 @@ data NimbleGraph a b = NimbleGraph {
 
 -- NimbleGraph creation
 
+unwrapEitherVertex :: NimbleVertex (Either a b) -> Either (NimbleVertex a) (NimbleVertex b)
+unwrapEitherVertex vertex = case vertexValue vertex of
+    Left(y) -> Left $ NimbleVertex (vertexId vertex) y (inComingEdges vertex) (outGoingEdges vertex)
+    Right(x) -> Right $ NimbleVertex (vertexId vertex) x (inComingEdges vertex) (outGoingEdges vertex)
+
 emptyNimbleGraph :: NimbleGraph a b
 emptyNimbleGraph = NimbleGraph Map.empty Map.empty
 

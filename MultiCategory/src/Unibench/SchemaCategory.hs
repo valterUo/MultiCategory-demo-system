@@ -87,3 +87,6 @@ instance FromJSON Invoice
 instance FromJSON Feedback
 instance FromJSON Vendor
 instance FromJSON UnibenchOrderline
+
+orderedBy :: UnibenchOrder -> IntMap.IntMap Person -> Person
+orderedBy order persons = persons IntMap.! (read (personid order) :: Int)

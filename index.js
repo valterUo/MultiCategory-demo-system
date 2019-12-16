@@ -35,7 +35,8 @@ app.post('/fileUpload', (request, response) => {
       let filePath = fileNames.reduce((total, current) => total = total + ' \"uploadedFiles\\\\' + current + '\"', "")
       let command = request.get('VariableName') + " = unsafePerformIO $ " + request.get('UploadingFunction') + filePath
       processRef.stdin.write(command + "\n", () => {console.log("Data uploaded.")})
-      processRef.stdin.removeAllListeners()
+      processRef.stdin.write("\n")
+      //processRef.stdin.removeAllListeners()
     }
   })
   response.end("File has been uploaded and the backend is using the data.")
