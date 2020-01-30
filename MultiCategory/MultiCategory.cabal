@@ -29,6 +29,7 @@ library
       D3jsAlgebraicGraphParser
       GraphFunctions
       RdfFunctions
+      CategoryTheory
       SimpleDemo.DataState
       SimpleDemo.SchemaCategory
       SimpleDemo.DataParser

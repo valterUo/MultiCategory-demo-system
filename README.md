@@ -2,15 +2,36 @@
 
 ## Category theory on multi-model databases
 
-This backend project contains the category theoretical construction for demostrating how category theory can be applied in multi-model databases. This version is implemented with Haskell. The queries can be executed using [frontend](https://github.com/valterUo/demo-system-frontend) written with Javascript using React framework and D3.js visualization library.
+This project contains the category theoretical construction which demonstrates how category theory can be applied in multi-model databases. This version is implemented with Haskell. The queries can be executed using [frontend](https://github.com/valterUo/demo-system-frontend) written with React and D3.js.
 
 ## Installation
 
-You need to have Stack installed: [Stack Tool for Haskell](https://docs.haskellstack.org/en/stable/README/) and [Node.js](https://nodejs.org/en/) for npm package manager.
+You need to have Stack installed: [Stack Tool for Haskell](https://docs.haskellstack.org/en/stable/README/) and [Node.js](https://nodejs.org/en/) for npm package manager. After the installation the demo system open to development mode.
 
-### Start the backend and Haskell program
+### Install first Haskell part of the backend
 
-After cloning the project, go to the directory demo-system-backend-Haskell and install the dependencies with a command
+Installing first the Haskell part of the program is the best. Clone the github project to some directory i.e. run the following code in a console in the directory where you want to clone the project:
+
+```
+git clone https://github.com/valterUo/demo-system-backend-Haskell.git
+```
+Then navigate to the folder that contains the Haskell part of the backend by using the following command. The folder is called MultiCategory.
+
+```
+cd demo-system-backend-Haskell\MultiCategory
+```
+
+Start the Haskell program by calling stack. Stack needs to be in PATH.
+
+```
+stack ghci
+```
+
+First all the necessary packages are downloaded and after that the program is compiled. The first run takes some time especially if the stack tool has not been used before. If the execution fails, run the command stack ghci again. When the execution is successfully finished, you should have REPL open in the console. You can now close the console.
+
+### Start Node.js and Haskell program together
+
+After installing the Haskell part of the program, go to the directory demo-system-backend-Haskell (Do not run this in MultiCategory folder) and install the Node.js dependencies with a command
 
 ```
 npm install
@@ -24,18 +45,20 @@ or
 ```
 npm run watch
 ```
-The latter one listens to changes in the program and restarts the server automatically after changes have been detected. Now server is open in the port 3002 and the frontend should be able to communicate with it.
+The latter one listens to changes in the program and restarts the server automatically after changes have been detected. Now the demo system is running and you can access it from a browser by going to http://localhost:3002/. The backend is offering the static frontend page automatically.
 
+If you run npm commands before installing the Haskell part of the program, stack tries to install all the necessary dependencies in the background and that will take long! 
 
 ### Run only Haskell program
 
-After installing Stack, clone the project and navigate to the directory called Multicategory. The following instruction is more or less the conventional way to run Haskell programs with Stack in an interactive mode (REPL). In the directory you can build and run the project in an interactive mode with a command 
+You can open only the Haskell part of the program with the command
 
 ```
 stack ghci
 ```
+Then the program is opened to REPL and you can execute Haskell code. The frontend offers ''Query corresponds fold'' box where the parsed query is printed. You can run this parsed query also by copy-pasting it to the Haskell program.
 
-You can modify the Haskell source code and then reload the enviroment with a command
+You can modify the Haskell source code and then reload the environment with a command
 
 ```
 :reload
@@ -50,16 +73,5 @@ and you can exit the program with a command
 ```
 :quit
 ```
-You can also run any Haskell code and you can also run queries in their folding presentation.
 
-For debugging purposes it is usefull to start the Haskell program alone since error messages in the frontend are not always describing.
-
-## Usefull sites
-
-You can find more about the theoretical backround of this program from the Overleaf document [Some Applications of Category Theory to Multi-Model Queries](https://www.overleaf.com/read/kqvkvrhcnmxv). I will write more to the document and update it time to time.
-
-You might want to use Cabal instead of Stack: [Difference between Cabal and Stack](https://stackoverflow.com/questions/30913145/what-is-the-difference-between-cabal-and-stack).
-
-## Future work
-
-Future work includes expanding the data sets so that there are more data and it is more complicated way arranged.
+For debugging purposes it is useful to start the Haskell program alone since error messages in the frontend are not always describing.

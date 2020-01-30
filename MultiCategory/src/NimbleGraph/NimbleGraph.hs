@@ -82,8 +82,17 @@ mkGraphFromTuples (x:xs) = let (id, source, target, labels, value) = x in
 isEmpty :: NimbleGraph a b -> Bool
 isEmpty graph = (Map.null $ vertices graph) && (Map.null $ edges graph)
 
-size :: NimbleGraph a b -> String
-size graph = "Vertices: " ++ (show $ Map.size $ vertices graph) ++ " Edges: " ++ (show $ Map.size $ edges graph)
+vertexSize :: NimbleGraph a b -> Int
+vertexSize graph = Map.size $ vertices graph
+
+edgeSize :: NimbleGraph a b -> Int
+edgeSize graph = Map.size $ edges graph
+
+size :: NimbleGraph a b -> Int
+size graph = vertexSize graph + edgeSize graph
+
+prettyPrintSize :: NimbleGraph a b -> String
+prettyPrintSize graph = "Vertices: " ++ (show $ vertexSize graph) ++ " Edges: " ++ (show $ edgeSize graph)
 
 lookupVertexById :: String -> NimbleGraph a b -> Maybe (NimbleVertex a)
 lookupVertexById key graph = Map.lookup key (vertices graph)
