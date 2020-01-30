@@ -1,0 +1,7 @@
+{
+	"collections": {
+		"customers": "algebraic graph",
+		"locations": "relational",
+		"orders": "xml"
+	}
+}

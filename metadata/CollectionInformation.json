@@ -1,0 +1,79 @@
+{
+	"collections": {
+		"algebraic graph": {
+			"consFunctions": [
+				{
+					"name": "Vertex",
+					"orderInQuery": 1,
+					"amountOfParameters": 1
+				},
+				{
+					"name": "Overlay",
+					"orderInQuery": 2,
+					"amountOfParameters": 2
+				},
+				{
+					"name": "Connect",
+					"orderInQuery": 3,
+					"amountOfParameters": 2
+				}
+			],
+			"initialCollection": "Algebra.Graph.empty"
+		},
+		"relational": {
+			"consFunctions": [
+				{
+					"name": ":",
+					"orderInQuery": 1,
+					"amountOfParameters": 2
+				}
+			],
+			"initialCollection": "[]"
+		},
+		"xml": {
+			"consFunctions": [
+				{
+					"name": ":",
+					"orderInQuery": 1,
+					"amountOfParameters": 2
+				}
+			],
+			"initialCollection": "[]"
+		},
+		"json": {
+			"consFunctions": [
+				{
+					"name": ":",
+					"orderInQuery": 1,
+					"amountOfParameters": 2
+				}
+			],
+			"initialCollection": "[]"
+		},
+		"rdf" : {
+			"consFunctions": [
+				{
+					"name": "addTriple",
+					"orderInQuery": 1,
+					"amountOfParameters": 2
+				}
+			],
+			"initialCollection": "RDF.empty"
+		},
+		"nimblegraph": {
+			"consFunctions": [
+				{
+					"name": "addVertex",
+					"orderInQuery": 1,
+					"amountOfParameters": 2
+				},
+				{
+					"name": "addEdge",
+					"orderInQuery": 2,
+					"amountOfParameters": 2
+				}
+			],
+			"initialCollection": "emptyNimbleGraph"
+		}
+	}
+}
