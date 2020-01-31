@@ -27,12 +27,12 @@ public class SelectiveQueryScanner {
 		String pattern = "";
 		return query.matches(pattern);
 	}
-	
+
 	public ArrayList<String> cleanTokens(String[] tokens) {
 		ArrayList<String> cleanedTokens = new ArrayList<>();
 		for (String token : tokens) {
 			String temp = token.trim().replaceAll("\\r|\\n", "");
-			if(!temp.matches("\\s*")) {
+			if (!temp.matches("\\s*")) {
 				cleanedTokens.add(temp);
 			}
 		}

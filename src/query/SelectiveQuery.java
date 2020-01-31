@@ -19,7 +19,7 @@ public class SelectiveQuery implements QueryInterface {
 		ArrayList<String> letBeInBlocks = scanner.scanLetBeInBlock(query);
 		for (String element : letBeInBlocks) {
 			// System.out.println("LET BE IN element: " + element);
-			if(element.trim().startsWith("QUERY")) {
+			if (element.trim().startsWith("QUERY")) {
 				queryBlocks.add(new QueryBlock(element));
 			}
 		}

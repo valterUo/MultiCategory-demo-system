@@ -8,6 +8,8 @@ import java.util.Scanner;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import query.QueryBlock;
+
 public class DecodeMetaData {
 
 	public JSONObject getCollectionMapping() {
@@ -18,6 +20,12 @@ public class DecodeMetaData {
 	public JSONObject getDataSetDefinitions() {
 		JSONObject obj = new JSONObject(readMetaDataFile("metadata\\DataDefinitions.json"));
 		return obj.getJSONObject("collections");
+	}
+	
+	public String getSourceCollectionModel(QueryBlock query) {
+		String sourceCollectionName = query.getSourceCollectionName();
+		String sourceCollectionModel = getDataSetDefinitions().getString(sourceCollectionName);
+		return sourceCollectionModel;
 	}
 
 	public String readMetaDataFile(String filePath) {

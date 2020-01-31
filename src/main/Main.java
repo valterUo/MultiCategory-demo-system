@@ -34,21 +34,16 @@ public class Main {
 				" IN\r\n" + 
 				" QUERY (\\x -> if any (\\y -> knows x y customers) t then cons x else nil)\r\n" + 
 				" FROM customers\r\n" + 
-				" TO graph";
+				" TO algebraic graph";
 		SelectiveQuery selectiveQuery = new SelectiveQuery(example3);
 		CodeGenerator gen = new CodeGenerator();
+		gen.selectiveQueryModifier(selectiveQuery);
+		//selectiveQuery.printParseTree();
 		for(QueryBlock query : selectiveQuery.getQueryBlocks()) {
-			gen.QueryBlockLambdaFunctionModifier(query);
+			//System.out.println(query);
+			System.out.println(gen.generateFoldFunctionFromQueryBlock(query));
 		}
 		
-		selectiveQuery.printParseTree();
-		
-//		DecodeMetaData definitions = new DecodeMetaData();
-//		JSONArray arr = definitions.constructKeywordMapping();
-//		for(int i = 0; i < arr.length(); i++) {
-//			JSONObject obj = arr.getJSONObject(i);
-//			System.out.println(obj);
-//		}
 		
 		
 //		Runtime r = Runtime.getRuntime();

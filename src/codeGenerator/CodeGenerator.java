@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import collectionMetaData.DecodeMetaData;
 import query.LambdaFunction;
 import query.QueryBlock;
+import query.SelectiveQuery;
 
 public class CodeGenerator {
 	private JSONObject metadata;
@@ -19,39 +20,220 @@ public class CodeGenerator {
 		this.datasetDefs = decodedmetadata.getDataSetDefinitions();
 	}
 
-	public String generateHaskellCode() {
-		String haskellCode = "";
-		// Walk first leaves, apply keyword mapping. Then one level up in the tree and
-		// construct folds. Last, collect folds in sequences.
-		switch ("") {
-		case "one":
-			System.out.println("one");
-			break;
-		case "two":
-			System.out.println("two");
-			break;
-		case "three":
-			System.out.println("three");
-			break;
-		default:
-			System.out.println("no match");
+	public String generateFoldFunctionFromQueryBlock(QueryBlock query) {
+		String fold = "";
+		try {
+			String sourceCollectionName = query.getSourceCollectionName();
+			String sourceCollectionModel = this.datasetDefs.getString(sourceCollectionName);
+			String targetCollectionModel = query.getTargetModel();
+			switch (sourceCollectionModel) {
+			case "relational":
+				fold += "foldr " + query.flattenLambdaFunctions();
+				switch (targetCollectionModel) {
+				case "relational":
+					fold += " [] ";
+					break;
+				case "algebraic graph":
+					fold += " Algebra.Graph.empty ";
+					break;
+				case "xml":
+					fold += " [] ";
+					break;
+				case "json":
+					fold += " [] ";
+					break;
+				case "rdf":
+					fold += " RDF.empty ";
+					break;
+				case "nimblegraph":
+					fold += " emptyNimbleGraph ";
+					break;
+				default:
+					System.out.println("no match");
+				}
+				fold += sourceCollectionName;
+				if (targetCollectionModel.equals("rdf")) {
+					fold = "(" + fold + ") :: RDF TList";
+				}
+				break;
+			case "algebraic graph":
+				fold += "foldg ";
+				switch (targetCollectionModel) {
+				case "relational":
+					fold += " [] ";
+					break;
+				case "algebraic graph":
+					fold += " Algebra.Graph.empty ";
+					break;
+				case "xml":
+					fold += " [] ";
+					break;
+				case "json":
+					fold += " [] ";
+					break;
+				case "rdf":
+					fold += " RDF.empty ";
+					break;
+				case "nimblegraph":
+					fold += " emptyNimbleGraph ";
+					break;
+				default:
+					System.out.println("no match");
+				}
+				fold += query.flattenLambdaFunctions() + " " + sourceCollectionName;
+				if (targetCollectionModel.equals("rdf")) {
+					fold = "(" + fold + ") :: RDF TList";
+				}
+				break;
+			case "xml":
+				fold += "foldr " + query.flattenLambdaFunctions();
+				switch (targetCollectionModel) {
+				case "relational":
+					fold += " [] ";
+					break;
+				case "algebraic graph":
+					fold += " Algebra.Graph.empty ";
+					break;
+				case "xml":
+					fold += " [] ";
+					break;
+				case "json":
+					fold += " [] ";
+					break;
+				case "rdf":
+					fold += " RDF.empty ";
+					break;
+				case "nimblegraph":
+					fold += " emptyNimbleGraph ";
+					break;
+				default:
+					System.out.println("no match");
+				}
+				fold += sourceCollectionName;
+				if (targetCollectionModel.equals("rdf")) {
+					fold = "(" + fold + ") :: RDF TList";
+				}
+				break;
+			case "json":
+				fold += "foldr " + query.flattenLambdaFunctions();
+				switch (targetCollectionModel) {
+				case "relational":
+					fold += " [] ";
+					break;
+				case "algebraic graph":
+					fold += " Algebra.Graph.empty ";
+					break;
+				case "xml":
+					fold += " [] ";
+					break;
+				case "json":
+					fold += " [] ";
+					break;
+				case "rdf":
+					fold += " RDF.empty ";
+					break;
+				case "nimblegraph":
+					fold += " emptyNimbleGraph ";
+					break;
+				default:
+					System.out.println("no match");
+				}
+				fold += sourceCollectionName;
+				if (targetCollectionModel.equals("rdf")) {
+					fold = "(" + fold + ") :: RDF TList";
+				}
+				break;
+			case "rdf":
+				fold += "(foldrdf " + query.flattenLambdaFunctions();
+				switch (targetCollectionModel) {
+				case "relational":
+					fold += " [] ";
+					break;
+				case "algebraic graph":
+					fold += " Algebra.Graph.empty ";
+					break;
+				case "xml":
+					fold += " [] ";
+					break;
+				case "json":
+					fold += " [] ";
+					break;
+				case "rdf":
+					fold += " RDF.empty ";
+					break;
+				case "nimblegraph":
+					fold += " emptyNimbleGraph ";
+					break;
+				default:
+					System.out.println("no match");
+				}
+				fold += sourceCollectionName;
+				if (targetCollectionModel.equals("rdf")) {
+					fold = "(" + fold + ") :: RDF TList";
+				}
+				break;
+			case "nimblegraph":
+				fold += "foldNimble " + query.flattenLambdaFunctions();
+				switch (targetCollectionModel) {
+				case "relational":
+					fold += " [] ";
+					break;
+				case "algebraic graph":
+					fold += " Algebra.Graph.empty ";
+					break;
+				case "xml":
+					fold += " [] ";
+					break;
+				case "json":
+					fold += " [] ";
+					break;
+				case "rdf":
+					fold += " RDF.empty ";
+					break;
+				case "nimblegraph":
+					fold += " emptyNimbleGraph ";
+					break;
+				default:
+					System.out.println("no match");
+				}
+				fold += sourceCollectionName;
+				if (targetCollectionModel.equals("rdf")) {
+					fold = "(" + fold + ") :: RDF TList";
+				}
+				break;
+			default:
+				System.out.println("No collection model match!");
+			}
+		} catch (Exception e) {
+			System.out.println("Error! Source collection model was not found!");
 		}
-		return haskellCode;
+
+		return fold;
 	}
 
-	public QueryBlock QueryBlockLambdaFunctionModifier(QueryBlock query) {
+	public SelectiveQuery selectiveQueryModifier(SelectiveQuery selectiveQuery) {
+		for (QueryBlock query : selectiveQuery.getQueryBlocks()) {
+			queryBlockLambdaFunctionModifier(query);
+		}
+		return selectiveQuery;
+	}
+
+	public QueryBlock queryBlockLambdaFunctionModifier(QueryBlock query) {
 		ArrayList<LambdaFunction> functions = query.getLambdaFunctions();
-		JSONObject dataModel = null;
+		JSONObject targetModel = null;
+		JSONObject sourceModel = null;
 		try {
-			dataModel = this.metadata.getJSONObject(this.datasetDefs.getString(query.getSourceCollectionName()));
-			JSONArray consFunctions = dataModel.getJSONArray("consFunctions");
-			String initialCollection = dataModel.getString("initialCollection");
+			targetModel = this.metadata.getJSONObject(query.getTargetModel());
+			sourceModel = this.metadata.getJSONObject(query.getSourceCollectionModel());
+			JSONArray targetConsFunctions = targetModel.getJSONArray("consFunctions");
+			JSONArray sourceConsFunctions = sourceModel.getJSONArray("consFunctions");
+			String targetInitialCollection = targetModel.getString("initialCollection");
 			int sizeOfSmallerCollection;
-			if (functions.size() > consFunctions.length()) {
+			if (functions.size() > targetConsFunctions.length()) {
 				System.out.println(
 						"Warning! There are more lambda functions in the query than the collection construction functions in the datatype's definition. Redundant functions are ignored.");
-				sizeOfSmallerCollection = consFunctions.length();
-			} else if (functions.size() < consFunctions.length()) {
+				sizeOfSmallerCollection = targetConsFunctions.length();
+			} else if (functions.size() < targetConsFunctions.length()) {
 				System.out.println(
 						"Warning! There are less lambda functions in the query than the collection construction functions in the datatype's definition. The compiler applies default settings for non defined functions.");
 				sizeOfSmallerCollection = functions.size();
@@ -59,9 +241,11 @@ public class CodeGenerator {
 				sizeOfSmallerCollection = functions.size();
 			}
 			for (int i = 0; i < sizeOfSmallerCollection; i++) {
-				JSONObject consFunction = (JSONObject) consFunctions.get(i);
-				functions.get(i).modifyLambdaFunction("cons", consFunction.getString("name"));
-				functions.get(i).modifyLambdaFunction("nil", initialCollection);
+				JSONObject targetConsFunction = (JSONObject) targetConsFunctions.get(i);
+				JSONObject sourceConsFunction = (JSONObject) sourceConsFunctions.get(i);
+				functions.get(i).modifyConsInLambdaFunction(targetConsFunction.getString("name"),
+						sourceConsFunction.getInt("amountOfParameters"), targetConsFunction.getBoolean("operator"));
+				functions.get(i).modifyLambdaFunction("nil", targetInitialCollection);
 			}
 		} catch (Exception e) {
 			System.out.println("The data model is not in the definitions.");
