@@ -2,6 +2,7 @@
 	"collections": {
 		"customers": "algebraic graph",
 		"locations": "relational",
-		"orders": "xml"
+		"orders": "xml",
+		"personCreatedPostGraph": "nimblegraph"
 	}
 }

@@ -16,36 +16,15 @@ import codeGenerator.CodeGenerator;
 public class Main {
 
 	public static void main(String[] args) throws IOException, InterruptedException {
-		String example = " QUERY (\\x -> if any (\\y -> knows x y customers) t then cons x else nil) (\\x xs -> if any (\\y -> knows x y customers) t then cons x xs else nil) (\\x xs -> if any (\\y -> knows x y customers) t then cons x xs else nil)\r\n" + 
-				" FROM customers\r\n" + 
-				" TO graph";
-		String example2 = "LET t BE QUERY (\\v g -> case (vertexValue v) of Right(person) -> g; Left(post) -> if isInfixOf \"tennis\" (content post) then addVertex v g else g) "
-				+ "FROM personCreatedPostGraph "
-				+ "TO nimblegraph "
-				+ "IN "
-				+ "QUERY (\\v g -> nimbleGraphUnion (outGoingNeighbors v personCreatedPostGraph) g) "
-				+ "FROM t "
-				+ "AS nimblegraph "
-				+ "TO nimblegraph";
-		String example3 = "LET t BE\r\n" + 
-				" QUERY (\\x -> if customerName x == \"Alice\" then cons x else nil)\r\n" + 
-				" FROM customers\r\n" + 
-				" TO relational\r\n" + 
-				" IN\r\n" + 
-				" QUERY (\\x -> if any (\\y -> knows x y customers) t then cons x else nil)\r\n" + 
-				" FROM customers\r\n" + 
-				" TO algebraic graph";
-		SelectiveQuery selectiveQuery = new SelectiveQuery(example3);
-		CodeGenerator gen = new CodeGenerator();
-		gen.selectiveQueryModifier(selectiveQuery);
-		//selectiveQuery.printParseTree();
-		for(QueryBlock query : selectiveQuery.getQueryBlocks()) {
-			//System.out.println(query);
-			System.out.println(gen.generateFoldFunctionFromQueryBlock(query));
-		}
-		
-		
-		
+		String example = "QUERY (\\x -> if creditLimit x > 500 then cons (customerName x, cityName (located x locations)) else nil)\r\n" + 
+				"FROM customers\r\n" + 
+				"TO algebraic graph";
+
+		SelectiveQuery selectiveQuery = new SelectiveQuery(example);
+//		selectiveQuery.printParseTree();
+//		System.out.println();
+		System.out.println(selectiveQuery.getHaskellCode());
+
 //		Runtime r = Runtime.getRuntime();
 //	    Process p = r.exec("ghci");
 //	            p.waitFor();
@@ -59,5 +38,4 @@ public class Main {
 //	    p.destroy();  
 
 	}
-
 }

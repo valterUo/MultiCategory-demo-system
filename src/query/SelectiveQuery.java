@@ -2,6 +2,7 @@ package query;
 
 import java.util.ArrayList;
 
+import codeGenerator.CodeGenerator;
 import scanner.SelectiveQueryScanner;
 
 public class SelectiveQuery implements QueryInterface {
@@ -17,10 +18,14 @@ public class SelectiveQuery implements QueryInterface {
 		SelectiveQueryScanner scanner = new SelectiveQueryScanner();
 		ArrayList<QueryBlock> queryBlocks = new ArrayList<QueryBlock>();
 		ArrayList<String> letBeInBlocks = scanner.scanLetBeInBlock(query);
-		for (String element : letBeInBlocks) {
-			// System.out.println("LET BE IN element: " + element);
-			if (element.trim().startsWith("QUERY")) {
-				queryBlocks.add(new QueryBlock(element));
+		for (int i = 0; i < letBeInBlocks.size(); i++) {
+			String element = letBeInBlocks.get(i).trim();
+			//System.out.println(element);
+			if (element.startsWith("QUERY") && i - 2 > 0 && i < letBeInBlocks.size() - 1) {
+				String variable = letBeInBlocks.get(i - 2).trim();
+				queryBlocks.add(new QueryBlock(element, variable));
+			} else if(element.startsWith("QUERY")) {
+				queryBlocks.add(new QueryBlock(element, null));
 			}
 		}
 		return queryBlocks;
@@ -40,8 +45,18 @@ public class SelectiveQuery implements QueryInterface {
 
 	@Override
 	public String getHaskellCode() {
-		// TODO Auto-generated method stub
-		return null;
+		CodeGenerator gen = new CodeGenerator();
+		gen.selectiveQueryModifier(this);
+		String result = "";
+		for(QueryBlock query : this.queryBlocks) {
+			if(query.getAssociatedVariable() != null) {
+				result += "let " + query.getAssociatedVariable() + " = " + gen.generateFoldFunctionFromQueryBlock(query) + " in ";
+			} else {
+				result += gen.generateFoldFunctionFromQueryBlock(query);
+			}
+			
+		}
+		return result.trim();
 	}
 
 	@Override

@@ -13,9 +13,11 @@ public class QueryBlock {
 	private String sourceCollectionName;
 	private String sourceCollectionModel;
 	private String targetModel;
+	private String associatedVariable;
 
-	public QueryBlock(String mainQuery) {
+	public QueryBlock(String mainQuery, String associatedVariable) {
 		this.mainQuery = mainQuery;
+		this.associatedVariable = associatedVariable;
 		List<String> endKeywordsForFROM = Arrays.asList("TO", "AS");
 		List<String> endKeywordsForAS = Arrays.asList("TO");
 		List<String> endKeywordsForTO = Arrays.asList();
@@ -225,6 +227,10 @@ public class QueryBlock {
 			result += "(" + lambda.flattenLambdaFunction() + ") ";
 		}
 		return result;
+	}
+
+	public String getAssociatedVariable() {
+		return this.associatedVariable;
 	}
 
 }

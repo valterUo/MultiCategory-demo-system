@@ -12,19 +12,17 @@ import query.SelectiveQuery;
 
 public class CodeGenerator {
 	private JSONObject metadata;
-	private JSONObject datasetDefs;
 
 	public CodeGenerator() {
 		DecodeMetaData decodedmetadata = new DecodeMetaData();
 		this.metadata = decodedmetadata.getCollectionMapping();
-		this.datasetDefs = decodedmetadata.getDataSetDefinitions();
 	}
 
 	public String generateFoldFunctionFromQueryBlock(QueryBlock query) {
 		String fold = "";
 		try {
 			String sourceCollectionName = query.getSourceCollectionName();
-			String sourceCollectionModel = this.datasetDefs.getString(sourceCollectionName);
+			String sourceCollectionModel = query.getSourceCollectionModel();
 			String targetCollectionModel = query.getTargetModel();
 			switch (sourceCollectionModel) {
 			case "relational":
@@ -202,10 +200,10 @@ public class CodeGenerator {
 				}
 				break;
 			default:
-				System.out.println("No collection model match!");
+				System.out.println("No source collection model match!");
 			}
 		} catch (Exception e) {
-			System.out.println("Error! Source collection model was not found!");
+			System.out.println("Error! Source collection model was not found! Error: " + e);
 		}
 
 		return fold;
@@ -228,28 +226,29 @@ public class CodeGenerator {
 			JSONArray targetConsFunctions = targetModel.getJSONArray("consFunctions");
 			JSONArray sourceConsFunctions = sourceModel.getJSONArray("consFunctions");
 			String targetInitialCollection = targetModel.getString("initialCollection");
-			int sizeOfSmallerCollection;
-			if (functions.size() > targetConsFunctions.length()) {
-				System.out.println(
-						"Warning! There are more lambda functions in the query than the collection construction functions in the datatype's definition. Redundant functions are ignored.");
-				sizeOfSmallerCollection = targetConsFunctions.length();
-			} else if (functions.size() < targetConsFunctions.length()) {
-				System.out.println(
-						"Warning! There are less lambda functions in the query than the collection construction functions in the datatype's definition. The compiler applies default settings for non defined functions.");
-				sizeOfSmallerCollection = functions.size();
-			} else {
-				sizeOfSmallerCollection = functions.size();
-			}
+			int sizeOfSmallerCollection = getSizeOfSmallerCollection(functions, sourceConsFunctions);
+			JSONObject targetConsFunction = (JSONObject) targetConsFunctions.get(0);
 			for (int i = 0; i < sizeOfSmallerCollection; i++) {
-				JSONObject targetConsFunction = (JSONObject) targetConsFunctions.get(i);
 				JSONObject sourceConsFunction = (JSONObject) sourceConsFunctions.get(i);
 				functions.get(i).modifyConsInLambdaFunction(targetConsFunction.getString("name"),
 						sourceConsFunction.getInt("amountOfParameters"), targetConsFunction.getBoolean("operator"));
 				functions.get(i).modifyLambdaFunction("nil", targetInitialCollection);
 			}
 		} catch (Exception e) {
-			System.out.println("The data model is not in the definitions.");
+			System.out.println("The data model is not in the definitions. Error: " + e);
 		}
 		return query;
+	}
+
+	private int getSizeOfSmallerCollection(ArrayList<LambdaFunction> functions, JSONArray sourceConsFunctions) {
+		if (functions.size() > sourceConsFunctions.length()) {
+			System.out.println(
+					"Warning! There are more lambda functions in the query than the collection construction functions in the datatype's definition. Redundant functions are ignored.");
+			return sourceConsFunctions.length();
+		} else if (functions.size() < sourceConsFunctions.length()) {
+			System.out.println(
+					"Warning! There are less lambda functions in the query than the collection construction functions in the datatype's definition. The compiler applies default settings for non defined functions.");
+		}
+		return functions.size();
 	}
 }

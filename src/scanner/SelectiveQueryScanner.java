@@ -6,6 +6,8 @@ public class SelectiveQueryScanner {
 
 	public ArrayList<String> scanLetBeInBlock(String characters) {
 		// Pattern that splits the input string without removing any tokens
+		String newLinesToWhiteSpace = "(\\r\\n\\s*)|(\\n\\s*)";
+		characters= characters.replaceAll(newLinesToWhiteSpace, " ");
 		String pattern = "(?=LET)|(?=BE)|(?=IN)|(?<=LET)|(?<=BE)|(?<=IN)";
 		String[] tokens = characters.split(pattern);
 		return cleanTokens(tokens);
