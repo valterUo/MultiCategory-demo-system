@@ -1,23 +1,19 @@
 package main;
 
 import java.io.IOException;
-import java.util.Timer;
-import java.util.TimerTask;
 
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import process.QueryProcessing;
-import process.StreamGobbler;
-import query.SelectiveQuery;
 import restservices.ServiceApplication;
-import restservices.selectiveQueryService.SelectiveQueryResultApplication;
-import codeGenerator.CodeGenerator;
 
 @SpringBootApplication
 public class Main {
 
 	public static void main(String[] args) throws IOException, InterruptedException {
+//		File output = new File("outputLog");
+//		File outputStorageFile = new File("outputStorageFile");
+//		String result = ParseSelectiveQueryResult.parseResult(output, outputStorageFile);
+//		System.out.println(result);
 		ServiceApplication.main(args);
 //		String example = "QUERY (\\x -> if creditLimit x > 500 then cons (customerName x, cityName (located x locations)) else nil)\r\n"
 //				+ "FROM customers\r\n" + "TO algebraic graph";
