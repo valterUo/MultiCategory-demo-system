@@ -15,6 +15,7 @@ import process.StreamGobbler;
 import restservices.executeQueryService.ExecutedQuery;
 import restservices.executeQueryService.ExecutedQueryNotFoundException;
 import restservices.selectiveQueryService.SelectiveQueryResult;
+import resultparser.QueryExecutionListener;
 
 @RestController
 public class ExecutedQueryController {
@@ -68,6 +69,15 @@ public class ExecutedQueryController {
 		this.outputGobbler.executeQuery(newExecutedQuery.getParsedQuery());
 		String id = newExecutedQuery.getId();
 		this.jsonDBquery.insert(newExecutedQuery);
+		// We wait until the execution of the query has finished in Haskell process.
+		
+//		try {
+//			QueryExecutionListener listener = new QueryExecutionListener();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
 		return this.jsonDBquery.findById(id, ExecutedQuery.class);
 	}
 
