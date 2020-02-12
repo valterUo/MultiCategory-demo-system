@@ -1,41 +1,54 @@
 package main;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import jsondb.JsonDB;
 import restservices.ServiceApplication;
 
 @SpringBootApplication
 public class Main {
 
 	public static void main(String[] args) throws IOException, InterruptedException {
-//		File output = new File("outputLog");
-//		File outputStorageFile = new File("outputStorageFile");
-//		String result = ParseSelectiveQueryResult.parseResult(output, outputStorageFile);
-//		System.out.println(result);
+		initializeAppFiles();
 		ServiceApplication.main(args);
-//		String example = "QUERY (\\x -> if creditLimit x > 500 then cons (customerName x, cityName (located x locations)) else nil)\r\n"
-//				+ "FROM customers\r\n" + "TO algebraic graph";
+	}
 
-//		SelectiveQuery selectiveQuery = new SelectiveQuery(example);
-//		selectiveQuery.printParseTree();
-//		System.out.println();
-//		System.out.println(selectiveQuery.getHaskellCode());
+	public static void initializeAppFiles() throws IOException {
+		emptyHaskellProgramOutputFile();
+		emptyJSONdbDatabases();
+	}
 
-//		QueryProcessing queryProcess = new QueryProcessing();
-//		StreamGobbler outputGobbler = queryProcess.getStreamGobbler();
-//
-//		// The timer demonstrates a query that arrives to the system 20sec after it is started.
-//		Timer timer = new Timer();
-//		timer.schedule(new TimerTask() {
-//			@Override
-//			public void run() {
-//				System.out.println("Runned! See the outputLog file for the result.");
-//				outputGobbler.executeQuery("foldr (\\x xs -> x:xs) [] orders");
-//			}
-//		}, 20 * 1000);
+	public static void emptyHaskellProgramOutputFile() throws IOException {
+		File file = new File("output//output");
+		if (file.createNewFile()) {
+			System.out.println("File created: " + file.getName());
+		} else {
+			System.out.println("File " + file.getName() + " already exists.");
+		}
+		PrintWriter writer;
+		try {
+			writer = new PrintWriter(file);
+			writer.print("");
+			writer.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("Haskell output file initialized. The results to queries will be parsed from the file \""
+				+ file.getName() + "\".");
+	}
 
+	public static void emptyJSONdbDatabases() {
+		JsonDB jsonDBquery = new JsonDB("jsondbfiles", "restservices.executeQueryService", "ExecutedQueryInstances");
+		JsonDB jsonDBresult = new JsonDB("jsondbfiles", "restservices.selectiveQueryService",
+				"SelectiveQueryResultInstances");
+		jsonDBquery.emptyDB();
+		jsonDBresult.emptyDB();
 	}
 
 }

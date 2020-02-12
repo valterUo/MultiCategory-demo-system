@@ -1,73 +1,85 @@
 package resultparser;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
 public class ParseSelectiveQueryResult {
-	
-	public static String parseResult(File outputlog, File storeParsedResult) throws FileNotFoundException, IOException {
+
+	public String parseResult(File outputlog, File storeParsedResult) throws FileNotFoundException, IOException {
 		String result = parseResultFromFile(outputlog);
 		storeResult(result, storeParsedResult);
 		initializeResultFile(outputlog);
 		return result;
 	}
-	
+
 	public static String parseResultFromFile(File file) throws FileNotFoundException, IOException {
-		String result = "";
-		String lines = "";
-		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-		    String line;
-		    while ((line = br.readLine()) != null) {
-		       lines += line;
-		    }
-		}
-		String pattern = "(?<=XMLParser>)|(?=\\*Main)";
-		String[] splittedFile = lines.split(pattern);
-		for(int i = 0; i < splittedFile.length; i++) {
-			if(splittedFile[i].contains("*Main")) {
-				result += splittedFile[i + 1];
+		String allLines = "";
+		String result = null;
+		while (result == null) {
+			allLines = allLines(new File(file.getPath()));
+			if (allLines.endsWith("Leaving GHCi.")) {
+				throw new UnexpectedHaskellTerminationException(result);
 			}
+			result = parseResultFromString(allLines);
 		}
-		if(result.contains("Leaving GHCi.")) {
-			throw new UnexpectedHaskellTerminationException(result);
-		}
-		if(result.contains("error") && result.contains("<interactive>")) {
+
+		if (result.contains("error") && result.contains("<interactive>")) {
+			initializeResultFile(file);
 			throw new HaskellExecutionFailureExeception(result);
 		}
 		return result;
 	}
-	
+
+	public static String parseResultFromString(String s) {
+		String result = null;
+		String pattern = "(?=\\*Main)|(?<=XMLParser>)|(?<=\\*Main)|(?=XMLParser>)";
+		String[] splittedLines = s.split(pattern);
+		for (int i = 0; i < splittedLines.length; i++) {
+			if (i < splittedLines.length - 1 && i > 0) {
+				if (splittedLines[i + 1].equals("*Main") && splittedLines[i - 1].equals("XMLParser>")) {
+					result = splittedLines[i];
+				}
+			}
+		}
+		return result;
+	}
+
+	public static String allLines(File file) throws FileNotFoundException, IOException {
+		String lines = "";
+		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+			String line;
+			while ((line = br.readLine()) != null) {
+				lines += line;
+			}
+		}
+		return lines;
+	}
+
 	public static void storeResult(String result, File file) {
+		try (FileWriter fw = new FileWriter(file, true);
+				BufferedWriter bw = new BufferedWriter(fw);
+				PrintWriter writer = new PrintWriter(bw)) {
+			writer.println(result);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void initializeResultFile(File file) {
 		try {
 			PrintWriter writer = new PrintWriter(file);
-			writer.print(result + "\\n");
+			writer.write(
+					"*Main XMLParser> ");
 			writer.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
-	public static void initializeResultFile(File file) {
-		try {
-			PrintWriter writer = new PrintWriter(file);
-			writer.print("*Main CSVParser D3jsAlgebraicGraphParser GraphFunctions HelsinkiMultiModelRepo.Film.DataParser "
-					+ "HelsinkiMultiModelRepo.Film.DataState HelsinkiMultiModelRepo.Film.SchemaCategory "
-					+ "HelsinkiMultiModelRepo.Patent.DataParser HelsinkiMultiModelRepo.Patent.DataState "
-					+ "HelsinkiMultiModelRepo.Patent.SchemaCategory HelsinkiMultiModelRepo.Person.DataParser "
-					+ "HelsinkiMultiModelRepo.Person.DataState HelsinkiMultiModelRepo.Person.SchemaCategory HelsinkiMultiModelRepo.University.DataParser "
-					+ "HelsinkiMultiModelRepo.University.DataState HelsinkiMultiModelRepo.University.SchemaCategory NimbleGraph.NimbleGraph "
-					+ "NimbleGraph.NimbleGraphToD3js RdfFunctions SimpleDemo.DataParser SimpleDemo.DataState SimpleDemo.SchemaCategory "
-					+ "Unibench.DataParser Unibench.DataState Unibench.SchemaCategory XMLParser> ");
-			writer.close();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
-	}
-
 }

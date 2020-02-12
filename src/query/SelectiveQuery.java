@@ -6,12 +6,14 @@ import codeGenerator.CodeGenerator;
 import scanner.SelectiveQueryScanner;
 
 public class SelectiveQuery implements QueryInterface {
-	private String queryString;
+	private final String queryString;
+	private final String targetModel;
 	private ArrayList<QueryBlock> queryBlocks;
 
 	public SelectiveQuery(String queryString) {
 		this.queryString = queryString;
 		this.queryBlocks = parseLetBeInBlocks(queryString);
+		this.targetModel = this.queryBlocks.get(this.queryBlocks.size() - 1).getTargetModel();
 	}
 
 	public ArrayList<QueryBlock> parseLetBeInBlocks(String query) {
@@ -62,6 +64,10 @@ public class SelectiveQuery implements QueryInterface {
 	@Override
 	public String getQuery() {
 		return this.queryString;
+	}
+	
+	public String getTargetModel() {
+		return this.targetModel;
 	}
 
 }

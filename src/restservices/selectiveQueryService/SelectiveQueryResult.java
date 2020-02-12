@@ -9,6 +9,7 @@ import io.jsondb.annotation.Id;
 public class SelectiveQueryResult {
 	@Id
 	private String id;
+	private String queryId;
 	private String result;
 	private String model;
 	private String parsedQuery;
@@ -16,11 +17,12 @@ public class SelectiveQueryResult {
 	SelectiveQueryResult() {
 	}
 
-	SelectiveQueryResult(String result, String model, String parsedQuery) {
+	public SelectiveQueryResult(String queryId, String result, String parsedQuery, String model) {
 		this.id = UUID.randomUUID().toString();
 		this.result = result;
 		this.model = model;
 		this.parsedQuery = parsedQuery;
+		this.queryId = queryId;
 	}
 
 	public String getId() {
@@ -53,6 +55,14 @@ public class SelectiveQueryResult {
 
 	public void setParsedQuery(String parsedQuery) {
 		this.parsedQuery = parsedQuery;
+	}
+
+	public String getQueryId() {
+		return queryId;
+	}
+
+	public void setQueryId(String queryId) {
+		this.queryId = queryId;
 	}
 
 }

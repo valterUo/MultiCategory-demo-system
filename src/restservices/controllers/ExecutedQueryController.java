@@ -1,5 +1,6 @@
 package restservices.controllers;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -10,39 +11,29 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.jsondb.JsonDBTemplate;
-import process.QueryProcessing;
+import jsondb.JsonDB;
+import process.ProcessForHaskellProgram;
 import process.StreamGobbler;
 import restservices.executeQueryService.ExecutedQuery;
 import restservices.executeQueryService.ExecutedQueryNotFoundException;
 import restservices.selectiveQueryService.SelectiveQueryResult;
-import resultparser.QueryExecutionListener;
+import resultparser.ParseSelectiveQueryResult;
 
 @RestController
 public class ExecutedQueryController {
 	private final StreamGobbler outputGobbler;
 	private final JsonDBTemplate jsonDBquery;
 	private final JsonDBTemplate jsonDBresult;
+	private final ParseSelectiveQueryResult parser;
 
 	public ExecutedQueryController() throws IOException, InterruptedException {
-		String dbFilesLocation = "jsondbfiles";
-		String baseScanPackage = "restservices.executeQueryService";
-		String baseScanPackage2 = "restservices.selectiveQueryService";
-		this.jsonDBquery = new JsonDBTemplate(dbFilesLocation, baseScanPackage);
-		this.jsonDBresult = new JsonDBTemplate(dbFilesLocation, baseScanPackage2);
-		try {
-			this.jsonDBquery.createCollection(ExecutedQuery.class);
-		} catch (Exception e) {
-			System.out.println(
-					"The collection " + this.jsonDBquery.getCollectionName(ExecutedQuery.class) + " already exists.");
-		}
-		try {
-			this.jsonDBresult.createCollection(SelectiveQueryResult.class);
-		} catch (Exception e) {
-			System.out.println(
-					"The collection " + this.jsonDBresult.getCollectionName(ExecutedQuery.class) + " already exists.");
-		}
-		QueryProcessing queryProcess = new QueryProcessing();
+		JsonDB jsonDBQ = new JsonDB("jsondbfiles", "restservices.executeQueryService", "ExecutedQueryInstances");
+		JsonDB jsonDBR = new JsonDB("jsondbfiles", "restservices.selectiveQueryService", "SelectiveQueryResultInstances");
+		ProcessForHaskellProgram queryProcess = new ProcessForHaskellProgram();
+		this.jsonDBquery = jsonDBQ.getTemplate();
+		this.jsonDBresult = jsonDBR.getTemplate();
 		this.outputGobbler = queryProcess.getStreamGobbler();
+		this.parser = new ParseSelectiveQueryResult();
 	}
 
 	@GetMapping("/executedQueries")
@@ -64,21 +55,22 @@ public class ExecutedQueryController {
 	}
 
 	@PostMapping("/executeQuery")
-	ExecutedQuery newExecutedQuery(@RequestBody ExecutedQuery postExecutedQuery) {
+	ExecutedQuery newExecutedQuery(@RequestBody ExecutedQuery postExecutedQuery) throws IOException {
 		ExecutedQuery newExecutedQuery = new ExecutedQuery(postExecutedQuery.getOriginalQuery());
 		this.outputGobbler.executeQuery(newExecutedQuery.getParsedQuery());
+		String result = "";
+		
+		try {
+			result = this.parser.parseResult(new File("output//output"), new File("outputStorageFile"));
+			SelectiveQueryResult queryResult = new SelectiveQueryResult(newExecutedQuery.getId(), result, newExecutedQuery.getParsedQuery(), newExecutedQuery.getModel());
+			this.jsonDBresult.insert(queryResult);
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
 		String id = newExecutedQuery.getId();
 		this.jsonDBquery.insert(newExecutedQuery);
-		// We wait until the execution of the query has finished in Haskell process.
-		
-//		try {
-//			QueryExecutionListener listener = new QueryExecutionListener();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
 		return this.jsonDBquery.findById(id, ExecutedQuery.class);
 	}
-
 }

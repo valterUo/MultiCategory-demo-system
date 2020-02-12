@@ -3,6 +3,7 @@
 		"customers": "algebraic graph",
 		"locations": "relational",
 		"orders": "xml",
-		"personCreatedPostGraph": "nimblegraph"
+		"personCreatedPostGraph": "nimblegraph",
+		"postHasProductGraph": "nimblegraph"
 	}
 }

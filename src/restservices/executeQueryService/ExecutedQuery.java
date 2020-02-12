@@ -14,6 +14,7 @@ public class ExecutedQuery {
 	private String id;
 	private String originalQuery;
 	private String parsedQuery;
+	private String model;
 
 	public ExecutedQuery() {
 	}
@@ -23,6 +24,11 @@ public class ExecutedQuery {
 		this.originalQuery = originalQuery;
 		SelectiveQuery selectiveQuery = new SelectiveQuery(originalQuery);
 		this.parsedQuery = selectiveQuery.getHaskellCode();
+		this.model = selectiveQuery.getTargetModel();
+	}
+
+	public String getModel() {
+		return model;
 	}
 
 	public String getId() {

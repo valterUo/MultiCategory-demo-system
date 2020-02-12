@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.jsondb.JsonDBTemplate;
+import jsondb.JsonDB;
 import restservices.selectiveQueryService.SelectiveQueryResult;
 import restservices.selectiveQueryService.SelectiveQueryResultNotFoundException;
 
@@ -17,20 +18,15 @@ class SelectiveQueryResultController {
 	private final JsonDBTemplate jsonDBresult;
 
 	public SelectiveQueryResultController() {
-		String dbFilesLocation = "jsondbfiles";
-		String baseScanPackage = "restservices.selectiveQueryService";
-		this.jsonDBresult = new JsonDBTemplate(dbFilesLocation, baseScanPackage);
-		try {
-			this.jsonDBresult.createCollection(SelectiveQueryResult.class);
-		} catch (Exception e) {
-			System.out.println(
-					"The collection " + this.jsonDBresult.getCollectionName(SelectiveQueryResult.class) + " already exists.");
-		}
+		JsonDB jsonDB = new JsonDB("jsondbfiles", "restservices.selectiveQueryService", "SelectiveQueryResultInstances");
+		this.jsonDBresult = jsonDB.getTemplate();
 	}
 
 	@GetMapping("/selectiveQueryResults")
 	List<SelectiveQueryResult> all() {
+		this.jsonDBresult.reLoadDB();
 		List<SelectiveQueryResult> results = this.jsonDBresult.findAll(SelectiveQueryResult.class);
+		System.out.println(results);
 		if (results.isEmpty()) {
 			throw new SelectiveQueryResultNotFoundException("The collection is empty.");
 		}
@@ -39,10 +35,11 @@ class SelectiveQueryResultController {
 
 	// Single item
 	@GetMapping("/selectiveQueryResults/{id}")
-	SelectiveQueryResult one(@PathVariable String id) {
-		SelectiveQueryResult result = this.jsonDBresult.findById(id, SelectiveQueryResult.class);
+	List<SelectiveQueryResult> one(@PathVariable String id) {
+		this.jsonDBresult.reLoadDB();
+		String jxQuery = String.format("/.[queryId='%s']", id);
+		List<SelectiveQueryResult> result = this.jsonDBresult.find(jxQuery, SelectiveQueryResult.class);
 		if (result == null) {
-			// ResponseEntity.notFound().build();
 			throw new SelectiveQueryResultNotFoundException(id);
 		}
 		return result;
@@ -51,6 +48,7 @@ class SelectiveQueryResultController {
 	// Delete the result
 	@DeleteMapping("/selectiveQueryResults/{id}")
 	String deleteSelectiveQueryResult(@PathVariable Long id) {
+		this.jsonDBresult.reLoadDB();
 		SelectiveQueryResult removed = this.jsonDBresult.findById(id, SelectiveQueryResult.class);
 		if (removed == null) {
 			return "The object is not in the collection.";
