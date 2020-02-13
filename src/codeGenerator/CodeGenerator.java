@@ -231,8 +231,8 @@ public class CodeGenerator {
 			for (int i = 0; i < sizeOfSmallerCollection; i++) {
 				JSONObject sourceConsFunction = (JSONObject) sourceConsFunctions.get(i);
 				functions.get(i).modifyConsInLambdaFunction(targetConsFunction.getString("name"),
-						sourceConsFunction.getInt("amountOfParameters"), targetConsFunction.getBoolean("operator"));
-				functions.get(i).modifyLambdaFunction("nil", targetInitialCollection);
+						sourceConsFunction.getInt("amountOfParameters"));
+				functions.get(i).substituteNil(targetInitialCollection);
 			}
 		} catch (Exception e) {
 			System.out.println("The data model is not in the definitions. Error: " + e);

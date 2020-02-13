@@ -4,6 +4,13 @@
 		"locations": "relational",
 		"orders": "xml",
 		"personCreatedPostGraph": "nimblegraph",
-		"postHasProductGraph": "nimblegraph"
+		"postHasProductGraph": "nimblegraph",
+		"persons": "relational",
+		"vendors": "relational",
+		"invoices": "xml",
+		"personKnowsPersonGraph": "nimblegraph",
+		"personToProductGraph": "nimblegraph",
+		"unibenchOrders": "json",
+		"unibenchProducts": "relational"
 	}
 }

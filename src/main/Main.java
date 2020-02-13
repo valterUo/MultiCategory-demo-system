@@ -8,14 +8,18 @@ import java.io.PrintWriter;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import jsondb.JsonDB;
+import query.SelectiveQuery;
 import restservices.ServiceApplication;
 
 @SpringBootApplication
 public class Main {
 
 	public static void main(String[] args) throws IOException, InterruptedException {
-		initializeAppFiles();
-		ServiceApplication.main(args);
+		String example = "QUERY (\\x xs -> if length xs > 40 then xs else orderline(order x) ++ xs)\nFROM invoices\nTO relational";
+		SelectiveQuery selectiveQuery = new SelectiveQuery(example);
+		System.out.println(selectiveQuery.getHaskellCode());
+//		initializeAppFiles();
+//		ServiceApplication.main(args);
 	}
 
 	public static void initializeAppFiles() throws IOException {

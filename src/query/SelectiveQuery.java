@@ -22,7 +22,6 @@ public class SelectiveQuery implements QueryInterface {
 		ArrayList<String> letBeInBlocks = scanner.scanLetBeInBlock(query);
 		for (int i = 0; i < letBeInBlocks.size(); i++) {
 			String element = letBeInBlocks.get(i).trim();
-			//System.out.println(element);
 			if (element.startsWith("QUERY") && i - 2 > 0 && i < letBeInBlocks.size() - 1) {
 				String variable = letBeInBlocks.get(i - 2).trim();
 				queryBlocks.add(new QueryBlock(element, variable));
@@ -58,7 +57,7 @@ public class SelectiveQuery implements QueryInterface {
 			}
 			
 		}
-		return result.trim();
+		return result.replaceAll("\\s{2,}", " ").trim();
 	}
 
 	@Override

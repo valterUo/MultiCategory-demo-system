@@ -13,14 +13,15 @@ public class SelectiveQueryScanner {
 		return cleanTokens(tokens);
 	}
 
-	public ArrayList<String> scanLambdaFunctionsFromQueryBlock(String characters) {
-		String pattern = "(QUERY\\s\\()|(\\)\\sFROM)|(\\)\\s\\()|(QUERY\\()|(\\)FROM)|(\\)\\()";
+	public ArrayList<String> scanLambdaFunctionsFromQueryBlock(String characters) { 
+		// (\\)\\()(?![^(]*\\)) Match to )( only if after some sequence of character else than ( there is no ). 
+		String pattern = "(QUERY\\s\\()|(\\)\\sFROM)|(\\)\\s\\()(?![^(]*\\))|(QUERY\\()|(\\)FROM)|(\\)\\()(?![^(]*\\))";
 		String[] tokens = characters.split(pattern);
 		return cleanTokens(tokens);
 	}
 
 	public ArrayList<String> scanLambdaFunction(String characters) {
-		String pattern = "(QUERY)|(?=FROM)|(?=->)|(\\s)|(?=\\()|(?=\\))|(?<=\\()|(?<=\\))";
+		String pattern = "(QUERY)|(?=FROM)|(?=->)|(\\s)|(?=\\()|(?=\\))|(?<=\\()|(?<=\\))|(?=nil)|(?<=nil)|(?=cons)|(?<=cons)";
 		String[] tokens = characters.split(pattern);
 		return cleanTokens(tokens);
 	}

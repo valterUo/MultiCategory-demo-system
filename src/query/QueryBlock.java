@@ -26,7 +26,6 @@ public class QueryBlock {
 			DecodeMetaData metadata = new DecodeMetaData();
 			this.sourceCollectionModel = metadata.getSourceCollectionModel(this);
 		} else {
-
 			this.sourceCollectionModel = parseOtherInformation(mainQuery, "AS", endKeywordsForAS);
 		}
 		this.targetModel = parseOtherInformation(mainQuery, "TO", endKeywordsForTO);
@@ -151,7 +150,9 @@ public class QueryBlock {
 					break;
 				case "nimblegraph":
 					lambdaFunctions2.add(new LambdaFunction(
-							"\\edge newGraph -> case (Map.lookup (vertexId $ NimbleGraph.NimbleGraph.source edge) (NimbleGraph.NimbleGraph.vertices newGraph)) of Nothing -> newGraph; Just(sourceVertex) -> case Map.lookup (vertexId $ NimbleGraph.NimbleGraph.target edge) (NimbleGraph.NimbleGraph.vertices newGraph) of Nothing -> newGraph; Just(targetVertex) -> addEdge edge newGraph"));
+							"\\edge newGraph -> case (Map.lookup (vertexId $ NimbleGraph.NimbleGraph.source edge) (NimbleGraph.NimbleGraph.vertices newGraph)) of Nothing -> newGraph; "
+							+ "Just(sourceVertex) -> case Map.lookup (vertexId $ NimbleGraph.NimbleGraph.target edge) (NimbleGraph.NimbleGraph.vertices newGraph) of Nothing -> newGraph; "
+							+ "Just(targetVertex) -> addEdge edge newGraph"));
 					break;
 				default:
 					System.out.println("no match");
