@@ -1,0 +1,419 @@
+1;** Classification Undetermined **;69;6
+2;Apparel;63;6
+4;Baths Closets Sinks and Spittoons;65;6
+5;Beds;65;6
+7;Compound Tools;59;5
+8;Bleaching and Dyeing: Fluid Treatment and Chemical Modification of Textiles and Fibers;11;1
+12;Boot and Shoe Making;63;6
+14;Bridges;69;6
+15;Brushing Scrubbing and General Cleaning;69;6
+16;Miscellaneous Hardware;59;5
+19;Textiles:  Fiber Preparation;11;1
+23;Chemistry: Physical Processes;19;1
+24;Buckles Buttons Clasps Etc.;63;6
+26;Textiles: Cloth Finishing;63;6
+27;Undertaking;69;6
+28;Textiles:  Manufacturing;63;6
+29;Metal Working;52;5
+30;Cutlery;65;6
+33;Geometrical Instruments;69;6
+34;Drying and Gas or Vapor Contact with Solids;19;1
+36;Boots Shoes and Leggings;63;6
+37;Excavating;64;6
+38;Textiles:  Ironing or Smoothing;63;6
+40;Card Picture or Sign Exhibiting;69;6
+42;Firearms;59;5
+43;Fishing Trapping and Vermin Destroying;61;6
+44;Fuel and Related Compositions;19;1
+47;Plant Husbandry;61;6
+48;Gas: Heating and Illuminating;13;1
+49;Movable or Removable Closures;59;5
+51;Abrasive Tool Making Process Material: or Composition;59;5
+52;Static Structures (e.g. Buildings);69;6
+53;Package Making;68;6
+54;Harness;69;6
+55;Gas Separation;13;1
+56;Harvesters;61;6
+57;Textiles:  Spinning Twisting and Twining;63;6
+59;Chain Staple and Horseshoe Making;69;6
+60;Power Plants;45;4
+62;Refrigeration;69;6
+63;Jewelry;69;6
+65;Glass Manufacturing;51;5
+66;Textiles:  Knitting;63;6
+68;Textiles:  Fluid Treating Apparatus;63;6
+69;Leather Manufactures;63;6
+70;Locks;65;6
+71;Chemistry: Fertilizers;11;1
+72;Metal Deforming;52;5
+73;Measuring and Testing;43;4
+74;Machine Element or Mechanism;59;5
+75;Specialized Metallurgical Processes Compositions for Use Therein Consolidated Metal Powder Compositions and Loose Metal Particulate Mixtures;52;5
+76;Metal Tools and Implements Making;52;5
+79;Button Making;63;6
+81;Tools;59;5
+82;Turning;51;5
+83;Cutting;51;5
+84;Music;69;6
+86;Ammunition and Explosive-Charge Making;59;5
+87;Textiles: Braiding Netting and Lace Making;63;6
+89;Ordnance;59;5
+91;Motors: Expansible Chamber Type;53;5
+92;Expansible Chamber Devices;53;5
+95;Gas Separation:  Processes;13;1
+96;Gas Separation:  Apparatus;13;1
+99;Foods and Beverages: Apparatus;61;6
+100;Presses;59;5
+101;Printing;69;6
+102;Ammunition and Explosives;19;1
+104;Railways;55;5
+105;Railway Rolling Stock;55;5
+106;Compositions:  Coating or Plastic;12;1
+108;Horizontally Supported Planar Surfaces;69;6
+109;Safes Bank Protection or a Related Device;69;6
+110;Furnaces;66;6
+111;Planting;61;6
+112;Sewing;63;6
+114;Ships;55;5
+116;Signals and Indicators;69;6
+117;Single-Crystal Oriented-Crystal and Epitaxy Growth Processes: Non-Coating Apparatus Therefor;19;1
+118;Coating Apparatus;12;1
+119;Animal Husbandry;61;6
+122;Liquid Heaters and Vaporizers;66;6
+123;Internal-Combustion Engines;53;5
+124;Mechanical Guns and Projectors;59;5
+125;Stone Working;51;5
+126;Stoves and Furnaces;66;6
+127;Sugar Starch and Carbohydrates;11;1
+128;Surgery;32;3
+131;Tobacco;61;6
+132;Toilet;65;6
+134;Cleaning and Liquid Contact with Solids;69;6
+135;Tent Canopy Umbrella or Cane;69;6
+136;Batteries:  Thermoelectric and Photoelectric;45;4
+137;Fluid Handling;69;6
+138;Pipes and Tubular Conduits;67;6
+139;Textiles:  Weaving;63;6
+140;Wireworking;52;5
+141;Fluent Material Handling with Receiver or Receiver Coacting Means;51;5
+142;Wood Turning;51;5
+144;Woodworking;51;5
+147;Coopering;52;5
+148;Metal Treatment;52;5
+149;Explosive and Thermic Compositions or Charges;19;1
+150;Purses Wallets and Protective Covers;69;6
+152;Resilient Tires and Wheels;55;5
+156;Adhesive Bonding and Miscellaneous Chemical Manufacture;19;1
+157;Wheelwright Machines;59;5
+159;Concentrating Evaporators;19;1
+160;Flexible or Portable Closure, Partition, or Panel;69;6
+162;Paper Making and Fiber Liberation;19;1
+163;Needle and Pin Making;52;5
+164;Metal Founding;52;5
+165;Heat Exchange;66;6
+166;Wells;64;6
+168;Farriery;69;6
+169;Fire Extinguishers;69;6
+171;Unearthing Plants or Buried Objects;64;6
+172;Earth Working;64;6
+173;Tool Driving or Impacting;51;5
+174;Electricity:  Conductors and Insulators;41;4
+175;Boring or Penetrating the Earth;64;6
+177;Weighing Scales;69;6
+178;Telegraphy;21;2
+180;Motor Vehicles;55;5
+181;Acoustics;69;6
+182;Fire Escape Ladder or Scaffold;65;6
+184;Lubrication;59;5
+185;Motors:  Spring Weight or Animal Powered;53;5
+186;Merchandising;69;6
+187;Elevator Industrial Lift Truck or Stationary Lift for Vehicle;55;5
+188;Brakes;53;5
+190;Trunks and Hand-Carried Luggage;69;6
+191;Electricity:  Transmission To Vehicles;49;4
+192;Clutches and Power-Stop Control;53;5
+193;Conveyors Chutes Skids Guides and Ways;59;5
+194;Check-Actuated Control Mechanisms;59;5
+196;Mineral Oils: Apparatus;19;1
+198;Conveyors:  Power-Driven;59;5
+199;Type Casting;69;6
+200;Electricity:  Circuit Makers and Breakers;41;4
+201;Distillation: Processes Thermolytic;19;1
+202;Distillation: Apparatus;19;1
+203;Distillation: Processes Separatory;19;1
+204;Chemistry:  Electrical and Wave Energy;19;1
+205;Electrolysis:  Processes Compositions Used Therein and Methods of Preparing the Compositions;19;1
+206;Special Receptacle or Package;68;6
+208;Mineral Oils: Processes and Products;19;1
+209;Classifying Separating and Assorting Solids;51;5
+210;Liquid Purification or Separation;19;1
+211;Supports:  Racks;65;6
+212;Traversing Hoists;59;5
+213;Railway Draft Appliances;55;5
+215;Bottles and Jars;68;6
+216;Etching a Substrate:  Processes;19;1
+217;Wooden Receptacles;68;6
+218;High-Voltage Switches with Arc Preventing or Extinguishing Devices;49;4
+219;Electric Heating;49;4
+220;Receptacles;68;6
+221;Article Dispensing;51;5
+222;Dispensing;19;1
+223;Apparel Apparatus;63;6
+224;Package and Article Carriers;68;6
+225;Severing by Tearing or Breaking;51;5
+226;Advancing Material of Indeterminate Length;51;5
+227;Elongated-Member-Driving Apparatus;59;5
+228;Metal Fusion Bonding;52;5
+229;Envelopes Wrappers, and Paperboard Boxes;68;6
+231;Whips and Whip Apparatus;69;6
+232;Deposit and Collection Receptacles;68;6
+234;Selective Cutting (e.g. Punching);51;5
+235;Registers;59;5
+236;Automatic Temperature and Humidity Regulation;69;6
+237;Heating Systems;66;6
+238;Railways:  Surface Track;55;5
+239;Fluid Sprinkling Spraying and Diffusing;59;5
+241;Solid Material Comminution or Disintegration;51;5
+242;Winding Tensionin or Guiding;51;5
+244;Aeronautics;55;5
+245;Wire Fabrics and Structure;69;6
+246;Railway Switches and Signals;55;5
+248;Supports;69;6
+249;Static Molds;69;6
+250;Radiant Energy;44;4
+251;Valves and Valve Actuation;53;5
+252;Compositions;19;1
+254;Implements or Apparatus for Applying Pushing or Pulling Force;59;5
+256;Fences;65;6
+257;Active Solid-State Devices (e.g. Transistors Solid-State Diodes);46;4
+258;Railway Mail Delivery;55;5
+260;Chemistry of Carbon Compounds;19;1
+261;Gas and Liquid Contact Apparatus;19;1
+264;Plastic and Nonmetallic Article Shaping or Treating: Processes;51;5
+266;Metallurgical Apparatus;52;5
+267;Spring Devices;59;5
+269;Work Holders;69;6
+270;Sheet-Material Associating;52;5
+271;Sheet Feeding or Delivering;51;5
+273;Amusement Devices:  Games;62;6
+276;Typesetting;69;6
+277;Seal for a Joint or Juncture;67;6
+278;Land Vehicles:  Animal Draft Appliances;69;6
+279;Chucks or Sockets;69;6
+280;Land Vehicles;55;5
+281;Books Strips and Leaves;69;6
+283;Printed Matter;69;6
+285;Pipe Joints or Couplings;67;6
+289;Knots and Knot Tying;69;6
+290;Prime-Mover Dynamo Plants;45;4
+291;Track Sanders;59;5
+292;Closure Fasteners;69;6
+293;Vehicle Fenders;55;5
+294;Handling:  Hand and Hoist-Line Implements;59;5
+295;Railway Wheels and Axles;55;5
+296;Land Vehicles:  Bodies and Tops;55;5
+297;Chairs and Seats;65;6
+298;Land Vehicles:  Dumping;55;5
+299;Mining or In Situ Disintegration of Hard Material;64;6
+300;Brush Broom and Mop Making;69;6
+301;Land Vehicles:  Wheels and Axles;55;5
+303;Fluid-Pressure and Analogous Brake Systems;53;5
+305;Wheel Substitutes for Land Vehicles;55;5
+307;Electrical Transmission or Interconnection Systems;49;4
+310;Electrical Generator or Motor Structure;45;4
+312;Supports:  Cabinet Structure;65;6
+313;Electric Lamp and Discharge Devices;42;4
+314;Electric Lamp and Discharge Devices: Consumable Electrodes;42;4
+315;Electric Lamp and Discharge Devices:  Systems;42;4
+318;Electricity:  Motive Power Systems;45;4
+320;Electricity:  Battery or Capacitor Charging or Discharging;45;4
+322;Electricity:  Single Generator Systems;45;4
+323;Electricity:  Power Supply or Regulation Systems;45;4
+324;Electricity:  Measuring and Testing;43;4
+326;Electronic Digital Logic Circuitry;46;4
+327;Miscellaneous Active Electrical Nonlinear Devices Circuits and Systems;41;4
+329;Demodulators;41;4
+330;Amplifiers;41;4
+331;Oscillators;41;4
+332;Modulators;41;4
+333;Wave Transmission Lines and Networks;21;2
+334;Tuners;41;4
+335;Electricity:  Magnetically Operated Switches Magnets and Electromagnets;41;4
+336;Inductor Devices;41;4
+337;Electricity:  Electrothermally or Thermally Actuated Switches;41;4
+338;Electrical Resistors;41;4
+340;Communications:  Electrical;21;2
+341;Coded Data Generation or Conversion;22;2
+342;Communications:  Directive Radio Wave Systems and Devices (e.g. Radar Radio Navigation);21;2
+343;Communications:  Radio Wave Antennas;21;2
+345;Computer Graphics Processing Operator Interface Processing and Selective Visual Display Systems;23;2
+346;Recorders;49;4
+347;Incremental Printing of Symbolic Information;23;2
+348;Television;49;4
+349;Liquid Crystal Cells Elements and Systems;19;1
+351;Optics:  Eye Examining Vision Testing and Correcting;39;3
+352;Optics:  Motion Pictures;54;5
+353;Optics:  Image Projectors;54;5
+355;Photocopying;54;5
+356;Optics:  Measuring and Testing;43;4
+358;Facsimile and Static Presentation Processing;21;2
+359;Optics:  Systems (Including Communication) and Elements;54;5
+360;Dynamic Magnetic Information Storage or Retrieval;24;2
+361;Electricity:  Electrical Systems and Devices;45;4
+362;Illumination;42;4
+363;Electric Power Conversion Systems;45;4
+365;Static Information Storage and Retrieval;24;2
+366;Agitating;19;1
+367;Communications Electrical: Acoustic Wave Systems and Devices;21;2
+368;Horology: Time Measuring Systems or Devices;69;6
+369;Dynamic Information Storage or Retrieval;24;2
+370;Multiplex Communications;21;2
+372;Coherent Light Generators;42;4
+373;Industrial Electric Heating Furnaces;66;6
+374;Thermal Measuring and Testing;43;4
+375;Pulse or Digital Communications;21;2
+376;Induced Nuclear Reactions:  Processes Systems and Elements;44;4
+377;Electrical Pulse Counters Pulse Dividers or Shift Registers:  Circuits and Systems;49;4
+378;X-Ray or Gamma Ray Systems or Devices;44;4
+379;Telephonic Communications;21;2
+380;Cryptography;22;2
+381;Electrical Audio Signal Processing Systems and Devices;49;4
+382;Image Analysis;22;2
+383;Flexible Bags;68;6
+384;Bearings;59;5
+385;Optical Waveguides;21;2
+386;Television Signal Processing for Dynamic Recording or Reproducing;49;4
+388;Electricity:  Motor Control Systems;45;4
+392;Electric Resistance Heating Devices;41;4
+395;Information Processing System Organization;22;2
+396;Photography;54;5
+399;Electrophotography;54;5
+400;Typewriting Machines;59;5
+401;Coating Implements with Material Supply;12;1
+402;Binder Device Releasably Engaging Aperture or Notch of Sheet;59;5
+403;Joints and Connections;67;6
+404;Road Structure Process or Apparatus;69;6
+405;Hydraulic and Earth Engineering;64;6
+406;Conveyors:  Fluid Current;59;5
+407;Cutters for Shaping;51;5
+408;Cutting by Use of Rotating Axially Moving Tool;51;5
+409;Gear Cutting Milling or Planing;51;5
+410;Freight Accommodation On Freight Carrier;55;5
+411;Expanded Threaded Driven Headed Tool-Deformed or Locked-Threaded Fastener;59;5
+412;Bookbinding: Process and Apparatus;69;6
+413;Sheet Metal Container Making;52;5
+414;Material or Article Handling;51;5
+415;Rotary Kinetic Fluid Motors or Pumps;53;5
+416;Fluid Reaction Surfaces (i.e. Impellers);19;1
+417;Pumps;53;5
+418;Rotary Expansible Chamber Devices;53;5
+419;Powder Metallurgy Processes;52;5
+420;Alloys or Metallic Compositions;52;5
+422;Chemical Apparatus and Process Disinfecting Deodorizing Preserving or Sterilizing;19;1
+423;Chemistry of Inorganic Compounds;19;1
+424;Drug Bio-Affecting and Body Treating Compositions;31;3
+425;Plastic Article or Earthenware Shaping or Treating: Apparatus;51;5
+426;Food or Edible Material:  Processes Compositions and Products;61;6
+427;Coating Processes;12;1
+428;Stock Material or Miscellaneous Articles;69;6
+429;Chemistry:  Electrical Current Producing Apparatus Product and Process;45;4
+430;Radiation Imagery Chemistry: Process Compositio or Product Thereof;19;1
+431;Combustion;66;6
+432;Heating;66;6
+433;Dentistry;39;3
+434;Education and Demonstration;69;6
+435;Chemistry: Molecular Biology and Microbiology;33;3
+436;Chemistry: Analytical and Immunological Testing;19;1
+438;Semiconductor Device Manufacturing: Process;46;4
+439;Electrical Connectors;41;4
+440;Marine Propulsion;55;5
+441;Buoys Rafts and Aquatic Devices;69;6
+442;Web or Sheet Containing Structurally Defined Element or Component (428/221);11;1
+445;Electric Lamp or Space Discharge Component or Device Manufacturing;42;4
+446;Amusement Devices:  Toys;62;6
+449;Bee Culture;61;6
+450;Foundation Garments;63;6
+451;Abrading;51;5
+452;Butchering;61;6
+453;Coin Handling;59;5
+454;Ventilation;59;5
+455;Telecommunications;21;2
+460;Crop Threshing or Separating;61;6
+462;Books Strips and Leaves for Manifolding;69;6
+463;Amusement Devices: Games;62;6
+464;Rotary Shafts Gudgeons Housings and Flexible Couplings for Rotary Shafts;53;5
+470;Threaded Headed Fastener or Washer Making: Process and Apparatus;59;5
+472;Amusement Devices;62;6
+473;Games Using Tangible Projectile;62;6
+474;Endless Belt Power Transmission Systems or Components;53;5
+475;Planetary Gear Transmission Systems or Components;53;5
+476;Friction Gear Transmission Systems or Components;53;5
+477;Interrelated Power Delivery Controls Including Engine Control;53;5
+482;Exercise Devices;59;5
+483;Tool Changing;59;5
+492;Roll or Roller;59;5
+493;Manufacturing Container or Tube From Paper: or Other Manufacturing From a Sheet or Web;51;5
+494;Imperforate Bowl:  Centrifugal Separators;19;1
+501;Compositions: Ceramic;19;1
+502;Catalyst Solid Sorbent or Support Therefor:  Product or Process of Making;19;1
+503;Record Receiver Having Plural Interactive Leaves or a Colorless Color Former Method of Use or Developer Therefor;69;6
+504;Plant Protecting and Regulating Compositions;11;1
+505;Superconductor Technology:  Apparatus Material Process;46;4
+507;Earth Boring Well Treating and Oil Field Chemistry;64;6
+508;Solid Anti-Friction Devices Materials Therefor Lubricant or Separate Compositions for Moving Solid Surfaces and Miscellaneous Mineral Oil Compositions;59;5
+510;Cleaning Compositions for Solid Surfaces Auxiliary Compositions Therefor or Processes of Preparing the Compositions;19;1
+512;Perfume Compositions;19;1
+514;Drug Bio-Affecting and Body Treating Compositions;31;3
+516;Colloid Systems and Wetting Agents: Subcombinations Thereof Processes Of;19;1
+518;Chemistry:  Fischer-Tropsch Processes: or Purification or Recovery of Products Thereof;19;1
+520;Synthetic Resins or Natural Rubbers -- Part of the Class 520 Series;15;1
+521;Synthetic Resins or Natural Rubbers -- Part of the Class 520 Series;15;1
+522;Synthetic Resins or Natural Rubbers -- Part of the Class 520 Series;15;1
+523;Synthetic Resins or Natural Rubbers -- Part of the Class 520 Series;15;1
+524;Synthetic Resins or Natural Rubbers -- Part of the Class 520 Series;15;1
+525;Synthetic Resins or Natural Rubbers -- Part of the Class 520 Series;15;1
+526;Synthetic Resins or Natural Rubbers -- Part of the Class 520 Series;15;1
+527;Synthetic Resins or Natural Rubbers -- Part of the Class 520 Series;15;1
+528;Synthetic Resins or Natural Rubbers -- Part of the Class 520 Series;15;1
+530;Chemistry:  Natural Resins or Derivatives Peptides or Proteins: Lignins or Reaction Products Thereof;15;1
+532;Organic Compounds -- Part of the Class 532-570 Series;14;1
+534;Organic Compounds -- Part of the Class 532-570 Series;14;1
+536;Organic Compounds -- Part of the Class 532-570 Series;14;1
+540;Organic Compounds -- Part of the Class 532-570 Series;14;1
+544;Organic Compounds -- Part of the Class 532-570 Series;14;1
+546;Organic Compounds -- Part of the Class 532-570 Series;14;1
+548;Organic Compounds -- Part of the Class 532-570 Series;14;1
+549;Organic Compounds -- Part of the Class 532-570 Series;14;1
+552;Organic Compounds -- Part of the Class 532-570 Series;14;1
+554;Organic Compounds -- Part of the Class 532-570 Series;14;1
+556;Organic Compounds -- Part of the Class 532-570 Series;14;1
+558;Organic Compounds -- Part of the Class 532-570 Series;14;1
+560;Organic Compounds -- Part of the Class 532-570 Series;14;1
+562;Organic Compounds -- Part of the Class 532-570 Series;14;1
+564;Organic Compounds -- Part of the Class 532-570 Series;14;1
+568;Organic Compounds -- Part of the Class 532-570 Series;14;1
+570;Organic Compounds -- Part of the Class 532-570 Series;14;1
+585;Chemistry of Hydrocarbon Compounds;19;1
+588;Hazardous or Toxic Waste Destruction or Containment;19;1
+600;Surgery;32;3
+601;Surgery: Kinesitherapy;32;3
+602;Surgery: Splint Brace or Bandage;32;3
+604;Surgery;32;3
+606;Surgery;32;3
+607;Surgery: Light Thermal and Electrical Application;32;3
+623;Prosthesis (i.e. Artificial Body Members) Parts Thereof or Aids and Accessories Therefor;39;3
+700;Data Processing:  Generic Control Systems or Specific Applications;22;2
+701;Data Processing: Vehicles Navigation and Relative Location;22;2
+702;Data Processing: Measuring Calibrating or Testing;22;2
+704;Data Processing: Speech Signal Processing Linguistics Language Translation and Audio Compression/Decompression;22;2
+705;Data Processing: Financial Business Practice Management or Cost/Price Determination;22;2
+706;Data Processing: Artificial Intelligence;22;2
+707;Data Processing:  Database and File Management Data Structures or Document Processing;22;2
+708;Electrical Computers:  Arithmetic Processing and Calculating;22;2
+709;Electrical Computers and Digital Processing Systems:  Multiple Computer or Process Coordinating;22;2
+710;Electrical Computers and Digital Data Processing Systems:  Input/Output;22;2
+711;Electrical Computers and Digital Processing Systems: Memory;24;2
+712;Electrical Computers and Digital Processing Systems:  Processing Architectures and Instruction Processing (e.g. Processors);22;2
+713;Electrical Computers and Digital Processing Systems:  Support;22;2
+714;Error Detection/Correction and Fault Detection/Recovery;22;2
+800;Multicellular Living Organisms and Unmodified Parts Thereof and Related Processes;33;3
