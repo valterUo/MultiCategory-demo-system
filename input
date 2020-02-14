@@ -1,3 +1,0 @@
-show "Working"
-foldr (\x xs -> x:xs) [] locations
-show "Middle"
