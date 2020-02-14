@@ -1,1 +1,0 @@
-# MultiCategory-demo-system
