@@ -142,7 +142,7 @@ public class CodeGenerator {
 				}
 				break;
 			case "rdf":
-				fold += "(foldrdf " + query.flattenLambdaFunctions();
+				fold += "foldrdf " + query.flattenLambdaFunctions();
 				switch (targetCollectionModel) {
 				case "relational":
 					fold += " [] ";

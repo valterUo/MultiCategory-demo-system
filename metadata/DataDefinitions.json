@@ -11,6 +11,13 @@
 		"personKnowsPersonGraph": "nimblegraph",
 		"personToProductGraph": "nimblegraph",
 		"unibenchOrders": "json",
-		"unibenchProducts": "relational"
+		"unibenchProducts": "relational",
+		"films": "json",
+		"filmGraph": "rdf",
+		"inventors": "relational",
+		"patentGraph": "algebraic graph",
+		"personGraph": "rdf",
+		"universities": "relational",
+		"famousLocations": "rdf"
 	}
 }

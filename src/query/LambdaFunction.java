@@ -144,10 +144,15 @@ public class LambdaFunction {
 	private Pair<String, Integer> findUntilParanthesisClose(int i) {
 		String result = "(";
 		this.tokens.set(i, "");
+		Integer paranthesesCount = 0;
 		for (int j = i + 1; j < this.tokens.size(); j++) {
-			if (this.tokens.get(j).trim().equals(")")) {
+			if (this.tokens.get(j).trim().equals(")") && paranthesesCount == 0) {
 				this.tokens.set(j, "");
 				return new Pair<String, Integer>(result + ")", j + 1);
+			} else if(this.tokens.get(j).trim().equals(")") && paranthesesCount > 0) {
+				paranthesesCount--;
+			} else if (this.tokens.get(j).trim().equals("(")) {
+				paranthesesCount++;
 			}
 			result += this.tokens.get(j).trim() + " ";
 			this.tokens.set(j, "");
