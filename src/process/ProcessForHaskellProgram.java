@@ -6,7 +6,7 @@ import java.lang.ProcessBuilder.Redirect;
 
 public class ProcessForHaskellProgram {
 	private StreamGobbler gobbler;
-	private String haskellProgramFilePath = "C:\\Users\\Valter Uotila\\Desktop\\demo-system-backend-Haskell\\MultiCategory";
+	private String haskellProgramFilePath = "MultiCategory";
 	private File output;
 
 	public ProcessForHaskellProgram() throws IOException, InterruptedException {

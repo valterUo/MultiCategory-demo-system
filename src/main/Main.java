@@ -15,11 +15,11 @@ import restservices.ServiceApplication;
 public class Main {
 
 	public static void main(String[] args) throws IOException, InterruptedException {
-		String example = "QUERY (\\x xs -> if isInfixOf \"Football\" (show x) then cons (escapeTriple x) xs else xs)\nFROM famousLocations\nTO relational";
-		SelectiveQuery selectiveQuery = new SelectiveQuery(example);
-		System.out.println(selectiveQuery.getHaskellCode());
-//		initializeAppFiles();
-//		ServiceApplication.main(args);
+//		String example = "QUERY (\\x xs -> if isInfixOf \"Football\" (show x) then cons (escapeTriple x) xs else xs)\nFROM famousLocations\nTO relational";
+//		SelectiveQuery selectiveQuery = new SelectiveQuery(example);
+//		System.out.println(selectiveQuery.getHaskellCode());
+		initializeAppFiles();
+		ServiceApplication.run(args);
 	}
 
 	public static void initializeAppFiles() throws IOException {

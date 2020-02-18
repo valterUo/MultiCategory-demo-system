@@ -2,6 +2,7 @@ package restservices.controllers;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,7 +22,8 @@ class SelectiveQueryResultController {
 		JsonDB jsonDB = new JsonDB("jsondbfiles", "restservices.selectiveQueryService", "SelectiveQueryResultInstances");
 		this.jsonDBresult = jsonDB.getTemplate();
 	}
-
+	
+	@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping("/selectiveQueryResults")
 	List<SelectiveQueryResult> all() {
 		this.jsonDBresult.reLoadDB();
@@ -33,7 +35,7 @@ class SelectiveQueryResultController {
 		return results;
 	}
 
-	// Single item
+	@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping("/selectiveQueryResults/{id}")
 	List<SelectiveQueryResult> one(@PathVariable String id) {
 		this.jsonDBresult.reLoadDB();
@@ -45,7 +47,7 @@ class SelectiveQueryResultController {
 		return result;
 	}
 
-	// Delete the result
+	@CrossOrigin(origins = "http://localhost:3000")
 	@DeleteMapping("/selectiveQueryResults/{id}")
 	String deleteSelectiveQueryResult(@PathVariable Long id) {
 		this.jsonDBresult.reLoadDB();

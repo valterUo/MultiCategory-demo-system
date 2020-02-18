@@ -2,8 +2,6 @@ package query;
 
 import java.util.ArrayList;
 
-import com.sun.tools.javac.util.Pair;
-
 import scanner.SelectiveQueryScanner;
 
 public class LambdaFunction {
