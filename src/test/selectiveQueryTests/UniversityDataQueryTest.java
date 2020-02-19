@@ -20,7 +20,7 @@ class UniversityDataQueryTest {
 	void testQuery2() {
 		String example = "QUERY (\\current total -> if length (triplesOf total) < 20 then cons total current else total)\nFROM famousLocations\nTO rdf";
 		SelectiveQuery selectiveQuery = new SelectiveQuery(example);
-		String answer = "(foldrdf (\\current total -> if length ( triplesOf total ) < 20 then addTriple total current else total ) RDF.empty famousLocations) :: RDF TList";
+		String answer = "(foldrdf (\\current total -> if length ( triplesOf total ) < 20 then addTriple total current else total ) RDF.empty famousLocations :: RDF TList)";
 		assertEquals(answer.replaceAll("\\s{1,}", " ").trim(), selectiveQuery.getHaskellCode().replaceAll("\\s{1,}", " ").trim(), "University query test 2");
 	}
 	

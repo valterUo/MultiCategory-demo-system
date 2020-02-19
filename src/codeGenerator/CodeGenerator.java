@@ -51,7 +51,7 @@ public class CodeGenerator {
 				}
 				fold += sourceCollectionName;
 				if (targetCollectionModel.equals("rdf")) {
-					fold = "(" + fold + ") :: RDF TList";
+					fold = "(" + fold + " :: RDF TList)";
 				}
 				break;
 			case "algebraic graph":
@@ -80,7 +80,7 @@ public class CodeGenerator {
 				}
 				fold += query.flattenLambdaFunctions() + " " + sourceCollectionName;
 				if (targetCollectionModel.equals("rdf")) {
-					fold = "(" + fold + ") :: RDF TList";
+					fold = "(" + fold + " :: RDF TList)";
 				}
 				break;
 			case "xml":
@@ -109,7 +109,7 @@ public class CodeGenerator {
 				}
 				fold += sourceCollectionName;
 				if (targetCollectionModel.equals("rdf")) {
-					fold = "(" + fold + ") :: RDF TList";
+					fold = "(" + fold + " :: RDF TList)";
 				}
 				break;
 			case "json":
@@ -138,7 +138,7 @@ public class CodeGenerator {
 				}
 				fold += sourceCollectionName;
 				if (targetCollectionModel.equals("rdf")) {
-					fold = "(" + fold + ") :: RDF TList";
+					fold = "(" + fold + " :: RDF TList)";
 				}
 				break;
 			case "rdf":
@@ -167,7 +167,7 @@ public class CodeGenerator {
 				}
 				fold += sourceCollectionName;
 				if (targetCollectionModel.equals("rdf")) {
-					fold = "(" + fold + ") :: RDF TList";
+					fold = "(" + fold + " :: RDF TList)";
 				}
 				break;
 			case "nimblegraph":
@@ -196,7 +196,7 @@ public class CodeGenerator {
 				}
 				fold += sourceCollectionName;
 				if (targetCollectionModel.equals("rdf")) {
-					fold = "(" + fold + ") :: RDF TList";
+					fold = "(" + fold + " :: RDF TList)";
 				}
 				break;
 			default:

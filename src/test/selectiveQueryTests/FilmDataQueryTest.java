@@ -36,7 +36,7 @@ class FilmDataQueryTest {
 	void testQuery4() {
 		String example = "QUERY (\\x newrdf -> if length (triplesOf newrdf) < 20 then cons newrdf x else newrdf)\nFROM filmGraph\nTO rdf";
 		SelectiveQuery selectiveQuery = new SelectiveQuery(example);
-		String answer = "(foldrdf (\\x newrdf -> if length ( triplesOf newrdf ) < 20 then addTriple newrdf x else newrdf ) RDF.empty filmGraph) :: RDF TList";
+		String answer = "(foldrdf (\\x newrdf -> if length ( triplesOf newrdf ) < 20 then addTriple newrdf x else newrdf ) RDF.empty filmGraph :: RDF TList)";
 		assertEquals(answer.replaceAll("\\s{1,}", " ").trim(), selectiveQuery.getHaskellCode().replaceAll("\\s{1,}", " ").trim(), "Film query test 4");
 	}
 

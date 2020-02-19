@@ -15,6 +15,7 @@ import io.jsondb.JsonDBTemplate;
 import jsondb.JsonDB;
 import process.ProcessForHaskellProgram;
 import process.StreamGobbler;
+import restservices.executeQueryService.ExectutionFailedErrorException;
 import restservices.executeQueryService.ExecutedQuery;
 import restservices.executeQueryService.ExecutedQueryNotFoundException;
 import restservices.selectiveQueryService.SelectiveQueryResult;
@@ -89,9 +90,9 @@ public class ExecutedQueryController {
 			result = this.parser.parseResult(new File("output//output"), new File("outputStorageFile"));
 			SelectiveQueryResult queryResult = new SelectiveQueryResult(newExecutedQuery.getId(), result, newExecutedQuery.getParsedQuery(), newExecutedQuery.getModel());
 			this.jsonDBresult.insert(queryResult);
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw e;
+		} catch (RuntimeException e) {
+			System.out.println(e.getMessage());
+			throw new ExectutionFailedErrorException(e.getMessage());
 		}
 		
 		String id = newExecutedQuery.getId();
