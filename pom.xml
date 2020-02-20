@@ -12,7 +12,8 @@
 	<groupId>com.multicategory</groupId>
 	<artifactId>MultiCategory-backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>MultiCategory-backend</name>
+	<packaging>jar</packaging>
+	<name>MultiCategory</name>
 	<description>Demo project</description>
 
 	<properties>
@@ -25,7 +26,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
@@ -42,6 +43,13 @@
 			<groupId>io.jsondb</groupId>
 			<artifactId>jsondb-core</artifactId>
 			<version>1.0.106</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.json/json -->
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20190722</version>
 		</dependency>
 
 		<dependency>
@@ -86,7 +94,48 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>
+								${project.build.directory}/libs
+							</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>libs/</classpathPrefix>
+							<mainClass>
+								main.Main
+							</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
+
+	<distributionManagement>
+		<repository>
+			<id>github</id>
+			<name>GitHub valterUo Apache Maven Packages</name>
+			<url>https://maven.pkg.github.com/valterUo/MultiCategory-demo-system</url>
+		</repository>
+	</distributionManagement>
 
 </project>
