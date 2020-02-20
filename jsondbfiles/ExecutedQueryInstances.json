@@ -1,3 +1,1 @@
 {"schemaVersion":"1.0"}
-{"id":"61d57a99-5998-4fee-b7f0-4a5e1bfa1611","originalQuery":"QUERY (\\x xs -> cons x xs)\n FROM locations\n TO relational","parsedQuery":"foldr (\\x xs -> x : xs ) [] locations","model":"relational"}
-{"id":"4141d9ee-fbaf-402a-8875-b390fc4b9a96","originalQuery":"QUERY (\\x xs -> cons x xs)\nFROM orders\nTO relational","parsedQuery":"foldr (\\x xs -> x : xs ) [] orders","model":"relational"}
