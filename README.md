@@ -6,7 +6,7 @@ This project contains the category theoretical construction which demonstrates h
 
 ## Installation
 
-You need to have Stack installed: [Stack Tool for Haskell](https://docs.haskellstack.org/en/stable/README/) and Java version 11 or higher. Stack needs to be in PATH. At the moment MultiCategory runs only on Windows. You can download a zip-file from release page of this repository. The file contains all necessary libraries and example data to run MultiCategory.
+You need to have Stack installed: [Stack Tool for Haskell](https://docs.haskellstack.org/en/stable/README/) and Java version 11 or higher. Stack needs to be in PATH. At the moment MultiCategory runs only on Windows. You can download a zip-file from the [release page](https://github.com/valterUo/MultiCategory-demo-system/releases) of this repository. The file contains all necessary libraries and example data to run MultiCategory.
 
 ### Install first Haskell part of the backend
 
@@ -31,7 +31,7 @@ This starts the server. After around ten seconds you can open a browser and open
 
 MultiCategory is coded as an ordinary fullstack program with Haskell integration. It consists of the frontend and the backend. The frontend is written with React.js and D3.js frameworks. It is reponsible of user interaction and data visualization. 
 
-The backend can be divided into two parts: a first part is a Java program which exploits Spring Framework. It creates a server, it offers the static build version of the frontend, it is responsible of query tokenizing, parsing and translating and it starts the Haskell program. The Haskell program is another part of the backend and it contains the category theoretical implementations and data stuctures that our demo is using.
+The backend can be divided into two parts: the first part is a Java program which exploits Spring Framework. It creates a server, it offers the static build version of the frontend, it is responsible of query tokenizing, parsing and translating and it starts the Haskell program. The Haskell program is another part of the backend and it contains the category theoretical implementations and data stuctures that our demo is using.
 
 ### Frontend
 
@@ -43,7 +43,7 @@ You can find the build version of frontend in the src/main/resources/static fold
 
 Each selective query becomes and instance of a class called [SelectiveQuery](https://github.com/valterUo/MultiCategory-demo-system/blob/master/src/query/SelectiveQuery.java). When SelectiveQuery object is created, the input query string is automatically tokenized, parsed and translated so that user can output the corresponding Haskell code i.e. the sequence of fold functions. Each SelectiveQuery consists of one or multiple [QueryBlocks](https://github.com/valterUo/MultiCategory-demo-system/blob/master/src/query/QueryBlock.java) which have one or multiple [LambdaFunctions](https://github.com/valterUo/MultiCategory-demo-system/blob/master/src/query/LambdaFunction.java).
 
-This structure creates a simple parse tree of the query and it can be efficiently used to modify and understand the query. Certain keywords (cons, nil) are modified with respect to the target model of the query and the correct fold function is used with respect to the target model of the query. The [CodeGenerator](https://github.com/valterUo/MultiCategory-demo-system/blob/master/src/codeGenerator/CodeGenerator.java) class is partly responsible of this.
+This structure of classes creates a simple parse tree of the query and it can be efficiently used to modify and understand the query. Certain keywords (cons, nil) are modified with respect to the target model of the query and the correct fold function is used with respect to the target model of the query. The [CodeGenerator](https://github.com/valterUo/MultiCategory-demo-system/blob/master/src/codeGenerator/CodeGenerator.java) class is partly responsible of this.
 
 #### Running the Haskell program
 
