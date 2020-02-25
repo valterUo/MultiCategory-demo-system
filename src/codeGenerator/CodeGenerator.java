@@ -227,8 +227,8 @@ public class CodeGenerator {
 			JSONArray sourceConsFunctions = sourceModel.getJSONArray("consFunctions");
 			String targetInitialCollection = targetModel.getString("initialCollection");
 			int sizeOfSmallerCollection = getSizeOfSmallerCollection(functions, sourceConsFunctions);
-			JSONObject targetConsFunction = (JSONObject) targetConsFunctions.get(0);
 			for (int i = 0; i < sizeOfSmallerCollection; i++) {
+				JSONObject targetConsFunction = (JSONObject) targetConsFunctions.get(i);
 				JSONObject sourceConsFunction = (JSONObject) sourceConsFunctions.get(i);
 				functions.get(i).modifyConsInLambdaFunction(targetConsFunction.getString("name"),
 						sourceConsFunction.getInt("amountOfParameters"));

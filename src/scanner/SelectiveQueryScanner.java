@@ -14,8 +14,8 @@ public class SelectiveQueryScanner {
 	}
 
 	public ArrayList<String> scanLambdaFunctionsFromQueryBlock(String characters) { 
-		// (\\)\\()(?![^(]*\\)) Match to )( only if after some sequence of character else than ( there is no ). 
-		String pattern = "(QUERY\\s\\()|(\\)\\sFROM)|(\\)\\s\\()(?![^(]*\\))|(QUERY\\()|(\\)FROM)|(\\)\\()(?![^(]*\\))";
+		// (\\)\\()(?![^(]*\\)) Match to )( only if after some sequence of character else than ( there is no ).
+		String pattern = "(QUERY\\s*\\()|(\\)\\s*FROM)|(\\)\\s*\\()(?![^(]*\\))|(\\)\\()(?![^(]*\\))|(\\)\\s*\\(\\\\)";
 		String[] tokens = characters.split(pattern);
 		return cleanTokens(tokens);
 	}

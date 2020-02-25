@@ -109,4 +109,14 @@ class SimpleDemoDataQueryTest {
 		String answer = "foldg  Algebra.Graph.empty (\\x -> if creditLimit x > 500 then Vertex ( customerName x, cityName ( located x locations ) ) else Algebra.Graph.empty ) (\\x y -> overlay x y ) (\\x y -> connect x y )  customers";
 		assertEquals(answer.replaceAll("\\s{1,}", " ").trim(), selectiveQuery.getHaskellCode().replaceAll("\\s{1,}", " ").trim(), "Simple query test 10");
 	}
+	
+	@Test
+	void testQuery11() {
+		String example = "QUERY (\\x -> if creditLimit x > 3000 then cons x else nil) (\\x y -> cons x y)\r\n" + 
+				"FROM customers\r\n" + 
+				"TO algebraic graph";
+		SelectiveQuery selectiveQuery = new SelectiveQuery(example);
+		String answer = "foldg Algebra.Graph.empty (\\x -> if creditLimit x > 3000 then Vertex x else Algebra.Graph.empty ) (\\x y -> Overlay x y ) (\\x y -> connect x y ) customers";
+		assertEquals(answer.replaceAll("\\s{1,}", " ").trim(), selectiveQuery.getHaskellCode().replaceAll("\\s{1,}", " ").trim(), "Simple query test 10");
+	}
 }

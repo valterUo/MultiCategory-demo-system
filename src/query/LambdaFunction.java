@@ -59,7 +59,8 @@ public class LambdaFunction {
 
 	public void modifyConsInLambdaFunction(String newConsFunction,
 			int amountOfParametersInDomainDataModelConsFunction) {
-		//System.out.println("New cons function: " + newConsFunction + " and amount of parameters: " + amountOfParametersInDomainDataModelConsFunction);
+		// System.out.println("New cons function: " + newConsFunction + " and amount of
+		// parameters: " + amountOfParametersInDomainDataModelConsFunction);
 		switch (newConsFunction) {
 		case ":":
 			switch (amountOfParametersInDomainDataModelConsFunction) {
@@ -84,7 +85,6 @@ public class LambdaFunction {
 	public void modifyConsInLambdaFunctionOneParameter(String newConsFunction) {
 		for (int i = 0; i < this.tokens.size(); i++) {
 			boolean visitedIf = false;
-
 			if (this.tokens.get(i).trim().equals("cons")
 					&& this.tokens.get(i + 1).trim().equals(this.variables.get(0))) {
 				this.tokens.set(i, "[" + this.variables.get(0) + "]");
@@ -110,7 +110,7 @@ public class LambdaFunction {
 				visitedIf = true;
 			} else if (this.tokens.get(i).trim().equals("cons") && this.tokens.get(i + 1).trim().equals("(")) {
 				modifyConsFunctionFollowedByOneOrTwoParametersClosedInParantheses(i);
-			} else if(this.tokens.get(i).trim().equals("cons")) {
+			} else if (this.tokens.get(i).trim().equals("cons")) {
 				this.tokens.set(i, this.tokens.get(i + 1));
 				this.tokens.set(i + 1, newConsFunction);
 			} else if (i == this.tokens.size() - 1 && visitedIf) {
@@ -147,7 +147,7 @@ public class LambdaFunction {
 			if (this.tokens.get(j).trim().equals(")") && paranthesesCount == 0) {
 				this.tokens.set(j, "");
 				return new Pair<String, Integer>(result + ")", j + 1);
-			} else if(this.tokens.get(j).trim().equals(")") && paranthesesCount > 0) {
+			} else if (this.tokens.get(j).trim().equals(")") && paranthesesCount > 0) {
 				paranthesesCount--;
 			} else if (this.tokens.get(j).trim().equals("(")) {
 				paranthesesCount++;

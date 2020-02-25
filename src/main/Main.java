@@ -15,7 +15,9 @@ import restservices.ServiceApplication;
 public class Main {
 
 	public static void main(String[] args) throws IOException, InterruptedException {
-//		String example = "QUERY (\\x xs -> if isInfixOf \"Football\" (show x) then cons (escapeTriple x) xs else xs)\nFROM famousLocations\nTO relational";
+//		String example = "QUERY (\\x -> if creditLimit x > 3000 then cons x else nil) (\\x y -> cons x y)\r\n" + 
+//				"FROM customers\r\n" + 
+//				"TO algebraic graph";
 //		SelectiveQuery selectiveQuery = new SelectiveQuery(example);
 //		System.out.println(selectiveQuery.getHaskellCode());
 		initializeAppFiles();

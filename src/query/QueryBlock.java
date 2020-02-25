@@ -37,8 +37,13 @@ public class QueryBlock {
 		ArrayList<LambdaFunction> lambdaFunctions = new ArrayList<LambdaFunction>();
 		ArrayList<String> lambdaFunctionStrings = scanner.scanLambdaFunctionsFromQueryBlock(query);
 		for (String element : lambdaFunctionStrings) {
-			if (element.startsWith("\\")) {
-				lambdaFunctions.add(new LambdaFunction(element));
+			if (element.contains("->")) {
+				if (element.startsWith("\\")) {
+					lambdaFunctions.add(new LambdaFunction(element));
+				} else {
+					lambdaFunctions.add(new LambdaFunction("\\" + element));
+				}
+
 			}
 		}
 		lambdaFunctions = validateLambdaFunctions(lambdaFunctions);
@@ -151,8 +156,8 @@ public class QueryBlock {
 				case "nimblegraph":
 					lambdaFunctions2.add(new LambdaFunction(
 							"\\edge newGraph -> case (Map.lookup (vertexId $ NimbleGraph.NimbleGraph.source edge) (NimbleGraph.NimbleGraph.vertices newGraph)) of Nothing -> newGraph; "
-							+ "Just(sourceVertex) -> case Map.lookup (vertexId $ NimbleGraph.NimbleGraph.target edge) (NimbleGraph.NimbleGraph.vertices newGraph) of Nothing -> newGraph; "
-							+ "Just(targetVertex) -> addEdge edge newGraph"));
+									+ "Just(sourceVertex) -> case Map.lookup (vertexId $ NimbleGraph.NimbleGraph.target edge) (NimbleGraph.NimbleGraph.vertices newGraph) of Nothing -> newGraph; "
+									+ "Just(targetVertex) -> addEdge edge newGraph"));
 					break;
 				default:
 					System.out.println("no match");
