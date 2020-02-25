@@ -51,17 +51,17 @@ Classes in the [process](https://github.com/valterUo/MultiCategory-demo-system/t
 
 ### Haskell program
 
-The Haskell program is stored in the folder called MultiCategory and the user can it independently.
+The Haskell program is stored in the folder called [MultiCategory](https://github.com/valterUo/MultiCategory-demo-system/tree/master/MultiCategory) and the user can use it independently.
 
 #### Schema and Instance category implementations
 
- The schema categories are implemented as modules that contain Haskell datatypes. These schema categories can be found from the folder [src](https://github.com/valterUo/MultiCategory-demo-system/tree/master/MultiCategory/src) which contains folders named after the data sets. Each folder contains a file called SchemaCategory.hs. Each of these folders contains also a file called DataState.hs which contains the objects that are mapped with collection constructor functors. The morphisms are not implemented since we consider all the Haskell functions to be morphisms in an instance category.
+ The schema categories are implemented as modules that contain Haskell datatypes. These schema categories can be found from the folder [src](https://github.com/valterUo/MultiCategory-demo-system/tree/master/MultiCategory/src) which contains folders named after the data sets. Each folder contains a file called SchemaCategory.hs. Each of these folders contains also a file called DataState.hs which contains the objects that are mapped with collection constructor functors from the schema category. The morphisms are not implemented explicitly since we consider that all the Haskell functions (except the undefined) to be morphisms.
 
 #### Data stuctures
 
-The Haskell program uses lot of different data stuctures. These include [lists](https://hackage.haskell.org/package/base-4.12.0.0/docs/Data-List.html), [algebraic graphs](http://hackage.haskell.org/package/algebraic-graphs-0.4/docs/Algebra-Graph.html), [Data.IntMap.Strict](http://hackage.haskell.org/package/containers-0.6.2.1/docs/Data-IntMap-Strict.html), [Data.HashMap.Strict](https://hackage.haskell.org/package/unordered-containers-0.2.10.0/docs/Data-HashMap-Strict.html), [NimbleGraph](https://github.com/valterUo/MultiCategory-demo-system/tree/master/MultiCategory/src/NimbleGraph) and [RDF graphs](http://hackage.haskell.org/package/rdf4h-3.1.0).
+The Haskell program uses multiple different data stuctures. These include [lists](https://hackage.haskell.org/package/base-4.12.0.0/docs/Data-List.html), [algebraic graphs](http://hackage.haskell.org/package/algebraic-graphs-0.4/docs/Algebra-Graph.html), [Data.IntMap.Strict](http://hackage.haskell.org/package/containers-0.6.2.1/docs/Data-IntMap-Strict.html), [Data.HashMap.Strict](https://hackage.haskell.org/package/unordered-containers-0.2.10.0/docs/Data-HashMap-Strict.html), [NimbleGraph](https://github.com/valterUo/MultiCategory-demo-system/tree/master/MultiCategory/src/NimbleGraph) and [RDF graphs](http://hackage.haskell.org/package/rdf4h-3.1.0).
 
-The data is parsed from the files using [xeno](https://hackage.haskell.org/package/xeno) for XML parsing, [aeson](http://hackage.haskell.org/package/aeson) for JSON encoding and decoding and [rdf4h](http://hackage.haskell.org/package/rdf4h-3.1.0) for RDF parsing. The Haskell program implements its own simple module for CSV parsing. When we consider graphs, the program implements also functions for transforming graphs into format that D3.js accepts.
+The data is parsed from the files (for example the [simple demo data](https://github.com/valterUo/MultiCategory-demo-system/tree/master/MultiCategory/demoData)) using [xeno](https://hackage.haskell.org/package/xeno) for XML parsing, [aeson](http://hackage.haskell.org/package/aeson) for JSON encoding and decoding and [rdf4h](http://hackage.haskell.org/package/rdf4h-3.1.0) for RDF parsing. The Haskell program implements its own simple module for CSV parsing. When we consider graphs, the program implements also functions for transforming graphs (algebraic graphs, RDF graphs and NimbleGraphs) into format that D3.js accepts in the frontend side.
 
 ## Generally
 
