@@ -59,8 +59,6 @@ public class LambdaFunction {
 
 	public void modifyConsInLambdaFunction(String newConsFunction,
 			int amountOfParametersInDomainDataModelConsFunction) {
-		// System.out.println("New cons function: " + newConsFunction + " and amount of
-		// parameters: " + amountOfParametersInDomainDataModelConsFunction);
 		switch (newConsFunction) {
 		case ":":
 			switch (amountOfParametersInDomainDataModelConsFunction) {
