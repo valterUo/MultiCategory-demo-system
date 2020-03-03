@@ -19,7 +19,7 @@ public class SelectiveQuery implements QueryInterface {
 		this.queryBlocks = parseLetBeInBlocks(queryString);
 		this.targetModel = this.queryBlocks.get(this.queryBlocks.size() - 1).getTargetModel();
 		this.translatedQueryBlocks = lambdaMod.queryBlockModifier(this.queryBlocks);
-		//this.foldBlocks = generateFoldBlocks();
+		this.foldBlocks = generateFoldBlocks();
 	}
 
 	public ArrayList<QueryBlock> parseLetBeInBlocks(String query) {
@@ -42,9 +42,21 @@ public class SelectiveQuery implements QueryInterface {
 		return this.queryBlocks;
 	}
 	
-//	public ArrayList<FoldBlock> generateFoldBlocks() {
-//		
-//	}
+	public ArrayList<FoldBlock> generateFoldBlocks() {
+		ArrayList<FoldBlock> folds = new ArrayList<FoldBlock>();
+		for (QueryBlock query : this.translatedQueryBlocks) {
+			CodeGenerator gen = new CodeGenerator(query);
+			String variable = query.getAssociatedVariable();
+			FoldBlock fold = gen.getFold();
+			fold.setAssociatedVariable(variable);
+			folds.add(fold);
+		}
+		return folds;
+	}
+
+	public ArrayList<FoldBlock> getFoldBlocks() {
+		return this.foldBlocks;
+	}
 
 	@Override
 	public void printParseTree() {
@@ -57,13 +69,12 @@ public class SelectiveQuery implements QueryInterface {
 	@Override
 	public String getHaskellCode() {
 		String result = "";
-		for (QueryBlock query : this.translatedQueryBlocks) {
-			CodeGenerator gen = new CodeGenerator(query);
-			if (query.getAssociatedVariable() != null) {
-				result += "let " + query.getAssociatedVariable() + " = "
-						+ gen.getFoldFunction() + " in ";
+		for(FoldBlock fold : this.foldBlocks) {
+			if (fold.getAssociatedVariable() != null) {
+				result += "let " + fold.getAssociatedVariable() + " = "
+						+ fold.toString() + " in ";
 			} else {
-				result += gen.getFoldFunction();
+				result += fold.toString();
 			}
 		}
 		return result.replaceAll("\\s{2,}", " ").trim();

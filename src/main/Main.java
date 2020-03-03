@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import jsondb.JsonDB;
 import query.SelectiveQuery;
+import queryVisualizer.QueryVisualizer;
 import restservices.ServiceApplication;
 
 @SpringBootApplication
@@ -18,8 +19,15 @@ public class Main {
 //		String example = "QUERY (\\x -> if creditLimit x > 3000 then cons x else nil) (\\x y -> cons x y)\r\n" + 
 //				"FROM customers\r\n" + 
 //				"TO algebraic graph";
+//		String example2 = "LET t BE QUERY (\\v g -> case (vertexValue v) of Right(person) -> g; Left(post) -> if isInfixOf \"tennis\" (content post) then addVertex v g else g) "
+//				+ "FROM personCreatedPostGraph " + "TO nimblegraph " + "IN "
+//				+ "QUERY (\\v g -> nimbleGraphUnion (outGoingNeighbors v personCreatedPostGraph) g) " + "FROM t "
+//				+ "AS nimblegraph " + "TO nimblegraph";
 //		SelectiveQuery selectiveQuery = new SelectiveQuery(example);
 //		System.out.println(selectiveQuery.getHaskellCode());
+		
+//		QueryVisualizer visualizer = new QueryVisualizer(selectiveQuery.getFoldBlocks());
+//		System.out.println(visualizer.createFoldBlockGraph());
 		initializeAppFiles();
 		ServiceApplication.run(args);
 	}

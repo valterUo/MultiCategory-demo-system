@@ -9,6 +9,10 @@ public class CodeGenerator {
 	public CodeGenerator(QueryBlock query) {
 		this.fold = generateFoldFunctionFromQueryBlock(query);
 	}
+	
+	public FoldBlock getFold() {
+		return fold;
+	}
 
 	public FoldBlock generateFoldFunctionFromQueryBlock(QueryBlock query) {
 		FoldBlock fold = new FoldBlock();
