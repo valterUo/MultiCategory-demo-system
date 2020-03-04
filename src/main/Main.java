@@ -16,6 +16,12 @@ import restservices.ServiceApplication;
 public class Main {
 
 	public static void main(String[] args) throws IOException, InterruptedException {
+//		String example = "LET t BE\r\n" + "QUERY (\\x -> if customerId x == 6 then cons x else nil)\r\n"
+//				+ "FROM customers\r\n" + "TO relational\r\n" + "IN\r\n" + "LET k BE\r\n"
+//				+ "QUERY (\\x -> if any (\\y -> knows x y customers) t then cons x else nil)\r\n" + "FROM customers\r\n"
+//				+ "TO relational\r\n" + "IN\r\n"
+//				+ "QUERY (\\x xs -> if creditLimit x > 1000 then cons x xs else xs)\r\n" + "FROM k\r\n"
+//				+ "AS relational\r\n" + "TO relational";
 //		String example = "QUERY (\\x -> if creditLimit x > 3000 then cons x else nil) (\\x y -> cons x y)\r\n" + 
 //				"FROM customers\r\n" + 
 //				"TO algebraic graph";
@@ -27,7 +33,7 @@ public class Main {
 //		System.out.println(selectiveQuery.getHaskellCode());
 		
 //		QueryVisualizer visualizer = new QueryVisualizer(selectiveQuery.getFoldBlocks());
-//		System.out.println(visualizer.createFoldBlockGraph());
+//		visualizer.getD3Graph().prettyPrintGraphWrapper();
 		initializeAppFiles();
 		ServiceApplication.run(args);
 	}

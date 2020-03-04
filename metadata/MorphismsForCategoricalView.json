@@ -1,0 +1,893 @@
+{
+	"morphisms": {
+		"simpleDemo": {
+			"morphisms": [
+				{
+					"name": "knows",
+					"domain": "Graph customers",
+					"target": "Boolean"
+				},
+				{
+					"name": "customerId",
+					"domain": "Customer",
+					"target": "Int"
+				},
+				{
+					"name": "creditLimit",
+					"domain": "Customer",
+					"target": "Int"
+				},
+				{
+					"name": "customerName",
+					"domain": "Customer",
+					"target": "String"
+				},
+				{
+					"name": "productPrice",
+					"domain": "Product",
+					"target": "Int"
+				},
+				{
+					"name": "productId",
+					"domain": "Product",
+					"target": "String"
+				},
+				{
+					"name": "productName",
+					"domain": "Product",
+					"target": "String"
+				},
+				{
+					"name": "orderNumber",
+					"domain": "Order",
+					"target": "String"
+				},
+				{
+					"name": "ordered",
+					"domain": "Order",
+					"target": "Customer"
+				},
+				{
+					"name": "contains",
+					"domain": "XML Orders",
+					"target": "Boolean"
+				},
+				{
+					"name": "address",
+					"domain": "Location",
+					"target": "String"
+				},
+				{
+					"name": "cityName",
+					"domain": "Location",
+					"target": "String"
+				},
+				{
+					"name": "countryName",
+					"domain": "Location",
+					"target": "String"
+				},
+				{
+					"name": "locationId",
+					"domain": "Location",
+					"target": "Int"
+				},
+				{
+					"name": "zipCode",
+					"domain": "Location",
+					"target": "Int"
+				},
+				{
+					"name": "located",
+					"domain": "Customer",
+					"target": "Location"
+				},
+				{
+					"name": "cons Graph",
+					"domain": "Customer",
+					"target": "Graph customers"
+				},
+				{
+					"name": "cons Location",
+					"domain": "Location",
+					"target": "Relational locations"
+				},
+				{
+					"name": "cons Order",
+					"domain": "Order",
+					"target": "XML orders"
+				}
+			]
+		},
+		"patent": {
+			"morphisms": [
+				{
+					"name": "assigneedId",
+					"domain": "Assignee",
+					"target": "Int"
+				},
+				{
+					"name": "assname",
+					"domain": "Assignee",
+					"target": "String"
+				},
+				{
+					"name": "pname",
+					"domain": "Assignee",
+					"target": "String"
+				},
+				{
+					"name": "sname",
+					"domain": "Assignee",
+					"target": "String"
+				},
+				{
+					"name": "own",
+					"domain": "Assignee",
+					"target": "Int"
+				},
+				{
+					"name": "cusip",
+					"domain": "Assignee",
+					"target": "String"
+				},
+				{
+					"name": "assigneeCname",
+					"domain": "Assignee",
+					"target": "String"
+				},
+				{
+					"name": "catId",
+					"domain": "Category",
+					"target": "Int"
+				},
+				{
+					"name": "subcat",
+					"domain": "Category",
+					"target": "Int"
+				},
+				{
+					"name": "subcatcname",
+					"domain": "Category",
+					"target": "String"
+				},
+				{
+					"name": "catnameshort",
+					"domain": "Category",
+					"target": "String"
+				},
+				{
+					"name": "catnamelong",
+					"domain": "Category",
+					"target": "String"
+				},
+				{
+					"name": "classId",
+					"domain": "Class",
+					"target": "Int"
+				},
+				{
+					"name": "cname",
+					"domain": "Class",
+					"target": "String"
+				},
+				{
+					"name": "classCatId",
+					"domain": "Class",
+					"target": "Int"
+				},
+				{
+					"name": "classSubcatId",
+					"domain": "Class",
+					"target": "Int"
+				},
+				{
+					"name": "patentId",
+					"domain": "Patent",
+					"target": "Int"
+				},
+				{
+					"name": "gyear",
+					"domain": "Patent",
+					"target": "Int"
+				},
+				{
+					"name": "gdate",
+					"domain": "Patent",
+					"target": "Int"
+				},
+				{
+					"name": "appyear",
+					"domain": "Patent",
+					"target": "Int"
+				},
+				{
+					"name": "patentCountry",
+					"domain": "Patent",
+					"target": "String"
+				},
+				{
+					"name": "patentPostate",
+					"domain": "Patent",
+					"target": "String"
+				},
+				{
+					"name": "patentAssigneeId",
+					"domain": "Patent",
+					"target": "Int"
+				},
+				{
+					"name": "asscode",
+					"domain": "Patent",
+					"target": "Int"
+				},
+				{
+					"name": "claims",
+					"domain": "Patent",
+					"target": "Int"
+				},
+				{
+					"name": "patentNclassId",
+					"domain": "Patent",
+					"target": "Int"
+				},
+				{
+					"name": "patentCatId",
+					"domain": "Patent",
+					"target": "Int"
+				},
+				{
+					"name": "patentSubcatId",
+					"domain": "Patent",
+					"target": "Int"
+				},
+				{
+					"name": "cmade",
+					"domain": "Patent",
+					"target": "Int"
+				},
+				{
+					"name": "creceive",
+					"domain": "Patent",
+					"target": "Int"
+				},
+				{
+					"name": "ratiocit",
+					"domain": "Patent",
+					"target": "Int"
+				},
+				{
+					"name": "general",
+					"domain": "Patent",
+					"target": "Int"
+				},
+				{
+					"name": "original",
+					"domain": "Patent",
+					"target": "Int"
+				},
+				{
+					"name": "fwdaplag",
+					"domain": "Patent",
+					"target": "Int"
+				},
+				{
+					"name": "bckgtlag",
+					"domain": "Patent",
+					"target": "Int"
+				},
+				{
+					"name": "selfctub",
+					"domain": "Patent",
+					"target": "Int"
+				},
+				{
+					"name": "selfctlb",
+					"domain": "Patent",
+					"target": "Int"
+				},
+				{
+					"name": "secdupbd",
+					"domain": "Patent",
+					"target": "Int"
+				},
+				{
+					"name": "secdlwbd",
+					"domain": "Patent",
+					"target": "Int"
+				},
+				{
+					"name": "inventorPatentId",
+					"domain": "Inventor",
+					"target": "Int"
+				},
+				{
+					"name": "lastnam",
+					"domain": "Inventor",
+					"target": "String"
+				},
+				{
+					"name": "firstnam",
+					"domain": "Inventor",
+					"target": "String"
+				},
+				{
+					"name": "midnam",
+					"domain": "Inventor",
+					"target": "String"
+				},
+				{
+					"name": "modifnam",
+					"domain": "Inventor",
+					"target": "String"
+				},
+				{
+					"name": "street",
+					"domain": "Inventor",
+					"target": "String"
+				},
+				{
+					"name": "city",
+					"domain": "Inventor",
+					"target": "String"
+				},
+				{
+					"name": "inventorPostate",
+					"domain": "Inventor",
+					"target": "String"
+				},
+				{
+					"name": "inventorCountry",
+					"domain": "Inventor",
+					"target": "String"
+				},
+				{
+					"name": "zip",
+					"domain": "Inventor",
+					"target": "String"
+				},
+				{
+					"name": "invseq",
+					"domain": "Inventor",
+					"target": "Int"
+				},
+				{
+					"name": "cons Categories",
+					"domain": "Category",
+					"target": "Relational categories"
+				},
+				{
+					"name": "cons assignees",
+					"domain": "Assignee",
+					"target": "Relational assignees"
+				},
+				{
+					"name": "cons classes",
+					"domain": "Class",
+					"target": "Relational classes"
+				},
+				{
+					"name": "cons patents",
+					"domain": "Patent",
+					"target": "Relational patents"
+				},
+				{
+					"name": "cons patent graph",
+					"domain": "Patent",
+					"target": "Graph patents"
+				},
+				{
+					"name": "cons inventors",
+					"domain": "Inventor",
+					"target": "Relational inventors"
+				}
+			]
+		},
+		"film": {
+			"morphisms": [
+				{
+					"name": "title",
+					"domain": "Film",
+					"target": "String"
+				},
+				{
+					"name": "year",
+					"domain": "Film",
+					"target": "String"
+				},
+				{
+					"name": "rated",
+					"domain": "Film",
+					"target": "String"
+				},
+				{
+					"name": "released",
+					"domain": "Film",
+					"target": "String"
+				},
+				{
+					"name": "runtime",
+					"domain": "Film",
+					"target": "String"
+				},
+				{
+					"name": "genre",
+					"domain": "Film",
+					"target": "String"
+				},
+				{
+					"name": "director",
+					"domain": "Film",
+					"target": "String"
+				},
+				{
+					"name": "writer",
+					"domain": "Film",
+					"target": "String"
+				},
+				{
+					"name": "actors",
+					"domain": "Film",
+					"target": "String"
+				},
+				{
+					"name": "plot",
+					"domain": "Film",
+					"target": "String"
+				},
+				{
+					"name": "language",
+					"domain": "Film",
+					"target": "String"
+				},
+				{
+					"name": "country",
+					"domain": "Film",
+					"target": "String"
+				},
+				{
+					"name": "awards",
+					"domain": "Film",
+					"target": "String"
+				},
+				{
+					"name": "poster",
+					"domain": "Film",
+					"target": "String"
+				},
+				{
+					"name": "metascore",
+					"domain": "Film",
+					"target": "String"
+				},
+				{
+					"name": "imdbrating",
+					"domain": "Film",
+					"target": "String"
+				},
+				{
+					"name": "imdbvotes",
+					"domain": "Film",
+					"target": "String"
+				},
+				{
+					"name": "imdbid",
+					"domain": "Film",
+					"target": "String"
+				},
+				{
+					"name": "typeClass",
+					"domain": "Film",
+					"target": "String"
+				},
+				{
+					"name": "response",
+					"domain": "Film",
+					"target": "String"
+				},
+				{
+					"name": "cons Films JSON",
+					"domain": "Film",
+					"target": "JSON films"
+				},
+				{
+					"name": "cons Films RDF",
+					"domain": "Film",
+					"target": "RDF films"
+				}
+			]
+		},
+		"university": {
+			"morphisms": [
+				{
+					"name": "unitid",
+					"domain": "University",
+					"target": "Int"
+				},
+				{
+					"name": "opeid",
+					"domain": "University",
+					"target": "String"
+				},
+				{
+					"name": "opeid6",
+					"domain": "University",
+					"target": "String"
+				},
+				{
+					"name": "instnm",
+					"domain": "University",
+					"target": "String"
+				},
+				{
+					"name": "uniCity",
+					"domain": "University",
+					"target": "String"
+				},
+				{
+					"name": "stabbr",
+					"domain": "University",
+					"target": "String"
+				},
+				{
+					"name": "uniZip",
+					"domain": "University",
+					"target": "String"
+				},
+				{
+					"name": "accredAgency",
+					"domain": "University",
+					"target": "String"
+				},
+				{
+					"name": "insturl",
+					"domain": "University",
+					"target": "String"
+				},
+				{
+					"name": "npcurl",
+					"domain": "University",
+					"target": "String"
+				},
+				{
+					"name": "sch_deg",
+					"domain": "University",
+					"target": "String"
+				},
+				{
+					"name": "hcm2",
+					"domain": "University",
+					"target": "String"
+				},
+				{
+					"name": "main",
+					"domain": "University",
+					"target": "String"
+				},
+				{
+					"name": "numbranch",
+					"domain": "University",
+					"target": "String"
+				},
+				{
+					"name": "preddeg",
+					"domain": "University",
+					"target": "String"
+				},
+				{
+					"name": "highdeg",
+					"domain": "University",
+					"target": "String"
+				},
+				{
+					"name": "control",
+					"domain": "University",
+					"target": "String"
+				},
+				{
+					"name": "st_fips",
+					"domain": "University",
+					"target": "String"
+				},
+				{
+					"name": "region",
+					"domain": "University",
+					"target": "String"
+				},
+				{
+					"name": "locale",
+					"domain": "University",
+					"target": "String"
+				},
+				{
+					"name": "locale2",
+					"domain": "University",
+					"target": "String"
+				},
+				{
+					"name": "latitude",
+					"domain": "University",
+					"target": "String"
+				},
+				{
+					"name": "longitude",
+					"domain": "University",
+					"target": "String"
+				},
+				{
+					"name": "cons Universities",
+					"domain": "University",
+					"target": "Relational university"
+				},
+				{
+					"name": "cons FamousLocations Graph",
+					"domain": "-",
+					"target": "RDF FamousLocations"
+				}
+			]
+		},
+		"person": {
+			"morphisms": [
+				{
+					"name": "cons Person Graph",
+					"domain": "-",
+					"target": "RDF Person"
+				}
+			]
+		},
+		"unibench": {
+			"morphisms": [
+				{
+					"name": "personsId",
+					"domain": "Person",
+					"target": "Int"
+				},
+				{
+					"name": "firstName",
+					"domain": "Person",
+					"target": "String"
+				},
+				{
+					"name": "lastName",
+					"domain": "Person",
+					"target": "String"
+				},
+				{
+					"name": "gender",
+					"domain": "Person",
+					"target": "String"
+				},
+				{
+					"name": "birthday",
+					"domain": "Person",
+					"target": "String"
+				},
+				{
+					"name": "personCreationDate",
+					"domain": "Person",
+					"target": "String"
+				},
+				{
+					"name": "personLocationIP",
+					"domain": "Person",
+					"target": "String"
+				},
+				{
+					"name": "personBrowserUsed",
+					"domain": "Person",
+					"target": "String"
+				},
+				{
+					"name": "place",
+					"domain": "Person",
+					"target": "Int"
+				},
+				{
+					"name": "postId",
+					"domain": "Post",
+					"target": "Int"
+				},
+				{
+					"name": "postCreationDate",
+					"domain": "Post",
+					"target": "String"
+				},
+				{
+					"name": "postLocationIP",
+					"domain": "Post",
+					"target": "String"
+				},
+				{
+					"name": "postBrowserUsed",
+					"domain": "Post",
+					"target": "String"
+				},
+				{
+					"name": "language",
+					"domain": "Post",
+					"target": "String"
+				},
+				{
+					"name": "content",
+					"domain": "Post",
+					"target": "String"
+				},
+				{
+					"name": "postLength",
+					"domain": "Post",
+					"target": "Int"
+				},
+				{
+					"name": "unibenchProductAsin",
+					"domain": "UnibenchProduct",
+					"target": "String"
+				},
+				{
+					"name": "unibenchProductTitle",
+					"domain": "UnibenchProduct",
+					"target": "String"
+				},
+				{
+					"name": "unibenchProductPrice",
+					"domain": "UnibenchProduct",
+					"target": "Double"
+				},
+				{
+					"name": "unibenchProductImgUrl",
+					"domain": "UnibenchProduct",
+					"target": "String"
+				},
+				{
+					"name": "unibenchProductId",
+					"domain": "UnibenchProduct",
+					"target": "Int"
+				},
+				{
+					"name": "unibenchProductBrand",
+					"domain": "UnibenchProduct",
+					"target": "Int"
+				},
+				{
+					"name": "productId",
+					"domain": "UnibenchOrderline",
+					"target": "String"
+				},
+				{
+					"name": "asin",
+					"domain": "UnibenchOrderline",
+					"target": "String"
+				},
+				{
+					"name": "title",
+					"domain": "UnibenchOrderline",
+					"target": "String"
+				},
+				{
+					"name": "price",
+					"domain": "UnibenchOrderline",
+					"target": "Double"
+				},
+				{
+					"name": "brand",
+					"domain": "UnibenchOrderline",
+					"target": "String"
+				},
+				{
+					"name": "orderid",
+					"domain": "UnibenchOrder",
+					"target": "String"
+				},
+				{
+					"name": "personid",
+					"domain": "UnibenchOrder",
+					"target": "String"
+				},
+				{
+					"name": "orderdate",
+					"domain": "UnibenchOrder",
+					"target": "String"
+				},
+				{
+					"name": "totalprice",
+					"domain": "UnibenchOrder",
+					"target": "Double"
+				},
+				{
+					"name": "orderline",
+					"domain": "UnibenchOrder",
+					"target": "List Orderline"
+				},
+				{
+					"name": "",
+					"domain": "Invoice",
+					"target": "UnibenchOrder"
+				},
+				{
+					"name": "feedbackAsin",
+					"domain": "Feedback",
+					"target": "String"
+				},
+				{
+					"name": "feedbackPersonId",
+					"domain": "Feedback",
+					"target": "Int"
+				},
+				{
+					"name": "feedback",
+					"domain": "Feedback",
+					"target": "String"
+				},
+				{
+					"name": "vendor",
+					"domain": "Vendor",
+					"target": "String"
+				},
+				{
+					"name": "vendorCountry",
+					"domain": "Vendor",
+					"target": "String"
+				},
+				{
+					"name": "vendorIndustry",
+					"domain": "Vendor",
+					"target": "String"
+				},
+				{
+					"name": "cons Relational Person",
+					"domain": "Person",
+					"target": "Relational Person"
+				},
+				{
+					"name": "cons Relational Post",
+					"domain": "Post",
+					"target": "Relational Post"
+				},
+				{
+					"name": "cons JSON UnibenchProduct",
+					"domain": "UnibenchProduct",
+					"target": "JSON UnibenchProduct"
+				},
+				{
+					"name": "cons JSON UnibenchOrders",
+					"domain": "UnibenchOrder",
+					"target": "JSON UnibenchOrders"
+				},
+				{
+					"name": "cons Person Knows Person Graph",
+					"domain": "Person",
+					"target": "Person Knows Person Graph"
+				},
+				{
+					"name": "cons Person Created Post Graph",
+					"domain": "Person, Post",
+					"target": "Person Created Post Graph"
+				},
+				{
+					"name": "cons Post Has Product Graph",
+					"domain": "Post, UnibenchProduct",
+					"target": "Post Has Product Graph"
+				},
+				{
+					"name": "cons Person To Product Graph",
+					"domain": "Person, UnibenchProduct",
+					"target": "Person To Product Graph"
+				},
+				{
+					"name": "cons Relational Feedback",
+					"domain": "Feedback",
+					"target": "Relational Feedback"
+				},
+				{
+					"name": "cons Relational Vendor",
+					"domain": "Vendor",
+					"target": "Relational Vendor"
+				},
+				{
+					"name": "cons XML Invoices",
+					"domain": "Invoice",
+					"target": "XML Invoices"
+				}
+			]
+		}
+	}
+}

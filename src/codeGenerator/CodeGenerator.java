@@ -9,7 +9,7 @@ public class CodeGenerator {
 	public CodeGenerator(QueryBlock query) {
 		this.fold = generateFoldFunctionFromQueryBlock(query);
 	}
-	
+
 	public FoldBlock getFold() {
 		return fold;
 	}
@@ -24,10 +24,10 @@ public class CodeGenerator {
 			fold.setSourceModel(sourceCollectionModel);
 			fold.setTargetModel(targetCollectionModel);
 			fold.setLambdaFunctions(query.getLambdaFunctions());
-			
+
 			switch (sourceCollectionModel) {
 			case "relational":
-				fold.setFoldFunction("foldr"); 
+				fold.setFoldFunction("foldr");
 				break;
 			case "algebraic graph":
 				fold.setFoldFunction("foldg");
@@ -42,7 +42,7 @@ public class CodeGenerator {
 				fold.setFoldFunction("foldrdf");
 				break;
 			case "nimblegraph":
-				fold.setFoldFunction( "foldNimble");
+				fold.setFoldFunction("foldNimble");
 				break;
 			default:
 				System.out.println("No source collection model match!");
@@ -70,19 +70,19 @@ public class CodeGenerator {
 			default:
 				System.out.println("no match");
 			}
-			
+
 			if (targetCollectionModel.equals("rdf")) {
 				fold.setPrefixes("(");
 				fold.setSuffixes(" :: RDF TList)");
 			}
-			
+
 		} catch (Exception e) {
 			System.out.println("Error! Source collection model was not found! Error: " + e);
 		}
 
 		return fold;
 	}
-	
+
 	public String getFoldFunction() {
 		return this.fold.toString();
 	}

@@ -28,5 +28,17 @@ public class GraphWrapper {
 	public void addLambdaFunction(D3Graph f) {
 		this.lambdaFunctions.add(f);
 	}
+	
+	public void prettyPrintGraphWrapper() {
+		System.out.println("Main fold diagram:");
+		System.out.println();
+		System.out.println(this.foldDiagram);
+		System.out.println();
+		System.out.println("Lambda functions:");
+		System.out.println();
+		for(D3Graph function : this.lambdaFunctions) {
+			System.out.println(function);
+		}
+	}
 
 }

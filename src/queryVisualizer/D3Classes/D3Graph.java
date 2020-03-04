@@ -101,4 +101,13 @@ public class D3Graph {
 		}
 		return result;
 	}
+	
+	public void union(D3Graph graph2) {
+		this.nodes.addAll(graph2.getNodes());
+		for(D3Edge link : graph2.getLinks()) {
+			link.setSource(link.getSource() + this.nodes.size());
+			link.setTarget(link.getTarget() + this.nodes.size());
+			this.links.add(link);
+		}
+	}
 }
