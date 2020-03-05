@@ -69,24 +69,13 @@ public class QueryVisualizer {
 	}
 
 	private D3Graph createLambdaFunctionGraph(String id, LambdaFunction lambda) {
-		ArrayList<D3Node> inputVariables = new ArrayList<D3Node>();
-
-		int i = 0;
-		for (i = 0; i < lambda.getTokens().size(); i++) {
-			String token = lambda.getTokens().get(i);
-			if (token.contains("->")) {
-				break;
-			}
-			inputVariables.add(new D3Node(token.replaceAll("\\\\", "")));
-		}
-		// System.out.println(lambda.getTokens().subList(i + 1,
-		// lambda.getTokens().size()));
-		Pair<D3Node, D3Graph> result = parseLambdaFunction(lambda.getTokens().subList(i + 1, lambda.getTokens().size()),
+		Pair<D3Node, D3Graph> result = parseLambdaFunction(lambda.getTokens().subList(lambda.getTokens().indexOf("->") + 1, lambda.getTokens().size()),
 				lambda.getVariables());
 		D3Graph finalGraph = result.snd;
+		finalGraph.setId(id);
 		// System.out.println(finalGraph);
 		finalGraph.addLink(result.fst, new D3Edge("output"), new D3Node("Result"));
-		// System.out.println(finalGraph);
+		System.out.println(finalGraph);
 		return finalGraph;
 	}
 
@@ -218,7 +207,10 @@ public class QueryVisualizer {
 
 		String constant = "";
 		for (String token : tokens) {
-			constant += " " + token;
+			if(!token.matches("\\s+")) {
+				constant += " " + token;
+			}
+			
 		}
 		D3Node constantNode = new D3Node(constant);
 		D3Graph initialGraph = new D3Graph();
