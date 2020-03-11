@@ -117,6 +117,21 @@ class SimpleDemoDataQueryTest {
 				"TO algebraic graph";
 		SelectiveQuery selectiveQuery = new SelectiveQuery(example);
 		String answer = "foldg Algebra.Graph.empty (\\x -> if creditLimit x > 3000 then Vertex x else Algebra.Graph.empty ) (\\x y -> Overlay x y ) (\\x y -> connect x y ) customers";
-		assertEquals(answer.replaceAll("\\s{1,}", " ").trim(), selectiveQuery.getHaskellCode().replaceAll("\\s{1,}", " ").trim(), "Simple query test 10");
+		assertEquals(answer.replaceAll("\\s{1,}", " ").trim(), selectiveQuery.getHaskellCode().replaceAll("\\s{1,}", " ").trim(), "Simple query test 11");
+	}
+	
+	@Test
+	void testQuery12() {
+		String example = "LET t BE\r\n" + 
+				" QUERY (\\x xs -> if elem \"Book\" (map productName (orderProducts x)) then cons x xs else xs)\r\n" + 
+				" FROM orders\r\n" + 
+				" TO relational\r\n" + 
+				" IN\r\n" + 
+				" QUERY (\\x -> if any (\\y -> ordered y customers == x ) t then cons ( countryName(located x locations) ) else nil)\r\n" + 
+				" FROM customers\r\n" + 
+				" TO relational";
+		SelectiveQuery selectiveQuery = new SelectiveQuery(example);
+		String answer = "let t = foldr (\\x xs -> if elem \"Book\" ( map productName ( orderProducts x ) ) then x : xs else xs ) [] orders in foldg [] (\\x -> if any ( \\y -> ordered y customers == x ) t then [(countryName ( located x locations ) )] else [] ) (\\x y -> union x y ) (\\x y -> union x y ) customers";
+		assertEquals(answer.replaceAll("\\s{1,}", " ").trim(), selectiveQuery.getHaskellCode().replaceAll("\\s{1,}", " ").trim(), "Simple query test 12");
 	}
 }

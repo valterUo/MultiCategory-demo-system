@@ -16,6 +16,7 @@ import restservices.ServiceApplication;
 public class Main {
 
 	public static void main(String[] args) throws IOException, InterruptedException {
+
 //		String example = "LET t BE\r\n" + "QUERY (\\x -> if customerId x == 6 then cons x else nil)\r\n"
 //				+ "FROM customers\r\n" + "TO relational\r\n" + "IN\r\n" + "LET k BE\r\n"
 //				+ "QUERY (\\x -> if any (\\y -> knows x y customers) t then cons x else nil)\r\n" + "FROM customers\r\n"

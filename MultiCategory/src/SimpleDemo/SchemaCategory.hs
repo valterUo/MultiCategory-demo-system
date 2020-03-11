@@ -59,7 +59,9 @@ ordered order customers = case orderNumber order of
         "4dwtfuu" -> head $ foldg [] (\customer -> if customerId customer ==  1 then [customer] else []) (++) (++) customers
         "3qqqeq9" -> head $ foldg [] (\customer -> if customerId customer ==  0 then [customer] else []) (++) (++) customers
         "77idy65" -> head $ foldg [] (\customer -> if customerId customer ==  3 then [customer] else []) (++) (++) customers
-        "ery63rg" -> head $ foldg [] (\customer -> if customerId customer ==  5 then [customer] else []) (++) (++) customers 
+        "ery63rg" -> head $ foldg [] (\customer -> if customerId customer ==  5 then [customer] else []) (++) (++) customers
+        "4839fh" -> head $ foldg [] (\customer -> if customerId customer ==  6 then [customer] else []) (++) (++) customers
+        "reuihf54" -> head $ foldg [] (\customer -> if customerId customer ==  7 then [customer] else []) (++) (++) customers
 
 -- For the following morphisms the first input is assumed to be fixed.
 -- For each customer and for each order, there is a following kind of morphisms:

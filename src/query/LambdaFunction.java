@@ -81,18 +81,19 @@ public class LambdaFunction {
 	}
 
 	public void modifyConsInLambdaFunctionOneParameter(String newConsFunction) {
-		for (int i = 0; i < this.tokens.size(); i++) {
+		int j = this.tokens.size();
+		for (int i = 0; i < j; i++) {
 			boolean visitedIf = false;
 			if (this.tokens.get(i).trim().equals("cons")
 					&& this.tokens.get(i + 1).trim().equals(this.variables.get(0))) {
 				this.tokens.set(i, "[" + this.variables.get(0) + "]");
 				this.tokens.set(i + 1, "");
 				visitedIf = true;
-			} else if (i == this.tokens.size() - 1 && visitedIf) {
+			} else if (i == j - 1 && visitedIf) {
 				System.out.println("Error! The cons function in the lambda function has wrong parameters. Should be "
 						+ this.variables.get(0) + ".");
 			} else if (this.tokens.get(i).trim().equals("cons") && this.tokens.get(i + 1).trim().equals("(")) {
-				modifyConsFunctionFollowedByOneOrTwoParametersClosedInParantheses(i + 1);
+				modifyConsFunctionFollowedByOneOrTwoParametersClosedInParantheses(i);
 			}
 		}
 	}
@@ -123,17 +124,21 @@ public class LambdaFunction {
 		if (element == null) {
 			System.out.println("Wrong amount of paranthesis after cons function!");
 		}
-		this.tokens.set(i, element.fst);
-		if (this.tokens.get(element.snd).trim().equals(this.variables.get(1))) {
-			this.tokens.set(element.snd, ": " + this.variables.get(1));
-		} else if (this.tokens.get(element.snd).trim().equals("(")) {
-			Pair<String, Integer> element2 = findUntilParanthesisClose(element.snd);
-			if (element2 == null) {
-				System.out.println("Wrong amount of paranthesis after cons function!");
-			}
-			this.tokens.set(element.snd, ":" + element2.fst);
+		if (this.variables.size() == 1) {
+			this.tokens.set(i, "[" + element.fst + "]");
 		} else {
-			this.tokens.set(element.snd, ": " + this.tokens.get(element.snd));
+			this.tokens.set(i, element.fst);
+			if (this.tokens.get(element.snd).trim().contains(this.variables.get(1))) {
+				this.tokens.set(element.snd, ": " + this.tokens.get(element.snd));
+			} else if (this.tokens.get(element.snd).trim().equals("(")) {
+				Pair<String, Integer> element2 = findUntilParanthesisClose(element.snd);
+				if (element2 == null) {
+					System.out.println("Wrong amount of paranthesis after cons function!");
+				}
+				this.tokens.set(element.snd, ":" + element2.fst);
+			} else {
+				this.tokens.set(element.snd, ": " + this.tokens.get(element.snd));
+			}
 		}
 	}
 

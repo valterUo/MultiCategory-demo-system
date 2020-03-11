@@ -15,8 +15,12 @@ public class ProcessForHaskellProgram {
 		builder.redirectErrorStream(true);
 		// builder.redirectInput(Redirect.INHERIT);
 		builder.redirectOutput(Redirect.appendTo(this.output));
-
-		builder.command("cmd.exe", "/c", "stack ghci");
+		System.out.println(System.getProperty("os.name"));
+		if(System.getProperty("os.name").contains("Mac")) {
+			builder.command("cmd.exe", "/c", "stack ghci");
+		} else {
+			builder.command("cmd.exe", "/c", "stack ghci");
+		}
 		builder.directory(new File(this.haskellProgramFilePath));
 		Process process = builder.start();
 
@@ -37,7 +41,6 @@ public class ProcessForHaskellProgram {
 
 		this.gobbler = new StreamGobbler(process.getOutputStream(), inputQueries);
 		this.gobbler.start();
-
 	}
 
 	public ProcessForHaskellProgram(String initialQuery) throws IOException, InterruptedException {
@@ -52,7 +55,6 @@ public class ProcessForHaskellProgram {
 
 		this.gobbler = new StreamGobbler(process.getOutputStream(), initialQuery);
 		this.gobbler.start();
-
 	}
 
 	public ProcessForHaskellProgram(String initialQuery, File inputQueries) throws IOException, InterruptedException {
