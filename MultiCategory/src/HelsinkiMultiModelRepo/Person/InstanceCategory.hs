@@ -1,4 +1,4 @@
-module HelsinkiMultiModelRepo.Person.DataState where
+module HelsinkiMultiModelRepo.Person.InstanceCategory where
 
 import HelsinkiMultiModelRepo.Person.DataParser
 import Data.RDF

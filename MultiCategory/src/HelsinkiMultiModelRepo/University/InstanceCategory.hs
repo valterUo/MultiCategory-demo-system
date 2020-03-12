@@ -1,4 +1,4 @@
-module HelsinkiMultiModelRepo.University.DataState where
+module HelsinkiMultiModelRepo.University.InstanceCategory where
 
 import System.IO.Unsafe
 import RdfFunctions

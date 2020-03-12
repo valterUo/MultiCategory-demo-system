@@ -1,4 +1,4 @@
-module Unibench.DataState where
+module Unibench.InstanceCategory where
 
 import Algebra.Graph
 import System.IO.Unsafe

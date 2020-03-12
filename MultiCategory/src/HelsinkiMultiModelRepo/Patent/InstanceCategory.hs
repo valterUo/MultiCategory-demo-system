@@ -1,4 +1,4 @@
-module HelsinkiMultiModelRepo.Patent.DataState where
+module HelsinkiMultiModelRepo.Patent.InstanceCategory where
 
 import qualified Data.IntMap.Strict as IntMap
 import Algebra.Graph

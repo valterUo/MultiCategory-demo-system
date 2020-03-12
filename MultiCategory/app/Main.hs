@@ -11,13 +11,10 @@ import Data.ByteString.Lazy.Internal as B
 import qualified Data.ByteString.Lazy as D
 import System.IO
 import Control.Monad
-import XMLParser
-import CSVParser
 import Data.Aeson
 import D3jsAlgebraicGraphParser
 import qualified Data.Text.Lazy as L
 import Algebra.Graph
-import SimpleDemo.DataState
 import Data.IORef
 import System.IO.Unsafe
 import qualified Data.Serialize as S
@@ -30,7 +27,6 @@ import Unibench.DataParser
 import Unibench.SchemaCategory
 import NimbleGraph.NimbleGraph
 import NimbleGraph.NimbleGraphToD3js
-import Unibench.DataState
 import qualified Data.HashMap.Strict as Map
 
 encodeListToJSON :: ToJSON a => [a] -> [B.ByteString]

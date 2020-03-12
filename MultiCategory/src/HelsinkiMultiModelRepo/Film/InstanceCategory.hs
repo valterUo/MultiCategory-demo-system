@@ -1,4 +1,4 @@
-module HelsinkiMultiModelRepo.Film.DataState where
+module HelsinkiMultiModelRepo.Film.InstanceCategory where
 
 import qualified Data.RDF as RDF
 import HelsinkiMultiModelRepo.Film.SchemaCategory

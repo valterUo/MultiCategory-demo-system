@@ -1,1 +1,3 @@
 {"schemaVersion":"1.0"}
+{"id":"3dab9053-8291-40db-94c8-35978c0f5a0d","originalQuery":"QUERY (\\x -> cons x)\n FROM customers\n TO algebraic graph","parsedQuery":"foldg Algebra.Graph.empty (\\x -> Vertex x ) (\\x y -> overlay x y ) (\\x y -> connect x y ) customers","model":"algebraic graph"}
+{"id":"dfb6ec0e-72fd-4c23-a4e1-b5e33aee3c72","originalQuery":"QUERY (\\x xs -> cons x xs)\n FROM locations\n TO relational","parsedQuery":"foldr (\\x xs -> x : xs ) [] locations","model":"relational"}

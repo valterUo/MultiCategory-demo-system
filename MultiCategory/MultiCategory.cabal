@@ -30,23 +30,23 @@ library
       GraphFunctions
       RdfFunctions
       CategoryTheory
-      SimpleDemo.DataState
+      SimpleDemo.InstanceCategory
       SimpleDemo.SchemaCategory
       SimpleDemo.DataParser
-      HelsinkiMultiModelRepo.Patent.DataState
+      HelsinkiMultiModelRepo.Patent.InstanceCategory
       HelsinkiMultiModelRepo.Patent.SchemaCategory
       HelsinkiMultiModelRepo.Patent.DataParser
       HelsinkiMultiModelRepo.Film.SchemaCategory
       HelsinkiMultiModelRepo.Film.DataParser
-      HelsinkiMultiModelRepo.Film.DataState
+      HelsinkiMultiModelRepo.Film.InstanceCategory
       HelsinkiMultiModelRepo.Person.DataParser
-      HelsinkiMultiModelRepo.Person.DataState
+      HelsinkiMultiModelRepo.Person.InstanceCategory
       HelsinkiMultiModelRepo.Person.SchemaCategory
       HelsinkiMultiModelRepo.University.SchemaCategory
-      HelsinkiMultiModelRepo.University.DataState
+      HelsinkiMultiModelRepo.University.InstanceCategory
       HelsinkiMultiModelRepo.University.DataParser
       Unibench.SchemaCategory
-      Unibench.DataState
+      Unibench.InstanceCategory
       Unibench.DataParser
       NimbleGraph.NimbleGraph
       NimbleGraph.NimbleGraphToD3js

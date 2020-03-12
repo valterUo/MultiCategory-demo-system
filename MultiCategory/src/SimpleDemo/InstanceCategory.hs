@@ -1,4 +1,4 @@
-module SimpleDemo.DataState where
+module SimpleDemo.InstanceCategory where
 
 import SimpleDemo.SchemaCategory
 import SimpleDemo.DataParser
