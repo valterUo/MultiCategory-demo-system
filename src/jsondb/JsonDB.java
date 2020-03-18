@@ -24,10 +24,6 @@ public class JsonDB {
 	public void emptyDB() {
 		this.template.findAllAndRemove(".", this.collectionName);
 	}
-	
-//	public void findAll() {
-//		this.template.findAll(this.collectionName);
-//	}
 
 	public String getDbFilesLocation() {
 		return this.dbFilesLocation;

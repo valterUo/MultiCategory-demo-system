@@ -10,14 +10,15 @@ public class ProcessForHaskellProgram {
 	private File output;
 
 	public ProcessForHaskellProgram() throws IOException, InterruptedException {
-		this.output = new File("output\\output");
-		ProcessBuilder builder = new ProcessBuilder(); //.inheritIO();
+		this.output = new File("output//output");
+		ProcessBuilder builder = new ProcessBuilder(); // .inheritIO();
 		builder.redirectErrorStream(true);
 		// builder.redirectInput(Redirect.INHERIT);
 		builder.redirectOutput(Redirect.appendTo(this.output));
 		System.out.println(System.getProperty("os.name"));
-		if(System.getProperty("os.name").contains("Mac")) {
-			builder.command("cmd.exe", "/c", "stack ghci");
+		if (System.getProperty("os.name").contains("Mac")) {
+			String[] args = new String[] { "/usr/local/bin/stack", "ghci" };
+			builder.command(args);
 		} else {
 			builder.command("cmd.exe", "/c", "stack ghci");
 		}
@@ -35,7 +36,12 @@ public class ProcessForHaskellProgram {
 		builder.redirectErrorStream(true);
 		builder.redirectOutput(Redirect.appendTo(this.output));
 
-		builder.command("cmd.exe", "/c", "stack ghci");
+		if (System.getProperty("os.name").contains("Mac")) {
+			String[] args = new String[] { "/usr/local/bin/stack", "ghci" };
+			builder.command(args);
+		} else {
+			builder.command("cmd.exe", "/c", "stack ghci");
+		}
 		builder.directory(new File(this.haskellProgramFilePath));
 		Process process = builder.start();
 
@@ -49,7 +55,12 @@ public class ProcessForHaskellProgram {
 		builder.redirectErrorStream(true);
 		builder.redirectOutput(Redirect.appendTo(this.output));
 
-		builder.command("cmd.exe", "/c", "stack ghci");
+		if (System.getProperty("os.name").contains("Mac")) {
+			String[] args = new String[] { "/usr/local/bin/stack", "ghci" };
+			builder.command(args);
+		} else {
+			builder.command("cmd.exe", "/c", "stack ghci");
+		}
 		builder.directory(new File(this.haskellProgramFilePath));
 		Process process = builder.start();
 
@@ -63,7 +74,12 @@ public class ProcessForHaskellProgram {
 		builder.redirectErrorStream(true);
 		builder.redirectOutput(Redirect.appendTo(this.output));
 
-		builder.command("cmd.exe", "/c", "stack ghci");
+		if (System.getProperty("os.name").contains("Mac")) {
+			String[] args = new String[] { "/usr/local/bin/stack", "ghci" };
+			builder.command(args);
+		} else {
+			builder.command("cmd.exe", "/c", "stack ghci");
+		}
 		builder.directory(new File(this.haskellProgramFilePath));
 		Process process = builder.start();
 

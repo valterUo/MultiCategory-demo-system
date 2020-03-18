@@ -13,18 +13,18 @@ import query.QueryBlock;
 public class DecodeMetaData {
 
 	public JSONObject getCollectionMapping() {
-		JSONObject obj = new JSONObject(readMetaDataFile("metadata\\CollectionInformation.json"));
+		JSONObject obj = new JSONObject(readMetaDataFile("metadata//CollectionInformation.json"));
 		return obj.getJSONObject("collections");
 	}
 	
 	public JSONObject getDataSetDefinitions() {
-		JSONObject obj = new JSONObject(readMetaDataFile("metadata\\DataDefinitions.json"));
+		JSONObject obj = new JSONObject(readMetaDataFile("metadata//DataDefinitions.json"));
 		return obj.getJSONObject("collections");
 	}
 	
 	public ArrayList<String> getMorphismsForCategoricalView() {
 		ArrayList<String> morphismList = new ArrayList<String>();
-		JSONObject obj = new JSONObject(readMetaDataFile("metadata\\MorphismsForCategoricalView.json"));
+		JSONObject obj = new JSONObject(readMetaDataFile("metadata//MorphismsForCategoricalView.json"));
 		JSONObject obj4 = obj.getJSONObject("morphisms");
 		for(String key : obj4.keySet()) {
 			JSONObject obj2 = obj4.getJSONObject(key);

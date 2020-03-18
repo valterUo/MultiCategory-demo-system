@@ -6,10 +6,10 @@ import Algebra.Graph
 import System.IO.Unsafe
 import qualified Data.IntMap.Strict as IntMap
 
-customerVertexFile = "demoData\\customerVertex.csv"
-customerEdgeFile = "demoData\\customerEdge.csv"
-locationsFile = "demoData\\locationsTable.csv"
-ordersFile = "demoData\\orders.xml"
+customerVertexFile = "demoData//customerVertex.csv"
+customerEdgeFile = "demoData//customerEdge.csv"
+locationsFile = "demoData//locationsTable.csv"
+ordersFile = "demoData//orders.xml"
 
 -- Data is in the global variables.
 

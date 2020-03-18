@@ -6,4 +6,4 @@ import System.IO.Unsafe
 import RdfFunctions
 
 personGraph :: RDF TList
-personGraph = unsafePerformIO $ collectRDF "HelsinkiMultiModelRepoDataSets\\personDataSet\\small_new_personGraph.graph"
+personGraph = unsafePerformIO $ collectRDF "HelsinkiMultiModelRepoDataSets//personDataSet//small_new_personGraph.graph"
